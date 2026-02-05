@@ -4,14 +4,14 @@
   "description": "Animated Heroicons for Svelte, built with CSS animations",
   "author": "Aniket-508",
   "license": "MIT",
-  "homepage": "https://heroicons-animated.com",
+  "homepage": "https://svelte.heroicons-animated.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Aniket-508/heroicons-animated",
+    "url": "https://github.com/heroicons-animated/heroicons-animated-svelte",
     "directory": "packages/svelte"
   },
   "bugs": {
-    "url": "https://github.com/Aniket-508/heroicons-animated/issues"
+    "url": "https://github.com/heroicons-animated/heroicons-animated-svelte/issues"
   },
   "keywords": [
     "heroicons",
@@ -58,7 +58,6 @@
     "svelte": "^5.0.0"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*",
     "@sveltejs/package": "^2.3.4",
     "@sveltejs/vite-plugin-svelte": "^5.0.0",
     "svelte": "^5.20.0",

@@ -1,0 +1,26 @@
+{
+  "name": "heroicons-animated-svelte",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Animated Heroicons for Svelte",
+  "author": "Aniket-508",
+  "license": "MIT",
+  "homepage": "https://svelte.heroicons-animated.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heroicons-animated/heroicons-animated-svelte"
+  },
+  "bugs": {
+    "url": "https://github.com/heroicons-animated/heroicons-animated-svelte/issues"
+  },
+  "scripts": {
+    "build": "pnpm -r build",
+    "dev": "pnpm -r dev",
+    "type-check": "pnpm -r type-check"
+  },
+  "engines": {
+    "node": ">=20.x",
+    "pnpm": ">=10.x"
+  },
+  "packageManager": "pnpm@10.28.0"
+}
