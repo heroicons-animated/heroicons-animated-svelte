@@ -1,8 +1,7 @@
 {
-  "name": "heroicons-animated-svelte",
-  "version": "0.1.0",
-  "private": true,
-  "description": "Animated Heroicons for Svelte",
+  "name": "@heroicons-animated/svelte",
+  "version": "1.2.0",
+  "description": "Animated Heroicons for Svelte, built with CSS animations",
   "author": "Aniket-508",
   "license": "MIT",
   "homepage": "https://svelte.heroicons-animated.com",
@@ -13,21 +12,76 @@
   "bugs": {
     "url": "https://github.com/heroicons-animated/heroicons-animated-svelte/issues"
   },
+  "keywords": [
+    "heroicons",
+    "svelte",
+    "svelte5",
+    "icons",
+    "animated",
+    "css-animations",
+    "sveltekit"
+  ],
+  "sideEffects": false,
+  "type": "module",
+  "svelte": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js"
+    },
+    "./package.json": "./package.json",
+    "./*": {
+      "types": "./dist/icons/*.d.ts",
+      "svelte": "./dist/icons/*.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/icons/*.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist",
+    "*.js",
+    "*.d.ts",
+    "README.md"
+  ],
   "scripts": {
-    "build": "pnpm -r build",
-    "dev": "pnpm -r dev",
-    "type-check": "pnpm -r type-check",
+    "dev": "vite dev",
+    "build:site": "pnpm run build-registry && vite build",
+    "build:lib": "svelte-package && node scripts/generate-proxies.mjs",
+    "build": "pnpm run build:lib && pnpm run build:site",
+    "preview": "vite preview",
+    "prepare": "svelte-kit sync || echo ''",
+    "type-check:site": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "type-check:lib": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "type-check": "pnpm run type-check:lib && pnpm run type-check:site",
+    "build-registry": "node scripts/registry-build.mjs",
     "changeset": "changeset",
     "version": "changeset version",
     "publish": "changeset publish"
   },
-  "engines": {
-    "node": ">=20.x",
-    "pnpm": ">=10.x"
+  "peerDependencies": {
+    "svelte": "^5.0.0"
   },
-  "packageManager": "pnpm@10.28.0",
   "devDependencies": {
     "@changesets/cli": "^2.29.8",
-    "@changesets/changelog-github": "^0.5.2"
-  }
+    "@changesets/changelog-github": "^0.5.2",
+    "@sveltejs/adapter-auto": "^7.0.0",
+    "@sveltejs/kit": "^2.50.1",
+    "@sveltejs/package": "^2.3.4",
+    "@sveltejs/vite-plugin-svelte": "^6.2.4",
+    "svelte": "^5.48.2",
+    "svelte-check": "^4.3.5",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1"
+  },
+  "engines": {
+    "node": ">=20.19.0",
+    "pnpm": ">=10.x"
+  },
+  "packageManager": "pnpm@10.28.0"
 }

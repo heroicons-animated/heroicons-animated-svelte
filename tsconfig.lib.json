@@ -23,7 +23,7 @@
   ],
   "references": [
     {
-      "path": "./tsconfig.node.json"
+      "path": "./tsconfig.lib.node.json"
     }
   ]
 }

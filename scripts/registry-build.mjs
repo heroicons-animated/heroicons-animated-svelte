@@ -7,7 +7,7 @@ const __dirname = path.dirname(__filename);
 
 const iconsDir = path.resolve(
   __dirname,
-  "../../../packages/svelte/src/lib/icons"
+  "../src/lib/icons"
 );
 const registryPath = path.resolve(__dirname, "../static/r");
 const registryIndexPath = path.join(registryPath, "registry.json");

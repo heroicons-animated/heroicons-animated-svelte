@@ -5,5 +5,7 @@
     "module": "ESNext",
     "moduleResolution": "bundler"
   },
-  "include": ["svelte.config.js"]
+  "include": [
+    "svelte.config.js"
+  ]
 }
