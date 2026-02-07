@@ -1,85 +1,169 @@
 <script lang="ts">
-  import IconCard from "$lib/IconCard.svelte";
   import { ICON_MANIFEST } from "$lib/manifest";
   import { LINK, SITE } from "$lib/constants";
-
-  let query = $state("");
-
-  const filteredIcons = $derived(() => {
-    const term = query.toLowerCase().trim();
-    if (!term) {
-      return ICON_MANIFEST;
-    }
-
-    const tokens = term.split(/\s+/).filter(Boolean);
-    return ICON_MANIFEST.filter((icon) => {
-      const haystack = [icon.name, ...icon.keywords].join(" ").toLowerCase();
-      return tokens.every((token) => haystack.includes(token));
-    });
+  import CliBlock from "$lib/components/CliBlock.svelte";
+  import CommentBlock from "$lib/components/CommentBlock.svelte";
+  import IconsList from "$lib/components/IconsList.svelte";
+  const websiteJsonLd = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: SITE.NAME,
+    url: SITE.URL,
+    description: SITE.DESCRIPTION.LONG,
+    inLanguage: "en-US",
   });
 
-  const totalCount = ICON_MANIFEST.length;
-  const resultCount = $derived(() => filteredIcons.length);
+  const softwareJsonLd = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    name: SITE.NAME,
+    description: SITE.DESCRIPTION.LONG,
+    url: SITE.URL,
+    codeRepository: LINK.GITHUB,
+    programmingLanguage: ["TypeScript", "Svelte", "JavaScript"],
+    runtimePlatform: "Node.js",
+    license: LINK.LICENSE,
+    author: {
+      "@type": "Person",
+      name: SITE.AUTHOR.NAME,
+      url: LINK.TWITTER,
+    },
+    maintainer: {
+      "@type": "Person",
+      name: SITE.AUTHOR.NAME,
+      url: LINK.TWITTER,
+    },
+    keywords: SITE.KEYWORDS,
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+    },
+    isAccessibleForFree: true,
+    dateModified: new Date().toISOString().split("T")[0],
+    numberOfItems: ICON_MANIFEST.length,
+  });
+
+  const organizationJsonLd = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: SITE.NAME,
+    url: SITE.URL,
+    logo: `${SITE.URL}${SITE.OG_IMAGE}`,
+    sameAs: [LINK.GITHUB, LINK.TWITTER],
+    founder: {
+      "@type": "Person",
+      name: SITE.AUTHOR.NAME,
+      url: LINK.TWITTER,
+    },
+  });
+
+  const faqJsonLd = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "What is heroicons-animated-svelte?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `${SITE.NAME} is a free, open-source library of beautifully animated Svelte icons based on Heroicons.`,
+        },
+      },
+      {
+        "@type": "Question",
+        name: "How do I install heroicons-animated-svelte icons?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `Use the registry: ${SITE.URL}/r/{icon-name}.json (replace {icon-name} with the icon name in kebab-case).`,
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Is heroicons-animated-svelte free to use?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `${SITE.NAME} is free and open-source under the MIT license.`,
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What technologies are used in heroicons-animated-svelte?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `Icons are Svelte components written in TypeScript, based on Heroicons, with motion-inspired animations.`,
+        },
+      },
+    ],
+  });
+
 </script>
 
 <svelte:head>
-  <title>Heroicons Animated for Svelte</title>
+  <title>heroicons-animated | Animated Heroicons for Svelte</title>
   <meta name="description" content={SITE.DESCRIPTION.SHORT} />
   <meta name="keywords" content={SITE.KEYWORDS.join(", ")} />
-  <meta name="theme-color" content="#0f172a" />
+  <meta name="theme-color" content="#f5f5f5" />
+  <link rel="canonical" href={SITE.URL} />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="heroicons-animated | Animated Heroicons for Svelte" />
+  <meta property="og:description" content={SITE.DESCRIPTION.SHORT} />
+  <meta property="og:url" content={SITE.URL} />
+  <meta property="og:image" content={`${SITE.URL}${SITE.OG_IMAGE}`} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content={SITE.AUTHOR.TWITTER} />
+  <meta name="twitter:title" content="heroicons-animated | Animated Heroicons for Svelte" />
+  <meta name="twitter:description" content={SITE.DESCRIPTION.SHORT} />
+  <meta name="twitter:image" content={`${SITE.URL}${SITE.OG_IMAGE}`} />
+  <script type="application/ld+json">{@html websiteJsonLd}</script>
+  <script type="application/ld+json">{@html softwareJsonLd}</script>
+  <script type="application/ld+json">{@html organizationJsonLd}</script>
+  <script type="application/ld+json">{@html faqJsonLd}</script>
 </svelte:head>
 
-<main class="page">
-  <section class="hero">
-    <div class="badges">
-      <span class="badge accent">SvelteKit Demo</span>
-      <span class="badge">Svelte 5</span>
-      <span class="badge">CSS Keyframes</span>
-      <span class="badge">MIT Licensed</span>
-    </div>
-    <h1 class="hero-title">Heroicons Animated for Svelte</h1>
-    <p class="hero-subtitle">
-      A motion-first icon gallery for Svelte. Hover any icon to see the
-      animation and use the registry endpoints to pull components into your own
-      stack.
-    </p>
-
-    <div class="search-card">
-      <input
-        bind:value={query}
-        class="search-input"
-        type="search"
-        placeholder="Search icons by name, keyword, or intent"
-        aria-label="Search icons"
-      />
-      <div class="stats">
-        <span>{resultCount} of {totalCount} icons</span>
-        <span class="code-pill">pnpm add @heroicons-animated/svelte</span>
-        <span class="code-pill">/r/registry.json</span>
-      </div>
-    </div>
-  </section>
-
-  <h2 class="section-title">Icon Gallery</h2>
-
-  {#if filteredIcons.length}
-    <div class="grid">
-      {#each filteredIcons as icon (icon.name)}
-        <IconCard name={icon.name} />
-      {/each}
-    </div>
-  {:else}
-    <div class="empty">
-      No icons matched your search. Try a shorter keyword like "arrow" or
-      "check".
-    </div>
-  {/if}
-
-  <div class="footer">
-    <span>Made for SvelteKit.</span>
-    <a href={LINK.HEROICONS} target="_blank" rel="noreferrer">Heroicons</a>
-    <a href={LINK.MOTION} target="_blank" rel="noreferrer">Motion</a>
-    <a href={LINK.GITHUB} target="_blank" rel="noreferrer">GitHub</a>
-    <a href={LINK.SPONSOR} target="_blank" rel="noreferrer">Sponsor</a>
-  </div>
-</main>
+<section
+  class="view-container flex flex-col items-center justify-center border-neutral-200 px-0 pt-[60px] xl:border-x dark:border-neutral-800"
+  id="hero"
+>
+  <h1 class="px-4 text-center font-sans text-[32px] min-[640px]:text-[42px]">
+    Beautifully animated heroicons for Svelte<span class="text-primary">^</span>
+  </h1>
+  <p
+    class="mt-5 max-w-[582px] px-4 text-center font-mono text-secondary text-sm"
+  >
+    an open-source (<a
+      class="underline underline-offset-3 transition-[decoration-color] duration-100 focus-within:outline-offset-0 hover:decoration-primary focus-visible:outline-1 focus-visible:outline-primary"
+      href={`${LINK.GITHUB}/blob/main/LICENSE`}
+      rel="noopener noreferrer"
+      tabindex="0"
+      target="_blank"
+    >
+      MIT License
+    </a>) collection of smooth animated <br />
+    316 icons for your projects. built with CSS animations and Heroicons.
+  </p>
+  <p class="mt-4 font-mono text-secondary text-xs min-[640px]:text-sm">
+    Crafted with
+    <span
+      class="bg-[#E5E5E5] px-2 py-0.5 text-primary dark:bg-[#262626]"
+    >
+      CSS Animations
+    </span>
+    &
+    <a
+      class="bg-[#E5E5E5] px-2 py-0.5 text-primary focus-within:outline-offset-1 focus-visible:outline-1 focus-visible:outline-primary dark:bg-[#262626]"
+      href={LINK.HEROICONS}
+      rel="noopener noreferrer"
+      tabindex="0"
+      target="_blank"
+    >
+      Heroicons
+    </a>
+  </p>
+  <CliBlock icons={ICON_MANIFEST} />
+  <CommentBlock />
+</section>
+<section id="icons">
+  <IconsList />
+</section>

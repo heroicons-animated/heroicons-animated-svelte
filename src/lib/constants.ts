@@ -8,7 +8,7 @@ const SITE = {
     GITHUB: "Aniket-508",
   },
   DESCRIPTION: {
-    LONG: "Animated Heroicons for Svelte. Motion-inspired, copy-paste ready, and fully customizable.",
+    LONG: "Free open-source library of beautifully animated icons for Svelte. Built with Motion-inspired animations and Heroicons.",
     SHORT: "Animated Heroicons for Svelte. Copy-paste ready and fully customizable.",
   },
   KEYWORDS: [
@@ -32,4 +32,11 @@ const LINK = {
   SPONSOR: "https://github.com/sponsors/Aniket-508",
 } as const;
 
-export { LINK, SITE };
+const PACKAGE_MANAGER = {
+  PNPM: "pnpm",
+  NPM: "npm",
+  YARN: "yarn",
+  BUN: "bun",
+} as const;
+
+export { LINK, PACKAGE_MANAGER, SITE };

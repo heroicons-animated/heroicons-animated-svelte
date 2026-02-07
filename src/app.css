@@ -1,238 +1,89 @@
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
+@import "tw-animate-css";
+@plugin "@toolwind/corner-shape";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+}
 
 :root {
-  color-scheme: light;
-  --bg: #f6f2ec;
-  --bg-secondary: #eef4f7;
-  --ink: #0f172a;
-  --muted: #5b6474;
-  --accent: #ff7a5a;
-  --accent-dark: #e95839;
-  --accent-cool: #14b8a6;
-  --card: #ffffff;
-  --border: rgba(15, 23, 42, 0.1);
-  --shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
-  --font-display: "Space Grotesk", "IBM Plex Sans", sans-serif;
-  --font-body: "IBM Plex Sans", "Space Grotesk", sans-serif;
+  --background: #f5f5f5;
+  --foreground: #000;
+  --primary: #8b5cf6;
+  --secondary: #3f3f47;
+
+  --radius: 0.4rem;
+
+  --header-height: 64px;
+
+  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
-* {
-  box-sizing: border-box;
+.dark {
+  --background: #171717;
+  --foreground: #fff;
+  --secondary-bg: #262626;
+  --secondary: #d4d4d4;
 }
 
-body {
-  margin: 0;
-  font-family: var(--font-body);
-  color: var(--ink);
-  background: radial-gradient(
-      circle at top right,
-      rgba(20, 184, 166, 0.15),
-      transparent 45%
-    ),
-    radial-gradient(
-      circle at 20% 20%,
-      rgba(255, 122, 90, 0.2),
-      transparent 40%
-    ),
-    linear-gradient(180deg, var(--bg) 0%, var(--bg-secondary) 100%);
-  min-height: 100vh;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.page {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 48px 24px 120px;
-}
-
-.hero {
-  position: relative;
-  padding: 48px 48px 40px;
-  border-radius: 28px;
-  background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.9),
-      rgba(255, 255, 255, 0.7)
-    ),
-    linear-gradient(135deg, rgba(20, 184, 166, 0.15), transparent);
-  box-shadow: var(--shadow);
-  overflow: hidden;
-}
-
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: -30% auto auto -10%;
-  width: 260px;
-  height: 260px;
-  background: radial-gradient(
-    circle,
-    rgba(255, 122, 90, 0.25) 0%,
-    transparent 70%
-  );
-  opacity: 0.9;
-}
-
-.hero-title {
-  font-family: var(--font-display);
-  font-size: clamp(2.4rem, 3vw + 1.5rem, 4rem);
-  margin: 0 0 12px;
-  letter-spacing: -0.02em;
-}
-
-.hero-subtitle {
-  font-size: 1.1rem;
-  margin: 0 0 28px;
-  color: var(--muted);
-  max-width: 720px;
-}
-
-.badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 24px;
-}
-
-.badge {
-  font-size: 0.85rem;
-  padding: 6px 12px;
-  border-radius: 999px;
-  background: rgba(15, 23, 42, 0.08);
-  color: var(--ink);
-}
-
-.badge.accent {
-  background: rgba(255, 122, 90, 0.15);
-  color: var(--accent-dark);
-}
-
-.search-card {
-  display: grid;
-  gap: 16px;
-  grid-template-columns: minmax(0, 1fr);
-  margin-bottom: 20px;
-}
-
-.search-input {
-  width: 100%;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 14px 18px;
-  font-size: 1rem;
-  font-family: var(--font-body);
-  background: #fff;
-  transition: box-shadow 0.2s ease, border-color 0.2s ease;
-}
-
-.search-input:focus {
-  outline: none;
-  border-color: rgba(255, 122, 90, 0.6);
-  box-shadow: 0 0 0 4px rgba(255, 122, 90, 0.15);
-}
-
-.stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  font-size: 0.95rem;
-  color: var(--muted);
-}
-
-.code-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
-  border-radius: 14px;
-  background: rgba(15, 23, 42, 0.08);
-  font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
-  font-size: 0.9rem;
-  color: var(--ink);
-}
-
-.section-title {
-  margin: 48px 0 16px;
-  font-family: var(--font-display);
-  font-size: 1.6rem;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 18px;
-}
-
-.icon-card {
-  background: var(--card);
-  border-radius: 18px;
-  border: 1px solid var(--border);
-  padding: 18px 16px;
-  display: grid;
-  gap: 12px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease,
-    border-color 0.2s ease;
-}
-
-.icon-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(255, 122, 90, 0.35);
-  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
-}
-
-.icon-frame {
-  width: 56px;
-  height: 56px;
-  border-radius: 16px;
-  display: grid;
-  place-items: center;
-  background: rgba(20, 184, 166, 0.08);
-  color: var(--ink);
-}
-
-.icon-name {
-  font-size: 0.9rem;
-  color: var(--muted);
-  word-break: break-word;
-}
-
-.empty {
-  padding: 40px;
-  border-radius: 20px;
-  border: 1px dashed var(--border);
-  background: rgba(255, 255, 255, 0.65);
-  text-align: center;
-  color: var(--muted);
-}
-
-.footer {
-  margin-top: 64px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  font-size: 0.9rem;
-  color: var(--muted);
-}
-
-.footer a {
-  color: var(--accent-dark);
-}
-
-@media (max-width: 768px) {
-  .hero {
-    padding: 32px 24px 28px;
+@layer base {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-neutral-700) transparent;
   }
 
-  .stats {
-    flex-direction: column;
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
   }
 
-  .code-pill {
-    font-size: 0.82rem;
+  html[data-base-ui-scroll-locked] {
+    scroll-behavior: auto;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    overscroll-behavior: none;
+    font-family: var(--font-sans);
+  }
+
+  ::selection {
+    background-color: var(--primary);
+    color: white;
+  }
+
+  .root {
+    isolation: isolate;
+    min-height: 100vh;
+  }
+
+  ::-webkit-scrollbar {
+    width: 2px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-neutral-700);
+    border-radius: 6px;
+  }
+
+  .view-container {
+    @apply mx-auto w-full max-w-[1292px] px-4 xl:px-2;
   }
 }
