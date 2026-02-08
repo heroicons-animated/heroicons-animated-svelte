@@ -2,8 +2,8 @@
   import IconCard from "$lib/components/icon-card.svelte";
   import CliBlock from "$lib/components/cli-block.svelte";
   import SimilarIcons from "$lib/components/similar-icons.svelte";
-  import { LINK, SITE } from "$lib/constants";
-  import type { BreadcrumbList, CreativeWork, WithContext } from "schema-dts";
+  import { SITE } from "$lib/constants";
+  import { JsonLd, MetaTags } from "svelte-meta-tags";
 
   let props = $props<{
     data: { icon: { name: string; keywords: string[] } };
@@ -19,10 +19,6 @@
     props.data?.icon ?? { name: "", keywords: [] }
   );
 
-  $effect(() => {
-    icon = props.data?.icon ?? { name: "", keywords: [] };
-  });
-
   let iconName = $derived(icon.name ?? "");
   let keywords = $derived(Array.isArray(icon.keywords) ? icon.keywords : []);
   let pascalName = $derived(iconName ? kebabToPascal(iconName) : "");
@@ -30,78 +26,83 @@
   let description = $derived(
     `Free animated ${iconName} icon for Svelte. Smooth animations, copy-paste ready.`
   );
-
-  let breadcrumbJsonLd = $derived.by(() =>
-    JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: SITE.URL },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Icons",
-          item: `${SITE.URL}/icons`,
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: displayName,
-          item: `${SITE.URL}/icons/${iconName}`,
-        },
-      ],
-    } satisfies WithContext<BreadcrumbList>)
+  let pageTitle = $derived(`${displayName} Icon - Animated Icon for Svelte`);
+  let canonicalUrl = $derived(
+    iconName ? `${SITE.URL}/icons/${iconName}` : `${SITE.URL}/icons`
   );
-
-  let iconJsonLd = $derived.by(() =>
-    JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "CreativeWork",
-      name: `${displayName} Icon`,
-      description,
-      url: `${SITE.URL}/icons/${iconName}`,
-      keywords: [...keywords, "animated icon", "svelte icon"],
-      inLanguage: "en-US",
-      isPartOf: {
-        "@type": "WebSite",
-        name: SITE.NAME,
-        url: SITE.URL,
-      },
-    } satisfies WithContext<CreativeWork>)
-  );
+  let metaKeywords = $derived([...keywords, "animated icon", "svelte icon"]);
+  const ogImageUrl = `${SITE.URL}${SITE.OG_IMAGE}`;
 </script>
 
-<svelte:head>
-  <title>{displayName} Icon - Animated Icon for Svelte</title>
-  <meta name="description" content={description}>
-  <meta
-    name="keywords"
-    content={[...keywords, "animated icon", "svelte icon"].join(", ")}
-  >
-  <link rel="canonical" href={`${SITE.URL}/icons/${iconName}`}>
-  <meta property="og:type" content="website">
-  <meta
-    property="og:title"
-    content={`${displayName} Icon - Animated Icon for Svelte`}
-  >
-  <meta property="og:description" content={description}>
-  <meta property="og:url" content={`${SITE.URL}/icons/${iconName}`}>
-  <meta property="og:image" content={`${SITE.URL}${SITE.OG_IMAGE}`}>
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content={SITE.AUTHOR.TWITTER}>
-  <meta
-    name="twitter:title"
-    content={`${displayName} Icon - Animated Icon for Svelte`}
-  >
-  <meta name="twitter:description" content={description}>
-  <meta name="twitter:image" content={`${SITE.URL}${SITE.OG_IMAGE}`}>
-  <script type="application/ld+json">
-{@html breadcrumbJsonLd}
-  </script>
-  <script type="application/ld+json">
-{@html iconJsonLd}
-  </script>
-</svelte:head>
+<MetaTags
+  title={pageTitle}
+  description={description}
+  canonical={canonicalUrl}
+  keywords={metaKeywords}
+  openGraph={{
+    type: "website",
+    url: canonicalUrl,
+    title: pageTitle,
+    description,
+    siteName: SITE.NAME,
+    images: [
+      {
+        url: ogImageUrl,
+        alt: `${displayName} icon preview`,
+      },
+    ],
+  }}
+  twitter={{
+    cardType: "summary_large_image",
+    site: SITE.AUTHOR.TWITTER,
+    title: pageTitle,
+    description,
+    image: ogImageUrl,
+    imageAlt: `${displayName} icon preview`,
+  }}
+/>
+<JsonLd
+  schema={{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: SITE.URL,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Icons",
+        item: `${SITE.URL}/icons`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: displayName,
+        item: `${SITE.URL}/icons/${iconName}`,
+      },
+    ],
+  }}
+/>
+<JsonLd
+  schema={{
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: `${displayName} Icon`,
+    description,
+    url: `${SITE.URL}/icons/${iconName}`,
+    keywords: metaKeywords.join(", "),
+    inLanguage: "en-US",
+    isPartOf: {
+      "@type": "WebSite",
+      name: SITE.NAME,
+      url: SITE.URL,
+    },
+  }}
+/>
 
 <section class="flex min-h-[calc(100vh-var(--header-height))] flex-col">
   <div

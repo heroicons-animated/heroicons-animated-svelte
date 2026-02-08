@@ -4,23 +4,52 @@
   import CliBlock from "$lib/components/cli-block.svelte";
   import CommentBlock from "$lib/components/comment-block.svelte";
   import IconsList from "$lib/components/icons-list.svelte";
-  import type {
-    FAQPage,
-    Organization,
-    SoftwareSourceCode,
-    WebSite,
-    WithContext,
-  } from "schema-dts";
-  const websiteJsonLd = JSON.stringify({
+  import { JsonLd, MetaTags } from "svelte-meta-tags";
+
+  const metaTitle = "heroicons-animated | Animated Heroicons for Svelte";
+  const ogImageUrl = `${SITE.URL}${SITE.OG_IMAGE}`;
+</script>
+
+<MetaTags
+  title={metaTitle}
+  description={SITE.DESCRIPTION.SHORT}
+  canonical={SITE.URL}
+  keywords={[...SITE.KEYWORDS]}
+  openGraph={{
+    type: "website",
+    url: SITE.URL,
+    title: metaTitle,
+    description: SITE.DESCRIPTION.SHORT,
+    siteName: SITE.NAME,
+    images: [
+      {
+        url: ogImageUrl,
+        alt: "heroicons-animated preview",
+      },
+    ],
+  }}
+  twitter={{
+    cardType: "summary_large_image",
+    site: SITE.AUTHOR.TWITTER,
+    title: metaTitle,
+    description: SITE.DESCRIPTION.SHORT,
+    image: ogImageUrl,
+    imageAlt: "heroicons-animated preview",
+  }}
+  additionalMetaTags={[{ name: "theme-color", content: "#f5f5f5" }]}
+/>
+<JsonLd
+  schema={{
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: SITE.NAME,
     url: SITE.URL,
     description: SITE.DESCRIPTION.LONG,
     inLanguage: "en-US",
-  } satisfies WithContext<WebSite>);
-
-  const softwareJsonLd = JSON.stringify({
+  }}
+/>
+<JsonLd
+  schema={{
     "@context": "https://schema.org",
     "@type": "SoftwareSourceCode",
     name: SITE.NAME,
@@ -40,12 +69,13 @@
       name: SITE.AUTHOR.NAME,
       url: LINK.TWITTER,
     },
-    keywords: SITE.KEYWORDS,
+    keywords: SITE.KEYWORDS.join(", "),
     isAccessibleForFree: true,
     dateModified: new Date().toISOString().split("T")[0],
-  } satisfies WithContext<SoftwareSourceCode>);
-
-  const organizationJsonLd = JSON.stringify({
+  }}
+/>
+<JsonLd
+  schema={{
     "@context": "https://schema.org",
     "@type": "Organization",
     name: SITE.NAME,
@@ -57,9 +87,10 @@
       name: SITE.AUTHOR.NAME,
       url: LINK.TWITTER,
     },
-  } satisfies WithContext<Organization>);
-
-  const faqJsonLd = JSON.stringify({
+  }}
+/>
+<JsonLd
+  schema={{
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: [
@@ -96,44 +127,8 @@
         },
       },
     ],
-  } satisfies WithContext<FAQPage>);
-</script>
-
-<svelte:head>
-  <title>heroicons-animated | Animated Heroicons for Svelte</title>
-  <meta name="description" content={SITE.DESCRIPTION.SHORT}>
-  <meta name="keywords" content={SITE.KEYWORDS.join(", ")}>
-  <meta name="theme-color" content="#f5f5f5">
-  <link rel="canonical" href={SITE.URL}>
-  <meta property="og:type" content="website">
-  <meta
-    property="og:title"
-    content="heroicons-animated | Animated Heroicons for Svelte"
-  >
-  <meta property="og:description" content={SITE.DESCRIPTION.SHORT}>
-  <meta property="og:url" content={SITE.URL}>
-  <meta property="og:image" content={`${SITE.URL}${SITE.OG_IMAGE}`}>
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content={SITE.AUTHOR.TWITTER}>
-  <meta
-    name="twitter:title"
-    content="heroicons-animated | Animated Heroicons for Svelte"
-  >
-  <meta name="twitter:description" content={SITE.DESCRIPTION.SHORT}>
-  <meta name="twitter:image" content={`${SITE.URL}${SITE.OG_IMAGE}`}>
-  <script type="application/ld+json">
-{@html websiteJsonLd}
-  </script>
-  <script type="application/ld+json">
-{@html softwareJsonLd}
-  </script>
-  <script type="application/ld+json">
-{@html organizationJsonLd}
-  </script>
-  <script type="application/ld+json">
-{@html faqJsonLd}
-  </script>
-</svelte:head>
+  }}
+/>
 
 <section
   class="view-container flex flex-col items-center justify-center border-neutral-200 px-0 pt-[60px] xl:border-x dark:border-neutral-800"
