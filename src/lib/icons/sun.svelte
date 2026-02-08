@@ -8,50 +8,15 @@
     class: className = "",
   }: IconProps = $props();
 
-  let isInternal = $state(false);
-
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 1000);
-  }
-
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-  }
-  $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
-    } else {
-      stopAnimation(true);
-    }
-  });
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -77,42 +42,42 @@
     <circle cx="12" cy="12" r="3.75" />
     <path
       class="sun-ray sun-ray-0"
-      class:sun-ray-fade={animate}
+      class:sun-ray-fade={shouldAnimate}
       d="M12 3V5.25"
     />
     <path
       class="sun-ray sun-ray-1"
-      class:sun-ray-fade={animate}
+      class:sun-ray-fade={shouldAnimate}
       d="M18.364 5.63604L16.773 7.22703"
     />
     <path
       class="sun-ray sun-ray-2"
-      class:sun-ray-fade={animate}
+      class:sun-ray-fade={shouldAnimate}
       d="M21 12H18.75"
     />
     <path
       class="sun-ray sun-ray-3"
-      class:sun-ray-fade={animate}
+      class:sun-ray-fade={shouldAnimate}
       d="M18.364 18.364L16.773 16.773"
     />
     <path
       class="sun-ray sun-ray-4"
-      class:sun-ray-fade={animate}
+      class:sun-ray-fade={shouldAnimate}
       d="M12 18.75V21"
     />
     <path
       class="sun-ray sun-ray-5"
-      class:sun-ray-fade={animate}
+      class:sun-ray-fade={shouldAnimate}
       d="M7.22703 16.773L5.63604 18.364"
     />
     <path
       class="sun-ray sun-ray-6"
-      class:sun-ray-fade={animate}
+      class:sun-ray-fade={shouldAnimate}
       d="M5.25 12H3"
     />
     <path
       class="sun-ray sun-ray-7"
-      class:sun-ray-fade={animate}
+      class:sun-ray-fade={shouldAnimate}
       d="M7.22703 7.22703L5.63604 5.63604"
     />
   </svg>

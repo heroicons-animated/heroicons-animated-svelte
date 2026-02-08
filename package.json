@@ -95,6 +95,9 @@
     "ultracite": "7.1.5",
     "vite": "^6.3.5"
   },
+  "dependencies": {
+    "svelte-themes": "^2.0.10"
+  },
   "engines": {
     "node": ">=20.19.0",
     "pnpm": ">=10.x"

@@ -1,38 +1,25 @@
 <script lang="ts">
-  import { onMount } from "svelte";
   import Moon from "$lib/icons/moon.svelte";
   import Sun from "$lib/icons/sun.svelte";
+  import { useTheme } from "svelte-themes";
 
-  let isDark = $state(false);
-
-  const applyTheme = (dark: boolean) => {
-    isDark = dark;
-    const root = document.documentElement;
-    if (dark) {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
-  };
-
-  onMount(() => {
-    const stored = localStorage.getItem("theme");
-    if (stored === "dark") {
-      applyTheme(true);
-    } else if (stored === "light") {
-      applyTheme(false);
-    } else {
-      const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      ).matches;
-      applyTheme(prefersDark);
-    }
-  });
+  const theme = useTheme();
+  let isDark = $derived(
+    (theme.resolvedTheme ?? theme.theme) === "dark"
+  );
+  let isIconHovered = $state(false);
 
   function toggleTheme() {
-    const next = !isDark;
-    localStorage.setItem("theme", next ? "dark" : "light");
-    applyTheme(next);
+    const next = isDark ? "light" : "dark";
+    theme.theme = next;
+  }
+
+  function handleMouseEnter() {
+    isIconHovered = true;
+  }
+
+  function handleMouseLeave() {
+    isIconHovered = false;
   }
 </script>
 
@@ -41,13 +28,15 @@
   aria-pressed={isDark}
   class="supports-[corner-shape:squircle]:corner-squircle flex size-9 cursor-pointer items-center justify-center rounded-[14px] bg-white focus-within:outline-offset-2 focus-visible:outline-1 focus-visible:outline-primary supports-[corner-shape:squircle]:rounded-[20px] dark:bg-white/10"
   onclick={toggleTheme}
+  onmouseenter={handleMouseEnter}
+  onmouseleave={handleMouseLeave}
   type="button"
 >
   <span class="flex items-center justify-center">
     {#if isDark}
-      <Moon aria-hidden="true" size={16} />
+      <Moon aria-hidden="true" size={16} animate={isIconHovered} />
     {:else}
-      <Sun size={16} />
+      <Sun aria-hidden="true" size={16} animate={isIconHovered} />
     {/if}
   </span>
 </button>

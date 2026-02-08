@@ -1,10 +1,20 @@
 <script lang="ts">
   import Logo from "$lib/components/logo.svelte";
+  import SponsorHeartFilled from "$lib/components/sponsor-heart-filled.svelte";
   import ThemeToggle from "$lib/components/theme-toggle.svelte";
   import GithubStarsButton from "$lib/components/github-stars-button.svelte";
   import { LINK } from "$lib/constants";
 
   let { stars = null } = $props<{ stars?: number | null }>();
+  let isSponsorIconAnimating = $state(false);
+
+  function handleSponsorEnter() {
+    isSponsorIconAnimating = true;
+  }
+
+  function handleSponsorLeave() {
+    isSponsorIconAnimating = false;
+  }
 </script>
 
 <header
@@ -54,20 +64,17 @@
         tabindex="0"
         target="_blank"
         rel="noopener noreferrer"
+        onmouseenter={handleSponsorEnter}
+        onmouseleave={handleSponsorLeave}
+        onfocus={handleSponsorEnter}
+        onblur={handleSponsorLeave}
       >
-        <svg
+        <SponsorHeartFilled
           aria-hidden="true"
-          class="text-primary transition-transform duration-300 group-hover:scale-110"
-          fill="currentColor"
-          height="16"
-          viewBox="0 0 24 24"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z"
-          />
-        </svg>
+          animate={isSponsorIconAnimating}
+          class="text-primary"
+          size={16}
+        />
         <span class="hidden sm:inline">Sponsor Project</span>
       </a>
       <ThemeToggle />

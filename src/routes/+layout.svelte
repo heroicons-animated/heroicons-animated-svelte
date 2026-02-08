@@ -1,6 +1,7 @@
 <script lang="ts">
   import "../app.css";
   import Header from "$lib/components/header.svelte";
+  import { SvelteTheme } from "svelte-themes";
 
   let { data, children } = $props();
 </script>
@@ -14,7 +15,9 @@
   >
 </svelte:head>
 
-<div class="root relative bg-background antialiased">
-  <Header stars={data.githubStars} />
-  {@render children()}
-</div>
+<SvelteTheme attribute="class">
+  <div class="root relative bg-background antialiased">
+    <Header stars={data.githubStars} />
+    {@render children()}
+  </div>
+</SvelteTheme>

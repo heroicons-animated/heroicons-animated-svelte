@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      svelte-themes:
+        specifier: ^2.0.10
+        version: 2.0.10(svelte@5.49.2)
     devDependencies:
       '@biomejs/biome':
         specifier: 2.3.13
@@ -1313,6 +1317,11 @@ packages:
     peerDependencies:
       svelte: ^5.0.0
 
+  svelte-themes@2.0.10:
+    resolution: {integrity: sha512-PlUXhJTm29o45DKi7l/iCvrjaHLXsy/HGmVR4RL4VnUwp86YZpTehPK5F5h8zk3oG7V0QFFR9BpsxPV+i40IoA==}
+    peerDependencies:
+      svelte: ^4.0.0 || ^5.0.0
+
   svelte-toolbelt@0.10.6:
     resolution: {integrity: sha512-YWuX+RE+CnWYx09yseAe4ZVMM7e7GRFZM6OYWpBKOb++s+SQ8RBIMMe+Bs/CznBMc0QPLjr+vDBxTAkozXsFXQ==}
     engines: {node: '>=18', pnpm: '>=8.7.0'}
@@ -2583,6 +2592,10 @@ snapshots:
   svelte-meta-tags@4.5.0(svelte@5.49.2):
     dependencies:
       schema-dts: 1.1.5
+      svelte: 5.49.2
+
+  svelte-themes@2.0.10(svelte@5.49.2):
+    dependencies:
       svelte: 5.49.2
 
   svelte-toolbelt@0.10.6(@sveltejs/kit@2.50.2(@sveltejs/vite-plugin-svelte@5.1.1(svelte@5.49.2)(vite@6.4.1(@types/node@20.19.32)(jiti@2.6.1)(lightningcss@1.30.2)))(svelte@5.49.2)(typescript@5.9.3)(vite@6.4.1(@types/node@20.19.32)(jiti@2.6.1)(lightningcss@1.30.2)))(svelte@5.49.2):
