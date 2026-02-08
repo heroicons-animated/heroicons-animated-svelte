@@ -8,53 +8,18 @@
     class: className = "",
   }: IconProps = $props();
 
-  let isInternal = $state(false);
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   let bar1Path: SVGPathElement;
   let bar2Path: SVGPathElement;
 
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 400);
-  }
-
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-  }
-  $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
-    } else {
-      stopAnimation(true);
-    }
-  });
-
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -80,13 +45,13 @@
     <path
       bind:this={bar1Path}
       class="bar-path"
-      class:animate={animate}
+      class:animate={shouldAnimate}
       d="M3.75 9h16.5"
     />
     <path
       bind:this={bar2Path}
       class="bar-path"
-      class:animate={animate}
+      class:animate={shouldAnimate}
       d="M3.75 15.75h16.5"
     />
   </svg>

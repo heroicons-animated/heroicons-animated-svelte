@@ -8,50 +8,15 @@
     class: className = "",
   }: IconProps = $props();
 
-  let isInternal = $state(false);
-
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 600);
-  }
-
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-  }
-  $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
-    } else {
-      stopAnimation(true);
-    }
-  });
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -73,14 +38,14 @@
     stroke-linecap="round"
     stroke-linejoin="round"
     class="icon-svg"
-    class:server-bounce={animate}
+    class:server-bounce={shouldAnimate}
   >
     <path
       d="M21.75 17.25v-.228a4.5 4.5 0 0 0-.12-1.03l-2.268-9.64a3.375 3.375 0 0 0-3.285-2.602H7.923a3.375 3.375 0 0 0-3.285 2.602l-2.268 9.64a4.5 4.5 0 0 0-.12 1.03v.228m19.5 0a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3m19.5 0a3 3 0 0 0-3-3H5.25a3 3 0 0 0-3 3"
     />
     <path
       class="server-lights"
-      class:server-lights-blink={animate}
+      class:server-lights-blink={shouldAnimate}
       d="M18.75 17.25h.008v.008h-.008v-.008Zm-3 0h.008v.008h-.008v-.008Z"
     />
   </svg>

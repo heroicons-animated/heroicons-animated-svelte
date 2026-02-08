@@ -9,50 +9,15 @@
     ...restProps
   }: IconProps = $props();
 
-  let isInternal = $state(false);
-
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 600);
-  }
-
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-  }
-  $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
-    } else {
-      stopAnimation(true);
-    }
-  });
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -75,7 +40,7 @@
     stroke-linecap="round"
     stroke-linejoin="round"
     class="icon-svg"
-    class:buildingoffice2-animate={animate}
+    class:buildingoffice2-animate={shouldAnimate}
   >
     <path
       d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21"

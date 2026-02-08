@@ -8,22 +8,15 @@
     class: className = "",
   }: IconProps = $props();
 
-  let isInternal = $state(false);
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   let topBarPath: SVGPathElement;
   let middleBarPath: SVGPathElement;
   let bottomBarPath: SVGPathElement;
   let bottomBarAnimation: Animation | null = null;
 
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
+  function startAnimation() {
     // Animate pathLength using Web Animations API
     if (bottomBarPath) {
       const pathLength = bottomBarPath.getTotalLength();
@@ -44,21 +37,9 @@
         }
       );
     }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 650);
   }
 
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-
+  function stopAnimation() {
     if (bottomBarAnimation) {
       bottomBarAnimation.cancel();
       bottomBarAnimation = null;
@@ -70,24 +51,19 @@
     }
   }
   $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
+    if (shouldAnimate) {
+      startAnimation();
     } else {
-      stopAnimation(true);
+      stopAnimation();
     }
   });
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -113,19 +89,19 @@
     <path
       bind:this={topBarPath}
       class="top-bar"
-      class:animate={animate}
+      class:animate={shouldAnimate}
       d="M3.75 6.75h16.5"
     />
     <path
       bind:this={middleBarPath}
       class="middle-bar"
-      class:animate={animate}
+      class:animate={shouldAnimate}
       d="M3.75 12h16.5"
     />
     <path
       bind:this={bottomBarPath}
       class="bottom-bar"
-      class:animate={animate}
+      class:animate={shouldAnimate}
       d="M3.75 17.25H12"
     />
   </svg>

@@ -8,50 +8,15 @@
     class: className = "",
   }: IconProps = $props();
 
-  let isInternal = $state(false);
-
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 400);
-  }
-
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-  }
-  $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
-    } else {
-      stopAnimation(true);
-    }
-  });
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -80,12 +45,12 @@
     <path
       d="M17.25 9.75L21.75 14.25"
       class="speakerxmark-line"
-      class:speakerxmark-draw={animate}
+      class:speakerxmark-draw={shouldAnimate}
     />
     <path
       d="M21.75 9.75L17.25 14.25"
       class="speakerxmark-line speakerxmark-line2"
-      class:speakerxmark-draw={animate}
+      class:speakerxmark-draw={shouldAnimate}
     />
   </svg>
 </div>

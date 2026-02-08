@@ -9,50 +9,15 @@
     ...restProps
   }: IconProps = $props();
 
-  let isInternal = $state(false);
-
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 500);
-  }
-
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-  }
-  $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
-    } else {
-      stopAnimation(true);
-    }
-  });
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -82,7 +47,7 @@
     <path
       d="M20.25 3.75v4.5m0-4.5h-4.5m4.5 0-6 6"
       class="phonearrowupright-arrow"
-      class:phonearrowupright-arrow-animate={animate}
+      class:phonearrowupright-arrow-animate={shouldAnimate}
     />
   </svg>
 </div>

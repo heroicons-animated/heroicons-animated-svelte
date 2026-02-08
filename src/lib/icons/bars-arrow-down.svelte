@@ -8,52 +8,17 @@
     class: className = "",
   }: IconProps = $props();
 
-  let isInternal = $state(false);
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   let arrowPath: SVGPathElement;
 
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 500);
-  }
-
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-  }
-  $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
-    } else {
-      stopAnimation(true);
-    }
-  });
-
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -80,7 +45,7 @@
     <path
       bind:this={arrowPath}
       class="arrow-path"
-      class:animate={animate}
+      class:animate={shouldAnimate}
       d="M17.25 9v12m0 0-3.75-3.75M17.25 21L21 17.25"
     />
   </svg>

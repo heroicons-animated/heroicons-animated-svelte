@@ -9,50 +9,15 @@
     ...restProps
   }: IconProps = $props();
 
-  let isInternal = $state(false);
-
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 2000);
-  }
-
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-  }
-  $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
-    } else {
-      stopAnimation(true);
-    }
-  });
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -84,7 +49,7 @@
     <path
       d="M7.86391 4.24259C9.04956 3.45731 10.4714 3 12 3C16.1421 3 19.5 6.35786 19.5 10.5C19.5 13.4194 18.9443 16.2089 17.9324 18.7685"
       class="fingerprint-path"
-      class:fingerprint-path-animate={animate}
+      class:fingerprint-path-animate={shouldAnimate}
     />
     <path
       d="M5.7426 6.36391C4.95732 7.54956 4.5 8.97138 4.5 10.5C4.5 11.9677 4.07875 13.3369 3.3501 14.4931"
@@ -94,7 +59,7 @@
     <path
       d="M5.7426 6.36391C4.95732 7.54956 4.5 8.97138 4.5 10.5C4.5 11.9677 4.07875 13.3369 3.3501 14.4931"
       class="fingerprint-path"
-      class:fingerprint-path-animate={animate}
+      class:fingerprint-path-animate={shouldAnimate}
     />
     <path
       d="M5.33889 18.052C7.14811 16.0555 8.25 13.4065 8.25 10.5C8.25 8.42893 9.92893 6.75 12 6.75C14.0711 6.75 15.75 8.42893 15.75 10.5C15.75 11.0269 15.7286 11.5487 15.686 12.0646"
@@ -104,7 +69,7 @@
     <path
       d="M5.33889 18.052C7.14811 16.0555 8.25 13.4065 8.25 10.5C8.25 8.42893 9.92893 6.75 12 6.75C14.0711 6.75 15.75 8.42893 15.75 10.5C15.75 11.0269 15.7286 11.5487 15.686 12.0646"
       class="fingerprint-path"
-      class:fingerprint-path-animate={animate}
+      class:fingerprint-path-animate={shouldAnimate}
     />
     <path
       d="M12.0003 10.5C12.0003 14.2226 10.6443 17.6285 8.39916 20.2506"
@@ -114,7 +79,7 @@
     <path
       d="M12.0003 10.5C12.0003 14.2226 10.6443 17.6285 8.39916 20.2506"
       class="fingerprint-path"
-      class:fingerprint-path-animate={animate}
+      class:fingerprint-path-animate={shouldAnimate}
     />
     <path
       d="M15.033 15.6543C14.4852 17.5743 13.6391 19.3685 12.5479 20.9836"
@@ -124,7 +89,7 @@
     <path
       d="M15.033 15.6543C14.4852 17.5743 13.6391 19.3685 12.5479 20.9836"
       class="fingerprint-path"
-      class:fingerprint-path-animate={animate}
+      class:fingerprint-path-animate={shouldAnimate}
     />
   </svg>
 </div>

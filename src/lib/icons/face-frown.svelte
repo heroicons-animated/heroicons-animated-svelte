@@ -9,50 +9,15 @@
     ...restProps
   }: IconProps = $props();
 
-  let isInternal = $state(false);
-
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 800);
-  }
-
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-  }
-  $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
-    } else {
-      stopAnimation(true);
-    }
-  });
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -75,23 +40,23 @@
     stroke-linecap="round"
     stroke-linejoin="round"
     class="icon-svg facefrown-svg"
-    class:facefrown-svg-animate={animate}
+    class:facefrown-svg-animate={shouldAnimate}
   >
     <circle cx="12" cy="12" r="9" />
     <path
       d="M15.1823 16.3179C14.3075 15.4432 13.1623 15.0038 12.0158 14.9999C10.859 14.996 9.70095 15.4353 8.81834 16.3179"
       class="facefrown-mouth"
-      class:facefrown-mouth-animate={animate}
+      class:facefrown-mouth-animate={shouldAnimate}
     />
     <path
       d="M9.75 9.75C9.75 10.1642 9.58211 10.5 9.375 10.5C9.16789 10.5 9 10.1642 9 9.75C9 9.33579 9.16789 9 9.375 9C9.58211 9 9.75 9.33579 9.75 9.75Z"
       class="facefrown-eye facefrown-eye-left"
-      class:facefrown-eye-animate={animate}
+      class:facefrown-eye-animate={shouldAnimate}
     />
     <path
       d="M15 9.75C15 10.1642 14.8321 10.5 14.625 10.5C14.4179 10.5 14.25 10.1642 14.25 9.75C14.25 9.33579 14.4179 9 14.625 9C14.8321 9 15 9.33579 15 9.75Z"
       class="facefrown-eye facefrown-eye-right"
-      class:facefrown-eye-animate={animate}
+      class:facefrown-eye-animate={shouldAnimate}
     />
   </svg>
 </div>

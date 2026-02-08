@@ -9,7 +9,8 @@
     ...restProps
   }: IconProps = $props();
 
-  let isInternal = $state(false);
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   const DOTS = [
     { d: "M12 12.75h.008v.008H12v-.008Z", index: 0 },
@@ -26,48 +27,12 @@
     { d: "M14.25 17.25h.008v.008h-.008v-.008Z", index: 11 },
   ];
 
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 1500);
-  }
-
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-  }
-  $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
-    } else {
-      stopAnimation(true);
-    }
-  });
-
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -97,7 +62,7 @@
     {#each DOTS as dot}
       <path
         class="calendar-dot"
-        class:animate={animate}
+        class:animate={shouldAnimate}
         style="animation-delay: {dot.index * 0.1}s"
         d={dot.d}
       />

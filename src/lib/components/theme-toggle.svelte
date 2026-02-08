@@ -4,9 +4,7 @@
   import { useTheme } from "svelte-themes";
 
   const theme = useTheme();
-  let isDark = $derived(
-    (theme.resolvedTheme ?? theme.theme) === "dark"
-  );
+  let isDark = $derived((theme.resolvedTheme ?? theme.theme) === "dark");
   let isIconHovered = $state(false);
 
   function toggleTheme() {

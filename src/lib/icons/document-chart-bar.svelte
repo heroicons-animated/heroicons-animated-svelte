@@ -9,50 +9,15 @@
     ...restProps
   }: IconProps = $props();
 
-  let isInternal = $state(false);
-
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 700);
-  }
-
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-  }
-  $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
-    } else {
-      stopAnimation(true);
-    }
-  });
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -82,19 +47,19 @@
     <path
       d="M9 16.5v.75"
       class="docchartbar-bar"
-      class:docchartbar-animate={animate}
+      class:docchartbar-animate={shouldAnimate}
       style="animation-delay: 0s"
     />
     <path
       d="M12 14.25v3"
       class="docchartbar-bar"
-      class:docchartbar-animate={animate}
+      class:docchartbar-animate={shouldAnimate}
       style="animation-delay: 0.15s"
     />
     <path
       d="M15 12v5.25"
       class="docchartbar-bar"
-      class:docchartbar-animate={animate}
+      class:docchartbar-animate={shouldAnimate}
       style="animation-delay: 0.3s"
     />
   </svg>

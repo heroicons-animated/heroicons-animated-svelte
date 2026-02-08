@@ -8,50 +8,15 @@
     class: className = "",
   }: IconProps = $props();
 
-  let isInternal = $state(false);
-
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 650);
-  }
-
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-  }
-  $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
-    } else {
-      stopAnimation(true);
-    }
-  });
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -85,42 +50,42 @@
     />
     <path
       class="qrcode-dot qrcode-dot-0"
-      class:qrcode-dot-animate={animate}
+      class:qrcode-dot-animate={shouldAnimate}
       d="M6.75 6.75H7.5V7.5H6.75V6.75Z"
     />
     <path
       class="qrcode-dot qrcode-dot-1"
-      class:qrcode-dot-animate={animate}
+      class:qrcode-dot-animate={shouldAnimate}
       d="M6.75 16.5H7.5V17.25H6.75V16.5Z"
     />
     <path
       class="qrcode-dot qrcode-dot-2"
-      class:qrcode-dot-animate={animate}
+      class:qrcode-dot-animate={shouldAnimate}
       d="M16.5 6.75H17.25V7.5H16.5V6.75Z"
     />
     <path
       class="qrcode-dot qrcode-dot-3"
-      class:qrcode-dot-animate={animate}
+      class:qrcode-dot-animate={shouldAnimate}
       d="M13.5 13.5H14.25V14.25H13.5V13.5Z"
     />
     <path
       class="qrcode-dot qrcode-dot-4"
-      class:qrcode-dot-animate={animate}
+      class:qrcode-dot-animate={shouldAnimate}
       d="M13.5 19.5H14.25V20.25H13.5V19.5Z"
     />
     <path
       class="qrcode-dot qrcode-dot-5"
-      class:qrcode-dot-animate={animate}
+      class:qrcode-dot-animate={shouldAnimate}
       d="M19.5 13.5H20.25V14.25H19.5V13.5Z"
     />
     <path
       class="qrcode-dot qrcode-dot-6"
-      class:qrcode-dot-animate={animate}
+      class:qrcode-dot-animate={shouldAnimate}
       d="M19.5 19.5H20.25V20.25H19.5V19.5Z"
     />
     <path
       class="qrcode-dot qrcode-dot-7"
-      class:qrcode-dot-animate={animate}
+      class:qrcode-dot-animate={shouldAnimate}
       d="M16.5 16.5H17.25V17.25H16.5V16.5Z"
     />
   </svg>

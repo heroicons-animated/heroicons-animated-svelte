@@ -8,50 +8,15 @@
     class: className = "",
   }: IconProps = $props();
 
-  let isInternal = $state(false);
-
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 1000);
-  }
-
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-  }
-  $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
-    } else {
-      stopAnimation(true);
-    }
-  });
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -78,17 +43,17 @@
     <path
       d="M8.288 15.038a5.25 5.25 0 0 1 7.424 0"
       class="wifi-arc"
-      class:wifi-pulse={animate}
+      class:wifi-pulse={shouldAnimate}
     />
     <path
       d="M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0"
       class="wifi-arc wifi-arc-2"
-      class:wifi-pulse={animate}
+      class:wifi-pulse={shouldAnimate}
     />
     <path
       d="M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0"
       class="wifi-arc wifi-arc-3"
-      class:wifi-pulse={animate}
+      class:wifi-pulse={shouldAnimate}
     />
   </svg>
 </div>

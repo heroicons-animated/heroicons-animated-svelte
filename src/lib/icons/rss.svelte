@@ -8,50 +8,15 @@
     class: className = "",
   }: IconProps = $props();
 
-  let isInternal = $state(false);
-
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 600);
-  }
-
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-  }
-  $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
-    } else {
-      stopAnimation(true);
-    }
-  });
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -77,12 +42,12 @@
     <path d="M6 18.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
     <path
       class="rss-wave rss-wave-1"
-      class:rss-wave-pulse={animate}
+      class:rss-wave-pulse={shouldAnimate}
       d="M12.75 19.5v-.75a7.5 7.5 0 0 0-7.5-7.5H4.5"
     />
     <path
       class="rss-wave rss-wave-2"
-      class:rss-wave-pulse={animate}
+      class:rss-wave-pulse={shouldAnimate}
       d="M4.5 4.5h.75c7.87 0 14.25 6.38 14.25 14.25v.75"
     />
   </svg>

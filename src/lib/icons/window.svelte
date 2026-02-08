@@ -8,50 +8,15 @@
     class: className = "",
   }: IconProps = $props();
 
-  let isInternal = $state(false);
-
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 500);
-  }
-
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-  }
-  $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
-    } else {
-      stopAnimation(true);
-    }
-  });
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -79,17 +44,17 @@
     />
     <path
       class="window-btn window-btn-0"
-      class:window-btn-pop={animate}
+      class:window-btn-pop={shouldAnimate}
       d="M5.25 6H5.2575V6.0075H5.25V6Z"
     />
     <path
       class="window-btn window-btn-1"
-      class:window-btn-pop={animate}
+      class:window-btn-pop={shouldAnimate}
       d="M7.5 6H7.5075V6.0075H7.5V6Z"
     />
     <path
       class="window-btn window-btn-2"
-      class:window-btn-pop={animate}
+      class:window-btn-pop={shouldAnimate}
       d="M9.75 6H9.7575V6.0075H9.75V6Z"
     />
   </svg>

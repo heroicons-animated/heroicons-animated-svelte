@@ -8,7 +8,8 @@
     class: className = "",
   }: IconProps = $props();
 
-  let isInternal = $state(false);
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   let svgElement: SVGSVGElement;
   let pathElement: SVGPathElement;
@@ -16,15 +17,7 @@
   let pathAnimation: Animation | null = null;
   let arrowAnimation: Animation | null = null;
 
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
+  function startAnimation() {
     // Animate path drawing using Web Animations API
     if (pathElement) {
       const pathLength = pathElement.getTotalLength();
@@ -68,21 +61,9 @@
         }
       }, 300);
     }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 500);
   }
 
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-
+  function stopAnimation() {
     if (pathAnimation) {
       pathAnimation.cancel();
       pathAnimation = null;
@@ -106,24 +87,19 @@
     }
   }
   $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
+    if (shouldAnimate) {
+      startAnimation();
     } else {
-      stopAnimation(true);
+      stopAnimation();
     }
   });
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -146,7 +122,7 @@
     stroke-linecap="round"
     stroke-linejoin="round"
     class="icon-svg"
-    class:animate={animate}
+    class:animate={shouldAnimate}
   >
     <path
       bind:this={pathElement}

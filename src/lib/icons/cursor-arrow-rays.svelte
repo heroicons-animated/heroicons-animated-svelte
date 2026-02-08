@@ -9,50 +9,15 @@
     ...restProps
   }: IconProps = $props();
 
-  let isInternal = $state(false);
-
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 2000);
-  }
-
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-  }
-  $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
-    } else {
-      stopAnimation(true);
-    }
-  });
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -79,25 +44,29 @@
     <path
       d="M15.0423 21.6718L13.6835 16.6007M13.6835 16.6007L11.1741 18.826L11.7425 9.35623L16.9697 17.2731L13.6835 16.6007Z"
       class="cursor-rays-cursor"
-      class:cursor-move={animate}
+      class:cursor-move={shouldAnimate}
     />
-    <path d="M12 2.25V4.5" class="ray ray0" class:ray-spread={animate} />
+    <path d="M12 2.25V4.5" class="ray ray0" class:ray-spread={shouldAnimate} />
     <path
       d="M17.8336 4.66637L16.2426 6.25736"
       class="ray ray1"
-      class:ray-spread={animate}
+      class:ray-spread={shouldAnimate}
     />
-    <path d="M20.25 10.5H18" class="ray ray2" class:ray-spread={animate} />
+    <path
+      d="M20.25 10.5H18"
+      class="ray ray2"
+      class:ray-spread={shouldAnimate}
+    />
     <path
       d="M7.75736 14.7426L6.16637 16.3336"
       class="ray ray3"
-      class:ray-spread={animate}
+      class:ray-spread={shouldAnimate}
     />
-    <path d="M6 10.5H3.75" class="ray ray4" class:ray-spread={animate} />
+    <path d="M6 10.5H3.75" class="ray ray4" class:ray-spread={shouldAnimate} />
     <path
       d="M7.75736 6.25736L6.16637 4.66637"
       class="ray ray5"
-      class:ray-spread={animate}
+      class:ray-spread={shouldAnimate}
     />
   </svg>
 </div>

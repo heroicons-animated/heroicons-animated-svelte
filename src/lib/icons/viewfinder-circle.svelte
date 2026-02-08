@@ -8,50 +8,15 @@
     class: className = "",
   }: IconProps = $props();
 
-  let isInternal = $state(false);
-
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 600);
-  }
-
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-  }
-  $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
-    } else {
-      stopAnimation(true);
-    }
-  });
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -77,27 +42,27 @@
     <path
       d="M7.5 3.75H6C4.75736 3.75 3.75 4.75736 3.75 6V7.5"
       class="viewfindercircle-corner"
-      class:viewfindercircle-corner-animate={animate}
+      class:viewfindercircle-corner-animate={shouldAnimate}
     />
     <path
       d="M16.5 3.75H18C19.2426 3.75 20.25 4.75736 20.25 6V7.5"
       class="viewfindercircle-corner"
-      class:viewfindercircle-corner-animate={animate}
+      class:viewfindercircle-corner-animate={shouldAnimate}
     />
     <path
       d="M20.25 16.5V18C20.25 19.2426 19.2426 20.25 18 20.25H16.5"
       class="viewfindercircle-corner"
-      class:viewfindercircle-corner-animate={animate}
+      class:viewfindercircle-corner-animate={shouldAnimate}
     />
     <path
       d="M7.5 20.25H6C4.75736 20.25 3.75 19.2426 3.75 18V16.5"
       class="viewfindercircle-corner"
-      class:viewfindercircle-corner-animate={animate}
+      class:viewfindercircle-corner-animate={shouldAnimate}
     />
     <path
       d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z"
       class="viewfindercircle-circle"
-      class:viewfindercircle-circle-animate={animate}
+      class:viewfindercircle-circle-animate={shouldAnimate}
     />
   </svg>
 </div>

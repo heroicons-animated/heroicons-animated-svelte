@@ -8,21 +8,14 @@
     class: className = "",
   }: IconProps = $props();
 
-  let isInternal = $state(false);
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   let pathElement: SVGPathElement;
   let pathAnimation: Animation | null = null;
 
   // Must match React PATH_VARIANTS exactly: pathLength [0,1], opacity [0,1], scale [0.5,1], duration 0.4s
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
+  function startAnimation() {
     if (pathElement) {
       const len = pathElement.getTotalLength();
       pathElement.style.strokeDasharray = `${len}`;
@@ -51,21 +44,9 @@
         }
       );
     }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 400);
   }
 
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-
+  function stopAnimation() {
     if (pathAnimation) {
       pathAnimation.cancel();
       pathAnimation = null;
@@ -79,24 +60,19 @@
     }
   }
   $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
+    if (shouldAnimate) {
+      startAnimation();
     } else {
-      stopAnimation(true);
+      stopAnimation();
     }
   });
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 

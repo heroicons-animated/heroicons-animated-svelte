@@ -9,50 +9,15 @@
     ...restProps
   }: IconProps = $props();
 
-  let isInternal = $state(false);
-
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 500);
-  }
-
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-  }
-  $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
-    } else {
-      stopAnimation(true);
-    }
-  });
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -82,31 +47,31 @@
     <path
       d="M15 9H18.75"
       class="identification-line"
-      class:identification-draw={animate}
+      class:identification-draw={shouldAnimate}
       style="animation-delay: 0.2s"
     />
     <path
       d="M15 12H18.75"
       class="identification-line"
-      class:identification-draw={animate}
+      class:identification-draw={shouldAnimate}
       style="animation-delay: 0.2s"
     />
     <path
       d="M15 15H18.75"
       class="identification-line"
-      class:identification-draw={animate}
+      class:identification-draw={shouldAnimate}
       style="animation-delay: 0.2s"
     />
     <path
       d="M10.5 9.375C10.5 10.4105 9.66053 11.25 8.625 11.25C7.58947 11.25 6.75 10.4105 6.75 9.375C6.75 8.33947 7.58947 7.5 8.625 7.5C9.66053 7.5 10.5 8.33947 10.5 9.375Z"
       class="identification-line"
-      class:identification-draw={animate}
+      class:identification-draw={shouldAnimate}
       style="animation-delay: 0.1s"
     />
     <path
       d="M11.7939 15.7114C10.8489 16.2147 9.77021 16.5 8.62484 16.5C7.47948 16.5 6.40074 16.2147 5.45581 15.7114C5.92986 14.4207 7.16983 13.5 8.62484 13.5C10.0799 13.5 11.3198 14.4207 11.7939 15.7114Z"
       class="identification-line"
-      class:identification-draw={animate}
+      class:identification-draw={shouldAnimate}
       style="animation-delay: 0s"
     />
   </svg>

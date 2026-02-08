@@ -8,50 +8,15 @@
     class: className = "",
   }: IconProps = $props();
 
-  let isInternal = $state(false);
-
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 500);
-  }
-
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-  }
-  $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
-    } else {
-      stopAnimation(true);
-    }
-  });
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -76,7 +41,7 @@
   >
     <path
       class="radio-antenna"
-      class:radio-antenna-tilt={animate}
+      class:radio-antenna-tilt={shouldAnimate}
       d="M3.75 7.5L20.25 3.375"
     />
     <path
@@ -85,7 +50,7 @@
     <path
       d="M17.25 12.75C16.8358 12.75 16.5 12.4142 16.5 12C16.5 11.5858 16.8358 11.25 17.25 11.25C17.6642 11.25 18 11.5858 18 12C18 12.4142 17.6642 12.75 17.25 12.75ZM17.25 17.25C16.8358 17.25 16.5 16.9142 16.5 16.5C16.5 16.0858 16.8358 15.75 17.25 15.75C17.6642 15.75 18 16.0858 18 16.5C18 16.9142 17.6642 17.25 17.25 17.25Z"
     />
-    <g class="radio-speaker" class:radio-speaker-pulse={animate}>
+    <g class="radio-speaker" class:radio-speaker-pulse={shouldAnimate}>
       <path
         d="M10.3169 13.1931L10.3116 13.1984L10.3063 13.1931L10.3116 13.1878L10.3169 13.1931Z"
       />

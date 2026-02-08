@@ -9,50 +9,15 @@
     ...restProps
   }: IconProps = $props();
 
-  let isInternal = $state(false);
-
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 800);
-  }
-
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-  }
-  $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
-    } else {
-      stopAnimation(true);
-    }
-  });
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -82,27 +47,27 @@
     <path
       d="M6 7.5h3v3H6v-3Z"
       class="newspaper-square"
-      class:newspaper-square-animate={animate}
+      class:newspaper-square-animate={shouldAnimate}
     />
     <path
       d="M12 7.5h1.5"
       class="newspaper-line"
-      class:newspaper-line1-animate={animate}
+      class:newspaper-line1-animate={shouldAnimate}
     />
     <path
       d="M12 10.5h1.5"
       class="newspaper-line"
-      class:newspaper-line2-animate={animate}
+      class:newspaper-line2-animate={shouldAnimate}
     />
     <path
       d="M6 13.5h7.5"
       class="newspaper-line"
-      class:newspaper-line3-animate={animate}
+      class:newspaper-line3-animate={shouldAnimate}
     />
     <path
       d="M6 16.5h7.5"
       class="newspaper-line"
-      class:newspaper-line4-animate={animate}
+      class:newspaper-line4-animate={shouldAnimate}
     />
   </svg>
 </div>

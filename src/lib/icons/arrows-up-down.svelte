@@ -8,50 +8,15 @@
     class: className = "",
   }: IconProps = $props();
 
-  let isInternal = $state(false);
-
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 500);
-  }
-
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-  }
-  $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
-    } else {
-      stopAnimation(true);
-    }
-  });
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -74,10 +39,10 @@
     stroke-linejoin="round"
     class="icon-svg"
   >
-    <g class="up-arrow-group" class:animate={animate}>
+    <g class="up-arrow-group" class:animate={shouldAnimate}>
       <path d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5" />
     </g>
-    <g class="down-arrow-group" class:animate={animate}>
+    <g class="down-arrow-group" class:animate={shouldAnimate}>
       <path d="M21 16.5L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
     </g>
   </svg>

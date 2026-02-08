@@ -8,50 +8,15 @@
     class: className = "",
   }: IconProps = $props();
 
-  let isInternal = $state(false);
-
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 600);
-  }
-
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-  }
-  $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
-    } else {
-      stopAnimation(true);
-    }
-  });
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -80,12 +45,12 @@
     <path
       d="M16.463 8.288a5.25 5.25 0 0 1 0 7.424"
       class="speakerwave-wave speakerwave-wave1"
-      class:speakerwave-wave-animate={animate}
+      class:speakerwave-wave-animate={shouldAnimate}
     />
     <path
       d="M19.114 5.636a9 9 0 0 1 0 12.728"
       class="speakerwave-wave speakerwave-wave2"
-      class:speakerwave-wave-animate={animate}
+      class:speakerwave-wave-animate={shouldAnimate}
     />
   </svg>
 </div>

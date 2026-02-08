@@ -8,7 +8,8 @@
     class: className = "",
   }: IconProps = $props();
 
-  let isInternal = $state(false);
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   let line1: SVGLineElement;
   let line2: SVGLineElement;
@@ -25,15 +26,7 @@
     easing: "cubic-bezier(0.68, -0.55, 0.265, 1.55)", // Approximate spring
   };
 
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
+  function startAnimation() {
     // Column 1
     line1?.animate([{ y2: 13.5 }, { y2: 10.5 }], defaultOptions);
     line2?.animate([{ y1: 16.5 }, { y1: 13.5 }], defaultOptions);
@@ -48,21 +41,9 @@
     line5?.animate([{ y2: 13.5 }, { y2: 10.5 }], defaultOptions);
     line6?.animate([{ y1: 16.5 }, { y1: 13.5 }], defaultOptions);
     circle3?.animate([{ cy: 15 }, { cy: 12 }], defaultOptions);
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 300);
   }
 
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-
+  function stopAnimation() {
     // Column 1
     line1?.animate([{ y2: 10.5 }, { y2: 13.5 }], defaultOptions);
     line2?.animate([{ y1: 13.5 }, { y1: 16.5 }], defaultOptions);
@@ -79,24 +60,19 @@
     circle3?.animate([{ cy: 12 }, { cy: 15 }], defaultOptions);
   }
   $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
+    if (shouldAnimate) {
+      startAnimation();
     } else {
-      stopAnimation(true);
+      stopAnimation();
     }
   });
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 

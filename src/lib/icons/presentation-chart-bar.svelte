@@ -8,50 +8,15 @@
     class: className = "",
   }: IconProps = $props();
 
-  let isInternal = $state(false);
-
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 700);
-  }
-
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-  }
-  $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
-    } else {
-      stopAnimation(true);
-    }
-  });
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -80,17 +45,17 @@
     <path
       d="M9 11.25v1.5"
       class="presentationchartbar-bar"
-      class:presentationchartbar-bar1-animate={animate}
+      class:presentationchartbar-bar1-animate={shouldAnimate}
     />
     <path
       d="M12 9v3.75"
       class="presentationchartbar-bar"
-      class:presentationchartbar-bar2-animate={animate}
+      class:presentationchartbar-bar2-animate={shouldAnimate}
     />
     <path
       d="M15 6.75v6"
       class="presentationchartbar-bar"
-      class:presentationchartbar-bar3-animate={animate}
+      class:presentationchartbar-bar3-animate={shouldAnimate}
     />
   </svg>
 </div>

@@ -8,52 +8,17 @@
     class: className = "",
   }: IconProps = $props();
 
-  let isInternal = $state(false);
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   let svgElement: SVGSVGElement;
 
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 500);
-  }
-
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-  }
-  $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
-    } else {
-      stopAnimation(true);
-    }
-  });
-
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -76,7 +41,7 @@
     stroke-linecap="round"
     stroke-linejoin="round"
     class="icon-svg"
-    class:animate={animate}
+    class:animate={shouldAnimate}
   >
     <path
       d="M11.9997 12.75C13.1482 12.75 14.2778 12.8307 15.3833 12.9867C16.4196 13.1329 17.2493 13.9534 17.2493 15C17.2493 18.7279 14.8988 21.75 11.9993 21.75C9.09977 21.75 6.74927 18.7279 6.74927 15C6.74927 13.9535 7.57879 13.1331 8.61502 12.9868C9.72081 12.8307 10.8508 12.75 11.9997 12.75Z"

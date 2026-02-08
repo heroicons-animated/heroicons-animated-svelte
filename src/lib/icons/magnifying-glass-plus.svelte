@@ -9,50 +9,15 @@
     ...restProps
   }: IconProps = $props();
 
-  let isInternal = $state(false);
-
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 800);
-  }
-
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-  }
-  $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
-    } else {
-      stopAnimation(true);
-    }
-  });
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -81,12 +46,12 @@
     />
     <path
       class="magnifyingglassplus-vertical"
-      class:magnifyingglassplus-draw={animate}
+      class:magnifyingglassplus-draw={shouldAnimate}
       d="M10.5 7.5v6"
     />
     <path
       class="magnifyingglassplus-horizontal"
-      class:magnifyingglassplus-draw={animate}
+      class:magnifyingglassplus-draw={shouldAnimate}
       d="M7.5 10.5h6"
     />
   </svg>

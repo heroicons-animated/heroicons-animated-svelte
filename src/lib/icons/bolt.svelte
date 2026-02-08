@@ -8,20 +8,13 @@
     class: className = "",
   }: IconProps = $props();
 
-  let isInternal = $state(false);
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   let pathElement: SVGPathElement;
   let pathAnimation: Animation | null = null;
 
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
+  function startAnimation() {
     if (pathElement) {
       const pathLength = pathElement.getTotalLength();
       pathElement.style.strokeDasharray = `${pathLength}`;
@@ -46,21 +39,9 @@
         }
       );
     }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 600);
   }
 
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-
+  function stopAnimation() {
     if (pathAnimation) {
       pathAnimation.cancel();
       pathAnimation = null;
@@ -73,24 +54,19 @@
     }
   }
   $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
+    if (shouldAnimate) {
+      startAnimation();
     } else {
-      stopAnimation(true);
+      stopAnimation();
     }
   });
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 

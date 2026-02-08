@@ -8,21 +8,14 @@
     class: className = "",
   }: IconProps = $props();
 
-  let isInternal = $state(false);
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   let headPath: SVGPathElement;
   let linePath: SVGPathElement;
   let lineAnimation: Animation | null = null;
 
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
+  function startAnimation() {
     // Animate line path morphing using Web Animations API
     if (linePath) {
       lineAnimation = linePath.animate(
@@ -34,21 +27,9 @@
         }
       );
     }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 400);
   }
 
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-
+  function stopAnimation() {
     if (lineAnimation) {
       lineAnimation.cancel();
       lineAnimation = null;
@@ -59,24 +40,19 @@
     }
   }
   $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
+    if (shouldAnimate) {
+      startAnimation();
     } else {
-      stopAnimation(true);
+      stopAnimation();
     }
   });
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -102,7 +78,7 @@
     <path
       bind:this={headPath}
       class="head-path"
-      class:animate={animate}
+      class:animate={shouldAnimate}
       d="M15.75 17.25 12 21m0 0-3.75-3.75"
     />
     <path bind:this={linePath} d="M12 21V3" />

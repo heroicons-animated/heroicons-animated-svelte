@@ -9,50 +9,15 @@
     ...restProps
   }: IconProps = $props();
 
-  let isInternal = $state(false);
-
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 500);
-  }
-
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-  }
-  $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
-    } else {
-      stopAnimation(true);
-    }
-  });
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -76,18 +41,26 @@
     stroke-linejoin="round"
     class="icon-svg"
   >
-    <path d="M8.25 3V4.5" class="pin-y" class:pin-y-animate={animate} />
-    <path d="M12 3V4.5" class="pin-y" class:pin-y-animate={animate} />
-    <path d="M15.75 3V4.5" class="pin-y" class:pin-y-animate={animate} />
-    <path d="M4.5 8.25H3" class="pin-x" class:pin-x-animate={animate} />
-    <path d="M4.5 12H3" class="pin-x" class:pin-x-animate={animate} />
-    <path d="M4.5 15.75H3" class="pin-x" class:pin-x-animate={animate} />
-    <path d="M21 8.25H19.5" class="pin-x" class:pin-x-animate={animate} />
-    <path d="M21 12H19.5" class="pin-x" class:pin-x-animate={animate} />
-    <path d="M21 15.75H19.5" class="pin-x" class:pin-x-animate={animate} />
-    <path d="M8.25 19.5V21" class="pin-y" class:pin-y-animate={animate} />
-    <path d="M12 19.5V21" class="pin-y" class:pin-y-animate={animate} />
-    <path d="M15.75 19.5V21" class="pin-y" class:pin-y-animate={animate} />
+    <path d="M8.25 3V4.5" class="pin-y" class:pin-y-animate={shouldAnimate} />
+    <path d="M12 3V4.5" class="pin-y" class:pin-y-animate={shouldAnimate} />
+    <path d="M15.75 3V4.5" class="pin-y" class:pin-y-animate={shouldAnimate} />
+    <path d="M4.5 8.25H3" class="pin-x" class:pin-x-animate={shouldAnimate} />
+    <path d="M4.5 12H3" class="pin-x" class:pin-x-animate={shouldAnimate} />
+    <path d="M4.5 15.75H3" class="pin-x" class:pin-x-animate={shouldAnimate} />
+    <path d="M21 8.25H19.5" class="pin-x" class:pin-x-animate={shouldAnimate} />
+    <path d="M21 12H19.5" class="pin-x" class:pin-x-animate={shouldAnimate} />
+    <path
+      d="M21 15.75H19.5"
+      class="pin-x"
+      class:pin-x-animate={shouldAnimate}
+    />
+    <path d="M8.25 19.5V21" class="pin-y" class:pin-y-animate={shouldAnimate} />
+    <path d="M12 19.5V21" class="pin-y" class:pin-y-animate={shouldAnimate} />
+    <path
+      d="M15.75 19.5V21"
+      class="pin-y"
+      class:pin-y-animate={shouldAnimate}
+    />
     <path
       d="M6.75 19.5H17.25C18.4926 19.5 19.5 18.4926 19.5 17.25V6.75C19.5 5.50736 18.4926 4.5 17.25 4.5H6.75C5.50736 4.5 4.5 5.50736 4.5 6.75V17.25C4.5 18.4926 5.50736 19.5 6.75 19.5ZM7.5 7.5H16.5V16.5H7.5V7.5Z"
     />

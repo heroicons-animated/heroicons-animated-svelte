@@ -9,50 +9,15 @@
     ...restProps
   }: IconProps = $props();
 
-  let isInternal = $state(false);
-
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 850);
-  }
-
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-  }
-  $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
-    } else {
-      stopAnimation(true);
-    }
-  });
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -82,37 +47,37 @@
     <path
       d="M8.25 6H15.75V8.25H8.25V6Z"
       class="calculator-screen"
-      class:calculator-screen-animate={animate}
+      class:calculator-screen-animate={shouldAnimate}
     />
     <path
       d="M8.25 11.25H8.2575V11.2575H8.25V11.25Z"
       class="calculator-btn calculator-btn0"
-      class:calculator-btn-animate={animate}
+      class:calculator-btn-animate={shouldAnimate}
     />
     <path
       d="M10.7476 11.25H10.7551V11.2575H10.7476V11.25Z"
       class="calculator-btn calculator-btn1"
-      class:calculator-btn-animate={animate}
+      class:calculator-btn-animate={shouldAnimate}
     />
     <path
       d="M13.2524 13.5H13.2599V13.5075H13.2524V13.5Z"
       class="calculator-btn calculator-btn2"
-      class:calculator-btn-animate={animate}
+      class:calculator-btn-animate={shouldAnimate}
     />
     <path
       d="M8.25 15.75H8.2575V15.7575H8.25V15.75Z"
       class="calculator-btn calculator-btn3"
-      class:calculator-btn-animate={animate}
+      class:calculator-btn-animate={shouldAnimate}
     />
     <path
       d="M15.75 11.25H15.7575V11.2575H15.75V11.25Z"
       class="calculator-btn calculator-btn4"
-      class:calculator-btn-animate={animate}
+      class:calculator-btn-animate={shouldAnimate}
     />
     <path
       d="M10.7476 18H10.7551V18.0075H10.7476V18Z"
       class="calculator-btn calculator-btn5"
-      class:calculator-btn-animate={animate}
+      class:calculator-btn-animate={shouldAnimate}
     />
     <path d="M8.25 13.5H8.2575V13.5075H8.25V13.5Z" />
     <path d="M8.25 18H8.2575V18.0075H8.25V18Z" />
@@ -125,7 +90,7 @@
     <path
       d="M15.75 15.75V18"
       class="calculator-enter"
-      class:calculator-enter-animate={animate}
+      class:calculator-enter-animate={shouldAnimate}
     />
   </svg>
 </div>

@@ -8,50 +8,15 @@
     class: className = "",
   }: IconProps = $props();
 
-  let isInternal = $state(false);
-
-  function startAnimation(controlled = false) {
-    if (!controlled) {
-      if (animate) {
-        return;
-      }
-      isInternal = true;
-      animate = true;
-    }
-
-    setTimeout(() => {
-      if (!controlled) {
-        isInternal = true;
-        animate = false;
-      }
-    }, 500);
-  }
-
-  function stopAnimation(controlled = false) {
-    if (!controlled) {
-      isInternal = true;
-      animate = false;
-    }
-  }
-  $effect(() => {
-    if (isInternal) {
-      isInternal = false;
-      return;
-    }
-
-    if (animate) {
-      startAnimation(true);
-    } else {
-      stopAnimation(true);
-    }
-  });
+  let isHovered = $state(false);
+  let shouldAnimate = $derived(animate || isHovered);
 
   function handleMouseEnter() {
-    startAnimation();
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    stopAnimation();
+    isHovered = false;
   }
 </script>
 
@@ -74,16 +39,16 @@
     stroke-linejoin="round"
     class="icon-svg"
   >
-    <g class="top-left-group" class:animate={animate}>
+    <g class="top-left-group" class:animate={shouldAnimate}>
       <path d="M9 9V4.5M9 9H4.5M9 9 3.75 3.75" />
     </g>
-    <g class="bottom-left-group" class:animate={animate}>
+    <g class="bottom-left-group" class:animate={shouldAnimate}>
       <path d="M9 15v4.5M9 15H4.5M9 15l-5.25 5.25" />
     </g>
-    <g class="top-right-group" class:animate={animate}>
+    <g class="top-right-group" class:animate={shouldAnimate}>
       <path d="M15 9h4.5M15 9V4.5M15 9l5.25-5.25" />
     </g>
-    <g class="bottom-right-group" class:animate={animate}>
+    <g class="bottom-right-group" class:animate={shouldAnimate}>
       <path d="M15 15h4.5M15 15v4.5m0-4.5 5.25 5.25" />
     </g>
   </svg>
