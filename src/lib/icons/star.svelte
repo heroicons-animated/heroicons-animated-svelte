@@ -1,33 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 600);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 600);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
+  export function stopAnimation() {
+    isAnimating = false;
+  }
 
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
+  export function setControlled(value: boolean) {
+    isControlled = value;
+  }
 
-function handleMouseEnter() {
-  if (!isControlled) startAnimation();
-}
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
 
-function handleMouseLeave() {
-  if (!isControlled) stopAnimation();
-}
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -56,31 +60,31 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-.icon-svg.star-burst {
-  animation: star-burst 0.6s ease-in-out forwards;
-}
+  .icon-svg.star-burst {
+    animation: star-burst 0.6s ease-in-out forwards;
+  }
 
-@keyframes star-burst {
-  0% {
-    transform: scale(1);
+  @keyframes star-burst {
+    0% {
+      transform: scale(1);
+    }
+    33% {
+      transform: scale(0.9);
+    }
+    66% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
-  33% {
-    transform: scale(0.9);
-  }
-  66% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
 </style>

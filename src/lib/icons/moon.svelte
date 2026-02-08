@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 500);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 500);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -62,42 +62,42 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-.moon-path {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .moon-path {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-.moon-path.moon-path-animate {
-  animation: moon-path-shake 0.5s ease-in-out forwards;
-}
+  .moon-path.moon-path-animate {
+    animation: moon-path-shake 0.5s ease-in-out forwards;
+  }
 
-@keyframes moon-path-shake {
-  0% {
-    transform: rotate(0deg);
+  @keyframes moon-path-shake {
+    0% {
+      transform: rotate(0deg);
+    }
+    20% {
+      transform: rotate(-10deg);
+    }
+    40% {
+      transform: rotate(10deg);
+    }
+    60% {
+      transform: rotate(-5deg);
+    }
+    80% {
+      transform: rotate(5deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
   }
-  20% {
-    transform: rotate(-10deg);
-  }
-  40% {
-    transform: rotate(10deg);
-  }
-  60% {
-    transform: rotate(-5deg);
-  }
-  80% {
-    transform: rotate(5deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
-}
 </style>

@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 800);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 800);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -70,71 +70,71 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-.creditcard-line {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
-  opacity: 1;
-}
-
-/* Phase 1: hide (pathLength 0, opacity 0). Phase 2: show (pathLength 1, opacity 1). Delay i*0.1, duration 0.3s each. */
-.creditcard-line.creditcard-line1.creditcard-animate {
-  animation: creditcard-seq1 0.8s ease-out forwards;
-}
-
-.creditcard-line.creditcard-line2.creditcard-animate {
-  animation: creditcard-seq2 0.8s ease-out forwards;
-}
-
-/* Line 1: hide 0–0.3s, show 0.4–0.7s. Line 2: hide 0.1–0.4s, show 0.5–0.8s (delay i*0.1, duration 0.3). */
-@keyframes creditcard-seq1 {
-  0% {
+  .creditcard-line {
+    stroke-dasharray: 1;
     stroke-dashoffset: 0;
     opacity: 1;
   }
-  37.5% {
-    stroke-dashoffset: 1;
-    opacity: 0;
-  }
-  50% {
-    stroke-dashoffset: 1;
-    opacity: 0;
-  }
-  87.5% {
-    stroke-dashoffset: 0;
-    opacity: 1;
-  }
-  100% {
-    stroke-dashoffset: 0;
-    opacity: 1;
-  }
-}
 
-@keyframes creditcard-seq2 {
-  0%,
-  12.5% {
-    stroke-dashoffset: 0;
-    opacity: 1;
+  /* Phase 1: hide (pathLength 0, opacity 0). Phase 2: show (pathLength 1, opacity 1). Delay i*0.1, duration 0.3s each. */
+  .creditcard-line.creditcard-line1.creditcard-animate {
+    animation: creditcard-seq1 0.8s ease-out forwards;
   }
-  50% {
-    stroke-dashoffset: 1;
-    opacity: 0;
+
+  .creditcard-line.creditcard-line2.creditcard-animate {
+    animation: creditcard-seq2 0.8s ease-out forwards;
   }
-  62.5% {
-    stroke-dashoffset: 1;
-    opacity: 0;
+
+  /* Line 1: hide 0–0.3s, show 0.4–0.7s. Line 2: hide 0.1–0.4s, show 0.5–0.8s (delay i*0.1, duration 0.3). */
+  @keyframes creditcard-seq1 {
+    0% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+    37.5% {
+      stroke-dashoffset: 1;
+      opacity: 0;
+    }
+    50% {
+      stroke-dashoffset: 1;
+      opacity: 0;
+    }
+    87.5% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+    100% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
   }
-  100% {
-    stroke-dashoffset: 0;
-    opacity: 1;
+
+  @keyframes creditcard-seq2 {
+    0%,
+    12.5% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+    50% {
+      stroke-dashoffset: 1;
+      opacity: 0;
+    }
+    62.5% {
+      stroke-dashoffset: 1;
+      opacity: 0;
+    }
+    100% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
   }
-}
 </style>

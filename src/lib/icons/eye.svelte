@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 400);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 400);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -68,50 +68,50 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.eye-iris {
-  transform-origin: 50% 50%;
-}
-.eye-pupil {
-  transform-origin: 50% 50%;
-}
-
-.eye-iris.eye-squeeze {
-  animation: eye-iris-squeeze 0.4s ease-in-out forwards;
-}
-.eye-pupil.eye-squeeze {
-  animation: eye-pupil-squeeze 0.4s ease-in-out forwards;
-}
-
-@keyframes eye-iris-squeeze {
-  0%,
-  100% {
-    transform: scaleY(1);
-    opacity: 1;
+  div {
+    display: inline-block;
   }
-  50% {
-    transform: scaleY(0.1);
-    opacity: 0.3;
-  }
-}
 
-@keyframes eye-pupil-squeeze {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 1;
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-  50% {
-    transform: scale(0.3);
-    opacity: 0.3;
+
+  .eye-iris {
+    transform-origin: 50% 50%;
   }
-}
+  .eye-pupil {
+    transform-origin: 50% 50%;
+  }
+
+  .eye-iris.eye-squeeze {
+    animation: eye-iris-squeeze 0.4s ease-in-out forwards;
+  }
+  .eye-pupil.eye-squeeze {
+    animation: eye-pupil-squeeze 0.4s ease-in-out forwards;
+  }
+
+  @keyframes eye-iris-squeeze {
+    0%,
+    100% {
+      transform: scaleY(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scaleY(0.1);
+      opacity: 0.3;
+    }
+  }
+
+  @keyframes eye-pupil-squeeze {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(0.3);
+      opacity: 0.3;
+    }
+  }
 </style>

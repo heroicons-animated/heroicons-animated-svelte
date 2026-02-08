@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 2000);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 2000);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -107,47 +107,47 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-/* Match React: pathLength [0.1,0.3,0.5,0.7,0.9,1] 2s; opacity [0,0,1,1,1] 0.5s */
-.fingerprint-path {
-  stroke-dasharray: 1;
-}
-.fingerprint-path.fingerprint-path-animate {
-  animation: fingerprint-draw 2s ease-out forwards;
-}
+  /* Match React: pathLength [0.1,0.3,0.5,0.7,0.9,1] 2s; opacity [0,0,1,1,1] 0.5s */
+  .fingerprint-path {
+    stroke-dasharray: 1;
+  }
+  .fingerprint-path.fingerprint-path-animate {
+    animation: fingerprint-draw 2s ease-out forwards;
+  }
 
-@keyframes fingerprint-draw {
-  0% {
-    stroke-dashoffset: 0.9;
-    opacity: 0;
+  @keyframes fingerprint-draw {
+    0% {
+      stroke-dashoffset: 0.9;
+      opacity: 0;
+    }
+    20% {
+      stroke-dashoffset: 0.7;
+      opacity: 0;
+    }
+    25% {
+      opacity: 1;
+    }
+    40% {
+      stroke-dashoffset: 0.5;
+    }
+    60% {
+      stroke-dashoffset: 0.3;
+    }
+    80% {
+      stroke-dashoffset: 0.1;
+    }
+    100% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
   }
-  20% {
-    stroke-dashoffset: 0.7;
-    opacity: 0;
-  }
-  25% {
-    opacity: 1;
-  }
-  40% {
-    stroke-dashoffset: 0.5;
-  }
-  60% {
-    stroke-dashoffset: 0.3;
-  }
-  80% {
-    stroke-dashoffset: 0.1;
-  }
-  100% {
-    stroke-dashoffset: 0;
-    opacity: 1;
-  }
-}
 </style>

@@ -1,33 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 400);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 400);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
+  export function stopAnimation() {
+    isAnimating = false;
+  }
 
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
+  export function setControlled(value: boolean) {
+    isControlled = value;
+  }
 
-function handleMouseEnter() {
-  if (!isControlled) startAnimation();
-}
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
 
-function handleMouseLeave() {
-  if (!isControlled) stopAnimation();
-}
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -56,26 +60,26 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.icon-svg.square3stack3d-stretch {
-  animation: square3stack3d-stretch 0.4s ease-in-out forwards;
-}
-
-@keyframes square3stack3d-stretch {
-  0%,
-  100% {
-    transform: scaleY(1);
+  div {
+    display: inline-block;
   }
-  50% {
-    transform: scaleY(1.08);
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-}
+
+  .icon-svg.square3stack3d-stretch {
+    animation: square3stack3d-stretch 0.4s ease-in-out forwards;
+  }
+
+  @keyframes square3stack3d-stretch {
+    0%,
+    100% {
+      transform: scaleY(1);
+    }
+    50% {
+      transform: scaleY(1.08);
+    }
+  }
 </style>

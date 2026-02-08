@@ -48,16 +48,22 @@
   });
 
   onDestroy(() => {
-    if (playTimeout) clearTimeout(playTimeout);
+    if (playTimeout) {
+      clearTimeout(playTimeout);
+    }
   });
 
   function handleMouseEnter() {
-    if (isTouch) return;
+    if (isTouch) {
+      return;
+    }
     iconRef?.startAnimation?.();
   }
 
   function handleMouseLeave() {
-    if (isTouch) return;
+    if (isTouch) {
+      return;
+    }
     iconRef?.stopAnimation?.();
   }
 
@@ -65,7 +71,9 @@
     if (isAnimating) {
       iconRef?.stopAnimation?.();
       isAnimating = false;
-      if (playTimeout) clearTimeout(playTimeout);
+      if (playTimeout) {
+        clearTimeout(playTimeout);
+      }
       return;
     }
 
@@ -83,7 +91,9 @@
   async function handleCopyCLI(event: Event) {
     event.preventDefault();
     event.stopPropagation();
-    if (cliState !== "idle") return;
+    if (cliState !== "idle") {
+      return;
+    }
     try {
       await navigator.clipboard.writeText(getCLICommand($packageManager, name));
       cliState = "done";
@@ -97,13 +107,17 @@
   async function handleCopyCode(event: Event) {
     event.preventDefault();
     event.stopPropagation();
-    if (codeState !== "idle") return;
+    if (codeState !== "idle") {
+      return;
+    }
     try {
       codeState = "loading";
       const response = await fetch(`/r/${name}.json`);
       const data = await response.json();
       const content = data?.files?.[0]?.content;
-      if (!content) throw new Error("Missing content");
+      if (!content) {
+        throw new Error("Missing content");
+      }
       await navigator.clipboard.writeText(content);
       codeState = "done";
       setTimeout(() => (codeState = "idle"), 2000);
@@ -195,10 +209,11 @@
             </IconState>
           </TooltipTrigger>
           <TooltipContent>
-            Copy <code
-              class="rounded-[4px] bg-neutral-50/20 px-1 py-0.5 font-mono"
-              >.{ext}</code
-            > code
+            Copy
+            <code class="rounded-[4px] bg-neutral-50/20 px-1 py-0.5 font-mono">
+              .{ext}
+            </code>
+            code
           </TooltipContent>
         </Tooltip>
 
@@ -220,10 +235,11 @@
             </IconState>
           </TooltipTrigger>
           <TooltipContent>
-            Copy <code
-              class="rounded-[4px] bg-neutral-50/20 px-1 py-0.5 font-mono"
-              >shadcn/cli</code
-            > command
+            Copy
+            <code class="rounded-[4px] bg-neutral-50/20 px-1 py-0.5 font-mono">
+              shadcn/cli
+            </code>
+            command
           </TooltipContent>
         </Tooltip>
       </div>

@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 1600);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 1600);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -72,50 +72,50 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-/* Cursor: x [0,0,-3,0] y [0,-4,0,0] 1s bounce 0.3 (approx cubic-bezier) */
-.cursor-arrow-ripple-cursor.cursor-move {
-  animation: cursor-ripple-move 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-@keyframes cursor-ripple-move {
-  0% {
-    transform: translate(0, 0);
+  div {
+    display: inline-block;
   }
-  33% {
-    transform: translate(0, -4px);
-  }
-  66% {
-    transform: translate(-3px, 0);
-  }
-  100% {
-    transform: translate(0, 0);
-  }
-}
 
-/* Ripple 0 (inner): opacity [0,1] delay 1s duration 0.3s */
-.cursor-arrow-ripple-r0.ripple-fade {
-  animation: ripple-fade-in 0.3s ease-out 1s forwards;
-  opacity: 0;
-}
-
-/* Ripple 1 (outer): opacity [0,1] delay 1.3s duration 0.3s */
-.cursor-arrow-ripple-r1.ripple-fade {
-  animation: ripple-fade-in 0.3s ease-out 1.3s forwards;
-  opacity: 0;
-}
-
-@keyframes ripple-fade-in {
-  to {
-    opacity: 1;
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-}
+
+  /* Cursor: x [0,0,-3,0] y [0,-4,0,0] 1s bounce 0.3 (approx cubic-bezier) */
+  .cursor-arrow-ripple-cursor.cursor-move {
+    animation: cursor-ripple-move 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  @keyframes cursor-ripple-move {
+    0% {
+      transform: translate(0, 0);
+    }
+    33% {
+      transform: translate(0, -4px);
+    }
+    66% {
+      transform: translate(-3px, 0);
+    }
+    100% {
+      transform: translate(0, 0);
+    }
+  }
+
+  /* Ripple 0 (inner): opacity [0,1] delay 1s duration 0.3s */
+  .cursor-arrow-ripple-r0.ripple-fade {
+    animation: ripple-fade-in 0.3s ease-out 1s forwards;
+    opacity: 0;
+  }
+
+  /* Ripple 1 (outer): opacity [0,1] delay 1.3s duration 0.3s */
+  .cursor-arrow-ripple-r1.ripple-fade {
+    animation: ripple-fade-in 0.3s ease-out 1.3s forwards;
+    opacity: 0;
+  }
+
+  @keyframes ripple-fade-in {
+    to {
+      opacity: 1;
+    }
+  }
 </style>

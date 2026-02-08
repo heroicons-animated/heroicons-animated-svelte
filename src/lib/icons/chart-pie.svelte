@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 400);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 400);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -63,32 +63,32 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-/* Second path: translateX 1.1, translateY -1.1, spring (≈ cubic-bezier) matches React PATH_VARIANTS */
-.chart-pie-wedge {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.chart-pie-wedge.chart-pie-wedge-animate {
-  animation: chart-pie-wedge-move 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)
-    forwards;
-}
-
-@keyframes chart-pie-wedge-move {
-  0% {
-    transform: translate(0, 0);
+  div {
+    display: inline-block;
   }
-  100% {
-    transform: translate(1.1px, -1.1px);
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-}
+
+  /* Second path: translateX 1.1, translateY -1.1, spring (≈ cubic-bezier) matches React PATH_VARIANTS */
+  .chart-pie-wedge {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .chart-pie-wedge.chart-pie-wedge-animate {
+    animation: chart-pie-wedge-move 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)
+      forwards;
+  }
+
+  @keyframes chart-pie-wedge-move {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(1.1px, -1.1px);
+    }
+  }
 </style>

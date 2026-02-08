@@ -6,13 +6,17 @@
 
   let similarIcons = $derived.by(() => {
     const currentIcon = props.currentIcon;
-    if (!currentIcon) return [];
+    if (!currentIcon) {
+      return [];
+    }
 
     const currentKeywords = new Set(
       Array.isArray(currentIcon.keywords) ? currentIcon.keywords : []
     );
 
-    const scored = ICON_MANIFEST.filter((icon) => icon.name !== currentIcon.name)
+    const scored = ICON_MANIFEST.filter(
+      (icon) => icon.name !== currentIcon.name
+    )
       .map((icon) => {
         const sharedKeywords = icon.keywords.filter((kw) =>
           currentKeywords.has(kw)
@@ -27,11 +31,14 @@
   });
 </script>
 
-
 {#if similarIcons.length === 0}
-  <div class="view-container flex-1 border-neutral-200 pb-[60px] xl:border-x dark:border-neutral-800"></div>
+  <div
+    class="view-container flex-1 border-neutral-200 pb-[60px] xl:border-x dark:border-neutral-800"
+  ></div>
 {:else}
-  <div class="view-container border-neutral-200 pt-12 pb-[60px] xl:border-x xl:pt-4 dark:border-neutral-800">
+  <div
+    class="view-container border-neutral-200 pt-12 pb-[60px] xl:border-x xl:pt-4 dark:border-neutral-800"
+  >
     <h2 class="mb-4 font-sans text-xl">Similar Icons</h2>
     <div class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-2">
       {#each similarIcons as icon (icon.name)}

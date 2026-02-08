@@ -1,82 +1,82 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let pathElement: SVGPathElement;
-let pathAnimation: Animation | null = null;
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let pathElement: SVGPathElement;
+  let pathAnimation: Animation | null = null;
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-// Must match React PATH_VARIANTS exactly: pathLength [0,1], opacity [0,1], scale [0.5,1], duration 0.4s
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
+  // Must match React PATH_VARIANTS exactly: pathLength [0,1], opacity [0,1], scale [0.5,1], duration 0.4s
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
 
-    if (pathElement) {
-      const len = pathElement.getTotalLength();
-      pathElement.style.strokeDasharray = `${len}`;
-      pathElement.style.strokeDashoffset = `${len}`;
-      pathElement.style.opacity = "0";
-      pathElement.style.transform = "scale(0.5)";
-      pathElement.style.transformOrigin = "center";
+      if (pathElement) {
+        const len = pathElement.getTotalLength();
+        pathElement.style.strokeDasharray = `${len}`;
+        pathElement.style.strokeDashoffset = `${len}`;
+        pathElement.style.opacity = "0";
+        pathElement.style.transform = "scale(0.5)";
+        pathElement.style.transformOrigin = "center";
 
-      pathAnimation = pathElement.animate(
-        [
+        pathAnimation = pathElement.animate(
+          [
+            {
+              strokeDashoffset: len,
+              opacity: 0,
+              transform: "scale(0.5)",
+            },
+            {
+              strokeDashoffset: 0,
+              opacity: 1,
+              transform: "scale(1)",
+            },
+          ],
           {
-            strokeDashoffset: len,
-            opacity: 0,
-            transform: "scale(0.5)",
-          },
-          {
-            strokeDashoffset: 0,
-            opacity: 1,
-            transform: "scale(1)",
-          },
-        ],
-        {
-          duration: 400,
-          easing: "ease-out",
-          fill: "forwards",
-        }
-      );
+            duration: 400,
+            easing: "ease-out",
+            fill: "forwards",
+          }
+        );
+      }
+
+      setTimeout(() => {
+        isAnimating = false;
+      }, 400);
+    }
+  }
+
+  export function stopAnimation() {
+    isAnimating = false;
+
+    if (pathAnimation) {
+      pathAnimation.cancel();
+      pathAnimation = null;
     }
 
-    setTimeout(() => {
-      isAnimating = false;
-    }, 400);
-  }
-}
-
-export function stopAnimation() {
-  isAnimating = false;
-
-  if (pathAnimation) {
-    pathAnimation.cancel();
-    pathAnimation = null;
+    if (pathElement) {
+      pathElement.style.strokeDasharray = "";
+      pathElement.style.strokeDashoffset = "";
+      pathElement.style.opacity = "";
+      pathElement.style.transform = "";
+    }
   }
 
-  if (pathElement) {
-    pathElement.style.strokeDasharray = "";
-    pathElement.style.strokeDashoffset = "";
-    pathElement.style.opacity = "";
-    pathElement.style.transform = "";
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
 
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
   }
-}
 </script>
 
 <div
@@ -102,17 +102,17 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-.icon-svg path {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg path {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 </style>

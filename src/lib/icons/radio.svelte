@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 500);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 500);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -109,59 +109,59 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.radio-antenna {
-  transform-origin: 3.75px 7.5px;
-}
-
-.radio-antenna.radio-antenna-tilt {
-  animation: radio-antenna-tilt 0.4s ease-out forwards;
-}
-
-@keyframes radio-antenna-tilt {
-  to {
-    transform: rotate(-10deg);
+  div {
+    display: inline-block;
   }
-}
 
-.radio-speaker {
-  transform-origin: center;
-  opacity: 1;
-  transform: scale(1);
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-.radio-speaker.radio-speaker-pulse {
-  animation: radio-speaker-pulse 0.5s ease-in-out forwards;
-}
+  .radio-antenna {
+    transform-origin: 3.75px 7.5px;
+  }
 
-@keyframes radio-speaker-pulse {
-  0% {
+  .radio-antenna.radio-antenna-tilt {
+    animation: radio-antenna-tilt 0.4s ease-out forwards;
+  }
+
+  @keyframes radio-antenna-tilt {
+    to {
+      transform: rotate(-10deg);
+    }
+  }
+
+  .radio-speaker {
+    transform-origin: center;
     opacity: 1;
     transform: scale(1);
   }
-  25% {
-    opacity: 0.7;
-    transform: scale(1.15);
+
+  .radio-speaker.radio-speaker-pulse {
+    animation: radio-speaker-pulse 0.5s ease-in-out forwards;
   }
-  50% {
-    opacity: 1;
-    transform: scale(1);
+
+  @keyframes radio-speaker-pulse {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    25% {
+      opacity: 0.7;
+      transform: scale(1.15);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    75% {
+      opacity: 0.8;
+      transform: scale(1.1);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
-  75% {
-    opacity: 0.8;
-    transform: scale(1.1);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
 </style>

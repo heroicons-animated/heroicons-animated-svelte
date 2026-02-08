@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 800);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 800);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -74,47 +74,47 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-.signal-wave {
-  transform-origin: 12px 12px;
-  opacity: 1;
-  transform: scale(1);
-}
-
-.signal-wave.signal-wave-pulse {
-  animation: signal-wave-pulse 0.4s ease-in-out forwards;
-}
-
-.signal-wave-1.signal-wave-pulse {
-  animation-delay: 0s;
-}
-.signal-wave-2.signal-wave-pulse {
-  animation-delay: 0.2s;
-}
-.signal-wave-3.signal-wave-pulse {
-  animation-delay: 0.4s;
-}
-
-@keyframes signal-wave-pulse {
-  0% {
+  .signal-wave {
+    transform-origin: 12px 12px;
     opacity: 1;
     transform: scale(1);
   }
-  50% {
-    opacity: 0;
-    transform: scale(0);
+
+  .signal-wave.signal-wave-pulse {
+    animation: signal-wave-pulse 0.4s ease-in-out forwards;
   }
-  100% {
-    opacity: 1;
-    transform: scale(1);
+
+  .signal-wave-1.signal-wave-pulse {
+    animation-delay: 0s;
   }
-}
+  .signal-wave-2.signal-wave-pulse {
+    animation-delay: 0.2s;
+  }
+  .signal-wave-3.signal-wave-pulse {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes signal-wave-pulse {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0;
+      transform: scale(0);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 </style>

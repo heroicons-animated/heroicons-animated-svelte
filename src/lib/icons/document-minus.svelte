@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 400);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 400);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -65,33 +65,33 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.documentminus-line {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
-  opacity: 1;
-}
-
-.documentminus-line.documentminus-draw {
-  animation: documentminus-draw 0.4s ease-in-out forwards;
-}
-
-@keyframes documentminus-draw {
-  from {
-    stroke-dashoffset: 1;
-    opacity: 0;
+  div {
+    display: inline-block;
   }
-  to {
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .documentminus-line {
+    stroke-dasharray: 1;
     stroke-dashoffset: 0;
     opacity: 1;
   }
-}
+
+  .documentminus-line.documentminus-draw {
+    animation: documentminus-draw 0.4s ease-in-out forwards;
+  }
+
+  @keyframes documentminus-draw {
+    from {
+      stroke-dashoffset: 1;
+      opacity: 0;
+    }
+    to {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+  }
 </style>

@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 600);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 600);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -82,64 +82,64 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.share-line {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
-  opacity: 1;
-}
-
-.share-line.share-line-draw {
-  animation: share-line-draw 0.4s ease-out forwards;
-}
-
-@keyframes share-line-draw {
-  0% {
-    stroke-dashoffset: 1;
-    opacity: 0;
+  div {
+    display: inline-block;
   }
-  100% {
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .share-line {
+    stroke-dasharray: 1;
     stroke-dashoffset: 0;
     opacity: 1;
   }
-}
 
-.share-node {
-  transform-origin: center;
-  transform-box: fill-box;
-}
-
-.share-node.share-node-pop {
-  animation: share-node-pop 0.3s ease-out forwards;
-}
-
-.share-node-0.share-node-pop {
-  animation-delay: 0s;
-}
-.share-node-1.share-node-pop {
-  animation-delay: 0.15s;
-}
-.share-node-2.share-node-pop {
-  animation-delay: 0.3s;
-}
-
-@keyframes share-node-pop {
-  0% {
-    transform: scale(1);
+  .share-line.share-line-draw {
+    animation: share-line-draw 0.4s ease-out forwards;
   }
-  50% {
-    transform: scale(1.3);
+
+  @keyframes share-line-draw {
+    0% {
+      stroke-dashoffset: 1;
+      opacity: 0;
+    }
+    100% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
   }
-  100% {
-    transform: scale(1);
+
+  .share-node {
+    transform-origin: center;
+    transform-box: fill-box;
   }
-}
+
+  .share-node.share-node-pop {
+    animation: share-node-pop 0.3s ease-out forwards;
+  }
+
+  .share-node-0.share-node-pop {
+    animation-delay: 0s;
+  }
+  .share-node-1.share-node-pop {
+    animation-delay: 0.15s;
+  }
+  .share-node-2.share-node-pop {
+    animation-delay: 0.3s;
+  }
+
+  @keyframes share-node-pop {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.3);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
 </style>

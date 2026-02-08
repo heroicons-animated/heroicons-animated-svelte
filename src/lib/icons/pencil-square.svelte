@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 600);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 600);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -65,36 +65,36 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.pencilsquare-pen {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.pencilsquare-pen.pencilsquare-pen-animate {
-  animation: pencilsquare-pen-wiggle 0.6s ease-in-out forwards;
-}
-
-@keyframes pencilsquare-pen-wiggle {
-  0% {
-    transform: rotate(0deg) translate(0, 0);
+  div {
+    display: inline-block;
   }
-  33% {
-    transform: rotate(-0.5deg) translate(-1px, 1px);
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-  66% {
-    transform: rotate(0.5deg) translate(1px, -1px);
+
+  .pencilsquare-pen {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-  100% {
-    transform: rotate(-0.5deg) translate(0, 0);
+
+  .pencilsquare-pen.pencilsquare-pen-animate {
+    animation: pencilsquare-pen-wiggle 0.6s ease-in-out forwards;
   }
-}
+
+  @keyframes pencilsquare-pen-wiggle {
+    0% {
+      transform: rotate(0deg) translate(0, 0);
+    }
+    33% {
+      transform: rotate(-0.5deg) translate(-1px, 1px);
+    }
+    66% {
+      transform: rotate(0.5deg) translate(1px, -1px);
+    }
+    100% {
+      transform: rotate(-0.5deg) translate(0, 0);
+    }
+  }
 </style>

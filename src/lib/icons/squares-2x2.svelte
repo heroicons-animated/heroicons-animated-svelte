@@ -1,33 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 700);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 700);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
+  export function stopAnimation() {
+    isAnimating = false;
+  }
 
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
+  export function setControlled(value: boolean) {
+    isControlled = value;
+  }
 
-function handleMouseEnter() {
-  if (!isControlled) startAnimation();
-}
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
 
-function handleMouseLeave() {
-  if (!isControlled) stopAnimation();
-}
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -72,46 +76,46 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.squares2x2-cell {
-  transform-origin: center;
-  opacity: 1;
-  transform: scale(1);
-}
-
-.squares2x2-cell.squares2x2-pop {
-  animation: squares2x2-pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-.squares2x2-0.squares2x2-pop {
-  animation-delay: 0s;
-}
-.squares2x2-1.squares2x2-pop {
-  animation-delay: 0.08s;
-}
-.squares2x2-2.squares2x2-pop {
-  animation-delay: 0.24s;
-}
-.squares2x2-3.squares2x2-pop {
-  animation-delay: 0.32s;
-}
-
-@keyframes squares2x2-pop {
-  0% {
-    opacity: 0;
-    transform: scale(0.6);
+  div {
+    display: inline-block;
   }
-  100% {
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .squares2x2-cell {
+    transform-origin: center;
     opacity: 1;
     transform: scale(1);
   }
-}
+
+  .squares2x2-cell.squares2x2-pop {
+    animation: squares2x2-pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  .squares2x2-0.squares2x2-pop {
+    animation-delay: 0s;
+  }
+  .squares2x2-1.squares2x2-pop {
+    animation-delay: 0.08s;
+  }
+  .squares2x2-2.squares2x2-pop {
+    animation-delay: 0.24s;
+  }
+  .squares2x2-3.squares2x2-pop {
+    animation-delay: 0.32s;
+  }
+
+  @keyframes squares2x2-pop {
+    0% {
+      opacity: 0;
+      transform: scale(0.6);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 </style>

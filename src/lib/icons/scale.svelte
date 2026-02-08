@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 1200);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 1200);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -70,42 +70,42 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-.scale-balance {
-  transform-origin: 12px 4.5px;
-  transform: rotate(0deg);
-}
-
-.scale-balance.scale-tilt {
-  animation: scale-tilt 1.2s ease-in-out forwards;
-}
-
-@keyframes scale-tilt {
-  0% {
+  .scale-balance {
+    transform-origin: 12px 4.5px;
     transform: rotate(0deg);
   }
-  20% {
-    transform: rotate(8deg);
+
+  .scale-balance.scale-tilt {
+    animation: scale-tilt 1.2s ease-in-out forwards;
   }
-  40% {
-    transform: rotate(-8deg);
+
+  @keyframes scale-tilt {
+    0% {
+      transform: rotate(0deg);
+    }
+    20% {
+      transform: rotate(8deg);
+    }
+    40% {
+      transform: rotate(-8deg);
+    }
+    60% {
+      transform: rotate(4deg);
+    }
+    80% {
+      transform: rotate(-4deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
   }
-  60% {
-    transform: rotate(4deg);
-  }
-  80% {
-    transform: rotate(-4deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
-}
 </style>

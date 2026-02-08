@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 600);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 600);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -71,40 +71,40 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-  transition: transform 0.3s ease;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.3s ease;
+  }
 
-.lightbulb-bulb {
-  fill: currentColor;
-  fill-opacity: 0;
-}
-
-.lightbulb-bulb.lightbulb-glow {
-  animation: lightbulb-glow 0.6s ease-in-out forwards;
-}
-
-@keyframes lightbulb-glow {
-  0% {
+  .lightbulb-bulb {
+    fill: currentColor;
     fill-opacity: 0;
   }
-  25% {
-    fill-opacity: 1;
+
+  .lightbulb-bulb.lightbulb-glow {
+    animation: lightbulb-glow 0.6s ease-in-out forwards;
   }
-  50% {
-    fill-opacity: 0;
+
+  @keyframes lightbulb-glow {
+    0% {
+      fill-opacity: 0;
+    }
+    25% {
+      fill-opacity: 1;
+    }
+    50% {
+      fill-opacity: 0;
+    }
+    75% {
+      fill-opacity: 1;
+    }
+    100% {
+      fill-opacity: 0;
+    }
   }
-  75% {
-    fill-opacity: 1;
-  }
-  100% {
-    fill-opacity: 0;
-  }
-}
 </style>

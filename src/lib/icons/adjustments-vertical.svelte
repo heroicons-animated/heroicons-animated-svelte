@@ -1,82 +1,82 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
-let line1: SVGLineElement;
-let line2: SVGLineElement;
-let circle1: SVGCircleElement;
-let line3: SVGLineElement;
-let line4: SVGLineElement;
-let circle2: SVGCircleElement;
-let line5: SVGLineElement;
-let line6: SVGLineElement;
-let circle3: SVGCircleElement;
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
+  let line1: SVGLineElement;
+  let line2: SVGLineElement;
+  let circle1: SVGCircleElement;
+  let line3: SVGLineElement;
+  let line4: SVGLineElement;
+  let circle2: SVGCircleElement;
+  let line5: SVGLineElement;
+  let line6: SVGLineElement;
+  let circle3: SVGCircleElement;
 
-const defaultOptions = {
-  duration: 300,
-  easing: "cubic-bezier(0.68, -0.55, 0.265, 1.55)", // Approximate spring
-};
+  const defaultOptions = {
+    duration: 300,
+    easing: "cubic-bezier(0.68, -0.55, 0.265, 1.55)", // Approximate spring
+  };
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+
+      // Column 1
+      line1?.animate([{ y2: 13.5 }, { y2: 10.5 }], defaultOptions);
+      line2?.animate([{ y1: 16.5 }, { y1: 13.5 }], defaultOptions);
+      circle1?.animate([{ cy: 15 }, { cy: 12 }], defaultOptions);
+
+      // Column 2
+      line3?.animate([{ y2: 7.5 }, { y2: 10.5 }], defaultOptions);
+      line4?.animate([{ y1: 10.5 }, { y1: 13.5 }], defaultOptions);
+      circle2?.animate([{ cy: 9 }, { cy: 12 }], defaultOptions);
+
+      // Column 3
+      line5?.animate([{ y2: 13.5 }, { y2: 10.5 }], defaultOptions);
+      line6?.animate([{ y1: 16.5 }, { y1: 13.5 }], defaultOptions);
+      circle3?.animate([{ cy: 15 }, { cy: 12 }], defaultOptions);
+
+      setTimeout(() => {
+        isAnimating = false;
+      }, 300);
+    }
+  }
+
+  export function stopAnimation() {
+    isAnimating = false;
 
     // Column 1
-    line1?.animate([{ y2: 13.5 }, { y2: 10.5 }], defaultOptions);
-    line2?.animate([{ y1: 16.5 }, { y1: 13.5 }], defaultOptions);
-    circle1?.animate([{ cy: 15 }, { cy: 12 }], defaultOptions);
+    line1?.animate([{ y2: 10.5 }, { y2: 13.5 }], defaultOptions);
+    line2?.animate([{ y1: 13.5 }, { y1: 16.5 }], defaultOptions);
+    circle1?.animate([{ cy: 12 }, { cy: 15 }], defaultOptions);
 
     // Column 2
-    line3?.animate([{ y2: 7.5 }, { y2: 10.5 }], defaultOptions);
-    line4?.animate([{ y1: 10.5 }, { y1: 13.5 }], defaultOptions);
-    circle2?.animate([{ cy: 9 }, { cy: 12 }], defaultOptions);
+    line3?.animate([{ y2: 10.5 }, { y2: 7.5 }], defaultOptions);
+    line4?.animate([{ y1: 13.5 }, { y1: 10.5 }], defaultOptions);
+    circle2?.animate([{ cy: 12 }, { cy: 9 }], defaultOptions);
 
     // Column 3
-    line5?.animate([{ y2: 13.5 }, { y2: 10.5 }], defaultOptions);
-    line6?.animate([{ y1: 16.5 }, { y1: 13.5 }], defaultOptions);
-    circle3?.animate([{ cy: 15 }, { cy: 12 }], defaultOptions);
-
-    setTimeout(() => {
-      isAnimating = false;
-    }, 300);
+    line5?.animate([{ y2: 10.5 }, { y2: 13.5 }], defaultOptions);
+    line6?.animate([{ y1: 13.5 }, { y1: 16.5 }], defaultOptions);
+    circle3?.animate([{ cy: 12 }, { cy: 15 }], defaultOptions);
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-
-  // Column 1
-  line1?.animate([{ y2: 10.5 }, { y2: 13.5 }], defaultOptions);
-  line2?.animate([{ y1: 13.5 }, { y1: 16.5 }], defaultOptions);
-  circle1?.animate([{ cy: 12 }, { cy: 15 }], defaultOptions);
-
-  // Column 2
-  line3?.animate([{ y2: 10.5 }, { y2: 7.5 }], defaultOptions);
-  line4?.animate([{ y1: 13.5 }, { y1: 10.5 }], defaultOptions);
-  circle2?.animate([{ cy: 12 }, { cy: 9 }], defaultOptions);
-
-  // Column 3
-  line5?.animate([{ y2: 10.5 }, { y2: 13.5 }], defaultOptions);
-  line6?.animate([{ y1: 13.5 }, { y1: 16.5 }], defaultOptions);
-  circle3?.animate([{ cy: 12 }, { cy: 15 }], defaultOptions);
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
   }
-}
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -112,12 +112,12 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 </style>

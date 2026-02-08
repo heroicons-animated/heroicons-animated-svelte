@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 500);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 500);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -62,36 +62,36 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.playcircle-triangle {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.playcircle-triangle.playcircle-triangle-animate {
-  animation: playcircle-triangle-bounce 0.5s ease-in-out forwards;
-}
-
-@keyframes playcircle-triangle-bounce {
-  0% {
-    transform: translateX(0) rotate(0deg);
+  div {
+    display: inline-block;
   }
-  20% {
-    transform: translateX(-1px) rotate(-10deg);
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-  50% {
-    transform: translateX(2px) rotate(0deg);
+
+  .playcircle-triangle {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-  100% {
-    transform: translateX(0) rotate(0deg);
+
+  .playcircle-triangle.playcircle-triangle-animate {
+    animation: playcircle-triangle-bounce 0.5s ease-in-out forwards;
   }
-}
+
+  @keyframes playcircle-triangle-bounce {
+    0% {
+      transform: translateX(0) rotate(0deg);
+    }
+    20% {
+      transform: translateX(-1px) rotate(-10deg);
+    }
+    50% {
+      transform: translateX(2px) rotate(0deg);
+    }
+    100% {
+      transform: translateX(0) rotate(0deg);
+    }
+  }
 </style>

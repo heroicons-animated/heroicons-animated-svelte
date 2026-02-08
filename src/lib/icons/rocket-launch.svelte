@@ -1,34 +1,34 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -62,66 +62,67 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-.icon-svg.rocketlaunch-float {
-  animation: rocketlaunch-float 6s ease-in-out infinite alternate;
-}
+  .icon-svg.rocketlaunch-float {
+    animation: rocketlaunch-float 6s ease-in-out infinite alternate;
+  }
 
-@keyframes rocketlaunch-float {
-  0% {
-    transform: translate(0, 0);
+  @keyframes rocketlaunch-float {
+    0% {
+      transform: translate(0, 0);
+    }
+    15% {
+      transform: translate(0, -3px);
+    }
+    30% {
+      transform: translate(-3px, 0);
+    }
+    45% {
+      transform: translate(2px, -2px);
+    }
+    60% {
+      transform: translate(-2px, -3px);
+    }
+    75% {
+      transform: translate(1px, -1px);
+    }
+    90% {
+      transform: translate(-1px, -2px);
+    }
+    100% {
+      transform: translate(0, 0);
+    }
   }
-  15% {
-    transform: translate(0, -3px);
-  }
-  30% {
-    transform: translate(-3px, 0);
-  }
-  45% {
-    transform: translate(2px, -2px);
-  }
-  60% {
-    transform: translate(-2px, -3px);
-  }
-  75% {
-    transform: translate(1px, -1px);
-  }
-  90% {
-    transform: translate(-1px, -2px);
-  }
-  100% {
-    transform: translate(0, 0);
-  }
-}
 
-.rocketlaunch-fire {
-  opacity: 1;
-}
-
-.rocketlaunch-fire.rocketlaunch-fire-flicker {
-  animation: rocketlaunch-fire-flicker 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-}
-
-/* Svelte: path d morph not in CSS; opacity flicker approximates flame */
-@keyframes rocketlaunch-fire-flicker {
-  0%,
-  20%,
-  50%,
-  80%,
-  100% {
+  .rocketlaunch-fire {
     opacity: 1;
   }
-  40%,
-  60% {
-    opacity: 0.85;
+
+  .rocketlaunch-fire.rocketlaunch-fire-flicker {
+    animation: rocketlaunch-fire-flicker 2s cubic-bezier(0.4, 0, 0.2, 1)
+      infinite;
   }
-}
+
+  /* Svelte: path d morph not in CSS; opacity flicker approximates flame */
+  @keyframes rocketlaunch-fire-flicker {
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+      opacity: 1;
+    }
+    40%,
+    60% {
+      opacity: 0.85;
+    }
+  }
 </style>

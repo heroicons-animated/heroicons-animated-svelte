@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 800);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 800);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -69,38 +69,38 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.userplus-vert,
-.userplus-horiz {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
-  opacity: 1;
-}
-
-.userplus-vert.userplus-draw {
-  animation: userplus-draw 0.2s linear 0.3s forwards;
-}
-
-.userplus-horiz.userplus-draw {
-  animation: userplus-draw 0.2s linear 0.6s forwards;
-}
-
-@keyframes userplus-draw {
-  0% {
-    stroke-dashoffset: 1;
-    opacity: 0;
+  div {
+    display: inline-block;
   }
-  100% {
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .userplus-vert,
+  .userplus-horiz {
+    stroke-dasharray: 1;
     stroke-dashoffset: 0;
     opacity: 1;
   }
-}
+
+  .userplus-vert.userplus-draw {
+    animation: userplus-draw 0.2s linear 0.3s forwards;
+  }
+
+  .userplus-horiz.userplus-draw {
+    animation: userplus-draw 0.2s linear 0.6s forwards;
+  }
+
+  @keyframes userplus-draw {
+    0% {
+      stroke-dashoffset: 1;
+      opacity: 0;
+    }
+    100% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+  }
 </style>

@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 500);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 500);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -60,37 +60,37 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-.icon-svg.shoppingbag-wiggle {
-  animation: shoppingbag-wiggle 0.5s ease-in-out forwards;
-}
+  .icon-svg.shoppingbag-wiggle {
+    animation: shoppingbag-wiggle 0.5s ease-in-out forwards;
+  }
 
-@keyframes shoppingbag-wiggle {
-  0% {
-    transform: rotate(0deg) translateY(0);
+  @keyframes shoppingbag-wiggle {
+    0% {
+      transform: rotate(0deg) translateY(0);
+    }
+    20% {
+      transform: rotate(-5deg) translateY(-2px);
+    }
+    40% {
+      transform: rotate(5deg) translateY(0);
+    }
+    60% {
+      transform: rotate(-3deg) translateY(0);
+    }
+    80% {
+      transform: rotate(3deg) translateY(0);
+    }
+    100% {
+      transform: rotate(0deg) translateY(0);
+    }
   }
-  20% {
-    transform: rotate(-5deg) translateY(-2px);
-  }
-  40% {
-    transform: rotate(5deg) translateY(0);
-  }
-  60% {
-    transform: rotate(-3deg) translateY(0);
-  }
-  80% {
-    transform: rotate(3deg) translateY(0);
-  }
-  100% {
-    transform: rotate(0deg) translateY(0);
-  }
-}
 </style>

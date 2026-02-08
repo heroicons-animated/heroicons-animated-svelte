@@ -1,76 +1,76 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let pathElement: SVGPathElement;
-let pathAnimation: Animation | null = null;
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let pathElement: SVGPathElement;
+  let pathAnimation: Animation | null = null;
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
 
-    if (pathElement) {
-      const pathLength = pathElement.getTotalLength();
-      pathElement.style.strokeDasharray = `${pathLength}`;
-      pathElement.style.strokeDashoffset = `${pathLength}`;
-      pathElement.style.opacity = "0";
+      if (pathElement) {
+        const pathLength = pathElement.getTotalLength();
+        pathElement.style.strokeDasharray = `${pathLength}`;
+        pathElement.style.strokeDashoffset = `${pathLength}`;
+        pathElement.style.opacity = "0";
 
-      pathAnimation = pathElement.animate(
-        [
+        pathAnimation = pathElement.animate(
+          [
+            {
+              strokeDashoffset: pathLength,
+              opacity: 0,
+            },
+            {
+              strokeDashoffset: 0,
+              opacity: 1,
+            },
+          ],
           {
-            strokeDashoffset: pathLength,
-            opacity: 0,
-          },
-          {
-            strokeDashoffset: 0,
-            opacity: 1,
-          },
-        ],
-        {
-          duration: 600,
-          easing: "linear",
-          fill: "forwards",
-        }
-      );
+            duration: 600,
+            easing: "linear",
+            fill: "forwards",
+          }
+        );
+      }
+
+      setTimeout(() => {
+        isAnimating = false;
+      }, 600);
+    }
+  }
+
+  export function stopAnimation() {
+    isAnimating = false;
+
+    if (pathAnimation) {
+      pathAnimation.cancel();
+      pathAnimation = null;
     }
 
-    setTimeout(() => {
-      isAnimating = false;
-    }, 600);
-  }
-}
-
-export function stopAnimation() {
-  isAnimating = false;
-
-  if (pathAnimation) {
-    pathAnimation.cancel();
-    pathAnimation = null;
+    if (pathElement) {
+      pathElement.style.strokeDasharray = "";
+      pathElement.style.strokeDashoffset = "";
+      pathElement.style.opacity = "";
+    }
   }
 
-  if (pathElement) {
-    pathElement.style.strokeDasharray = "";
-    pathElement.style.strokeDashoffset = "";
-    pathElement.style.opacity = "";
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
 
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
   }
-}
 </script>
 
 <div
@@ -99,12 +99,12 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 </style>

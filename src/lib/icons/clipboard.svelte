@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 300);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 300);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -67,50 +67,50 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-/* clip: scaleY [1,0.8,1] y [0,0.5,0] 0.3s easeInOut origin 50% 0%; board: y [0,-0.5,0] 0.3s (matches React CLIP/BOARD_VARIANTS) */
-.clip-path {
-  transform-box: fill-box;
-  transform-origin: 50% 0%;
-}
-
-.clip-path.clipboard-animate {
-  animation: clip-animate 0.3s ease-in-out forwards;
-}
-
-.board-path.clipboard-animate {
-  animation: board-animate 0.3s ease-in-out forwards;
-}
-
-@keyframes clip-animate {
-  0% {
-    transform: scaleY(1) translateY(0);
+  div {
+    display: inline-block;
   }
-  50% {
-    transform: scaleY(0.8) translateY(0.5px);
-  }
-  100% {
-    transform: scaleY(1) translateY(0);
-  }
-}
 
-@keyframes board-animate {
-  0% {
-    transform: translateY(0);
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-  50% {
-    transform: translateY(-0.5px);
+
+  /* clip: scaleY [1,0.8,1] y [0,0.5,0] 0.3s easeInOut origin 50% 0%; board: y [0,-0.5,0] 0.3s (matches React CLIP/BOARD_VARIANTS) */
+  .clip-path {
+    transform-box: fill-box;
+    transform-origin: 50% 0%;
   }
-  100% {
-    transform: translateY(0);
+
+  .clip-path.clipboard-animate {
+    animation: clip-animate 0.3s ease-in-out forwards;
   }
-}
+
+  .board-path.clipboard-animate {
+    animation: board-animate 0.3s ease-in-out forwards;
+  }
+
+  @keyframes clip-animate {
+    0% {
+      transform: scaleY(1) translateY(0);
+    }
+    50% {
+      transform: scaleY(0.8) translateY(0.5px);
+    }
+    100% {
+      transform: scaleY(1) translateY(0);
+    }
+  }
+
+  @keyframes board-animate {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-0.5px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
 </style>

@@ -1,33 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 300);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 300);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
+  export function stopAnimation() {
+    isAnimating = false;
+  }
 
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
+  export function setControlled(value: boolean) {
+    isControlled = value;
+  }
 
-function handleMouseEnter() {
-  if (!isControlled) startAnimation();
-}
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
 
-function handleMouseLeave() {
-  if (!isControlled) stopAnimation();
-}
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -62,40 +66,40 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.trash-lid {
-  transform: translateY(0);
-}
-
-.trash-lid.trash-lid-open {
-  animation: trash-lid-open 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-@keyframes trash-lid-open {
-  to {
-    transform: translateY(-1.5px);
+  div {
+    display: inline-block;
   }
-}
 
-.trash-body {
-  transform: translateY(0);
-}
-
-.trash-body.trash-body-drop {
-  animation: trash-body-drop 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-@keyframes trash-body-drop {
-  to {
-    transform: translateY(1px);
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-}
+
+  .trash-lid {
+    transform: translateY(0);
+  }
+
+  .trash-lid.trash-lid-open {
+    animation: trash-lid-open 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  @keyframes trash-lid-open {
+    to {
+      transform: translateY(-1.5px);
+    }
+  }
+
+  .trash-body {
+    transform: translateY(0);
+  }
+
+  .trash-body.trash-body-drop {
+    animation: trash-body-drop 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  @keyframes trash-body-drop {
+    to {
+      transform: translateY(1px);
+    }
+  }
 </style>

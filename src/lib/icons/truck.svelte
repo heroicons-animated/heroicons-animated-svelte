@@ -1,30 +1,34 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
+  export function stopAnimation() {
+    isAnimating = false;
+  }
 
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
+  export function setControlled(value: boolean) {
+    isControlled = value;
+  }
 
-function handleMouseEnter() {
-  if (!isControlled) startAnimation();
-}
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
 
-function handleMouseLeave() {
-  if (!isControlled) stopAnimation();
-}
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -78,79 +82,79 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-.truck-svg {
-  overflow: visible;
-}
+  .truck-svg {
+    overflow: visible;
+  }
 
-.truck-path {
-  transform: translateY(0);
-}
-
-.truck-path.truck-bounce {
-  animation: truck-bounce 0.4s ease-in-out infinite;
-}
-
-@keyframes truck-bounce {
-  0%,
-  100% {
+  .truck-path {
     transform: translateY(0);
   }
-  25% {
-    transform: translateY(-1px);
+
+  .truck-path.truck-bounce {
+    animation: truck-bounce 0.4s ease-in-out infinite;
   }
-  50% {
-    transform: translateY(0);
+
+  @keyframes truck-bounce {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    25% {
+      transform: translateY(-1px);
+    }
+    50% {
+      transform: translateY(0);
+    }
+    75% {
+      transform: translateY(-0.5px);
+    }
   }
-  75% {
-    transform: translateY(-0.5px);
-  }
-}
 
-.truck-speed {
-  opacity: 0;
-  transform: translateX(0) scaleX(0.2);
-  transform-origin: left center;
-}
-
-.truck-speed.truck-speed-run {
-  animation: truck-speed-run 0.5s ease-out infinite;
-}
-
-.truck-speed-0.truck-speed-run {
-  animation-delay: 0s;
-}
-.truck-speed-1.truck-speed-run {
-  animation-delay: 0.08s;
-}
-.truck-speed-2.truck-speed-run {
-  animation-delay: 0.16s;
-}
-
-@keyframes truck-speed-run {
-  0% {
+  .truck-speed {
     opacity: 0;
     transform: translateX(0) scaleX(0.2);
+    transform-origin: left center;
   }
-  20% {
-    opacity: 0.7;
-    transform: translateX(-4px) scaleX(1);
+
+  .truck-speed.truck-speed-run {
+    animation: truck-speed-run 0.5s ease-out infinite;
   }
-  60% {
-    opacity: 0.5;
-    transform: translateX(-10px) scaleX(0.8);
+
+  .truck-speed-0.truck-speed-run {
+    animation-delay: 0s;
   }
-  100% {
-    opacity: 0;
-    transform: translateX(-16px) scaleX(0.3);
+  .truck-speed-1.truck-speed-run {
+    animation-delay: 0.08s;
   }
-}
+  .truck-speed-2.truck-speed-run {
+    animation-delay: 0.16s;
+  }
+
+  @keyframes truck-speed-run {
+    0% {
+      opacity: 0;
+      transform: translateX(0) scaleX(0.2);
+    }
+    20% {
+      opacity: 0.7;
+      transform: translateX(-4px) scaleX(1);
+    }
+    60% {
+      opacity: 0.5;
+      transform: translateX(-10px) scaleX(0.8);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(-16px) scaleX(0.3);
+    }
+  }
 </style>

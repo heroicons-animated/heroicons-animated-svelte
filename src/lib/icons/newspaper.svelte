@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 800);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 800);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -85,65 +85,65 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.newspaper-square {
-  opacity: 1;
-}
-
-.newspaper-square.newspaper-square-animate {
-  animation: newspaper-square-fade 0.3s ease-out forwards;
-}
-
-@keyframes newspaper-square-fade {
-  0% {
-    opacity: 0;
+  div {
+    display: inline-block;
   }
-  100% {
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .newspaper-square {
     opacity: 1;
   }
-}
 
-.newspaper-line {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
-  opacity: 1;
-}
-
-.newspaper-line.newspaper-line1-animate {
-  animation: newspaper-line-draw 0.2s ease-out 0.2s forwards;
-}
-
-.newspaper-line.newspaper-line2-animate {
-  animation: newspaper-line-draw 0.2s ease-out 0.3s forwards;
-}
-
-.newspaper-line.newspaper-line3-animate {
-  animation: newspaper-line-draw 0.2s ease-out 0.4s forwards;
-}
-
-.newspaper-line.newspaper-line4-animate {
-  animation: newspaper-line-draw 0.2s ease-out 0.5s forwards;
-}
-
-@keyframes newspaper-line-draw {
-  0% {
-    stroke-dashoffset: 1;
-    opacity: 0;
+  .newspaper-square.newspaper-square-animate {
+    animation: newspaper-square-fade 0.3s ease-out forwards;
   }
-  50% {
-    opacity: 1;
+
+  @keyframes newspaper-square-fade {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
-  100% {
+
+  .newspaper-line {
+    stroke-dasharray: 1;
     stroke-dashoffset: 0;
     opacity: 1;
   }
-}
+
+  .newspaper-line.newspaper-line1-animate {
+    animation: newspaper-line-draw 0.2s ease-out 0.2s forwards;
+  }
+
+  .newspaper-line.newspaper-line2-animate {
+    animation: newspaper-line-draw 0.2s ease-out 0.3s forwards;
+  }
+
+  .newspaper-line.newspaper-line3-animate {
+    animation: newspaper-line-draw 0.2s ease-out 0.4s forwards;
+  }
+
+  .newspaper-line.newspaper-line4-animate {
+    animation: newspaper-line-draw 0.2s ease-out 0.5s forwards;
+  }
+
+  @keyframes newspaper-line-draw {
+    0% {
+      stroke-dashoffset: 1;
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+  }
 </style>

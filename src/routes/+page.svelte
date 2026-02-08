@@ -92,7 +92,7 @@
         name: "What technologies are used in heroicons-animated-svelte?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: `Icons are Svelte components written in TypeScript, based on Heroicons, with motion-inspired animations.`,
+          text: "Icons are Svelte components written in TypeScript, based on Heroicons, with motion-inspired animations.",
         },
       },
     ],
@@ -101,26 +101,26 @@
 
 <svelte:head>
   <title>heroicons-animated | Animated Heroicons for Svelte</title>
-  <meta name="description" content={SITE.DESCRIPTION.SHORT} />
-  <meta name="keywords" content={SITE.KEYWORDS.join(", ")} />
-  <meta name="theme-color" content="#f5f5f5" />
-  <link rel="canonical" href={SITE.URL} />
-  <meta property="og:type" content="website" />
+  <meta name="description" content={SITE.DESCRIPTION.SHORT}>
+  <meta name="keywords" content={SITE.KEYWORDS.join(", ")}>
+  <meta name="theme-color" content="#f5f5f5">
+  <link rel="canonical" href={SITE.URL}>
+  <meta property="og:type" content="website">
   <meta
     property="og:title"
     content="heroicons-animated | Animated Heroicons for Svelte"
-  />
-  <meta property="og:description" content={SITE.DESCRIPTION.SHORT} />
-  <meta property="og:url" content={SITE.URL} />
-  <meta property="og:image" content={`${SITE.URL}${SITE.OG_IMAGE}`} />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content={SITE.AUTHOR.TWITTER} />
+  >
+  <meta property="og:description" content={SITE.DESCRIPTION.SHORT}>
+  <meta property="og:url" content={SITE.URL}>
+  <meta property="og:image" content={`${SITE.URL}${SITE.OG_IMAGE}`}>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content={SITE.AUTHOR.TWITTER}>
   <meta
     name="twitter:title"
     content="heroicons-animated | Animated Heroicons for Svelte"
-  />
-  <meta name="twitter:description" content={SITE.DESCRIPTION.SHORT} />
-  <meta name="twitter:image" content={`${SITE.URL}${SITE.OG_IMAGE}`} />
+  >
+  <meta name="twitter:description" content={SITE.DESCRIPTION.SHORT}>
+  <meta name="twitter:image" content={`${SITE.URL}${SITE.OG_IMAGE}`}>
   <script type="application/ld+json">
 {@html websiteJsonLd}
   </script>
@@ -153,7 +153,7 @@
       target="_blank"
     >
       MIT License
-    </a>) collection of smooth animated <br />
+    </a>) collection of smooth animated <br>
     316 icons for your projects. built with CSS animations and Heroicons.
   </p>
   <p class="mt-4 font-mono text-secondary text-xs min-[640px]:text-sm">

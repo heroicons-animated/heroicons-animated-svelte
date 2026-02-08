@@ -1,38 +1,38 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let pathElement: SVGPathElement;
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let pathElement: SVGPathElement;
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 500);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 500);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -63,37 +63,37 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.playpause-path {
-  transform-box: fill-box;
-  transform-origin: center;
-  transition: transform 0.5s ease-in-out;
-}
-
-.playpause-path.playpause-animate {
-  animation: playpause-animate 0.5s ease-in-out forwards;
-}
-
-@keyframes playpause-animate {
-  0% {
-    transform: translateX(0) rotate(0deg);
+  div {
+    display: inline-block;
   }
-  20% {
-    transform: translateX(-1px) rotate(-10deg);
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-  50% {
-    transform: translateX(2px) rotate(0deg);
+
+  .playpause-path {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.5s ease-in-out;
   }
-  100% {
-    transform: translateX(0) rotate(0deg);
+
+  .playpause-path.playpause-animate {
+    animation: playpause-animate 0.5s ease-in-out forwards;
   }
-}
+
+  @keyframes playpause-animate {
+    0% {
+      transform: translateX(0) rotate(0deg);
+    }
+    20% {
+      transform: translateX(-1px) rotate(-10deg);
+    }
+    50% {
+      transform: translateX(2px) rotate(0deg);
+    }
+    100% {
+      transform: translateX(0) rotate(0deg);
+    }
+  }
 </style>

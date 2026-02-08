@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 450);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 450);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -58,29 +58,29 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-  transition: transform 0.45s ease-in-out;
-}
-
-.icon-svg.arrowturnupright-animate {
-  animation: arrowturnupright-animate 0.45s ease-in-out forwards;
-}
-
-@keyframes arrowturnupright-animate {
-  0% {
-    transform: scaleX(1) translateX(0);
+  div {
+    display: inline-block;
   }
-  50% {
-    transform: scaleX(1.15) translateX(2px);
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.45s ease-in-out;
   }
-  100% {
-    transform: scaleX(1) translateX(0);
+
+  .icon-svg.arrowturnupright-animate {
+    animation: arrowturnupright-animate 0.45s ease-in-out forwards;
   }
-}
+
+  @keyframes arrowturnupright-animate {
+    0% {
+      transform: scaleX(1) translateX(0);
+    }
+    50% {
+      transform: scaleX(1.15) translateX(2px);
+    }
+    100% {
+      transform: scaleX(1) translateX(0);
+    }
+  }
 </style>

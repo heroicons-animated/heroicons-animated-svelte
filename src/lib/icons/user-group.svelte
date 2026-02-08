@@ -1,33 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 600);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 600);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
+  export function stopAnimation() {
+    isAnimating = false;
+  }
 
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
+  export function setControlled(value: boolean) {
+    isControlled = value;
+  }
 
-function handleMouseEnter() {
-  if (!isControlled) startAnimation();
-}
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
 
-function handleMouseLeave() {
-  if (!isControlled) stopAnimation();
-}
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -68,60 +72,60 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.usergroup-right {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-.usergroup-right.usergroup-slide {
-  animation: usergroup-right-slide 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s
-    forwards;
-}
-
-.usergroup-left {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-.usergroup-left.usergroup-slide {
-  animation: usergroup-left-slide 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s
-    forwards;
-}
-
-@keyframes usergroup-right-slide {
-  0% {
-    transform: translateX(-6px);
-    opacity: 0;
+  div {
+    display: inline-block;
   }
-  30% {
-    opacity: 0;
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-  100% {
+
+  .usergroup-right {
     transform: translateX(0);
     opacity: 1;
   }
-}
 
-@keyframes usergroup-left-slide {
-  0% {
-    transform: translateX(6px);
-    opacity: 0;
+  .usergroup-right.usergroup-slide {
+    animation: usergroup-right-slide 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s
+      forwards;
   }
-  30% {
-    opacity: 0;
-  }
-  100% {
+
+  .usergroup-left {
     transform: translateX(0);
     opacity: 1;
   }
-}
+
+  .usergroup-left.usergroup-slide {
+    animation: usergroup-left-slide 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s
+      forwards;
+  }
+
+  @keyframes usergroup-right-slide {
+    0% {
+      transform: translateX(-6px);
+      opacity: 0;
+    }
+    30% {
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes usergroup-left-slide {
+    0% {
+      transform: translateX(6px);
+      opacity: 0;
+    }
+    30% {
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
 </style>

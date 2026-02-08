@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 600);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 600);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -69,41 +69,41 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-/* Match React: two wave paths opacity/scale 1→0→1, duration 0.4s, second path delay 0.2s */
-.speakerwave-wave {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.speakerwave-wave1.speakerwave-wave-animate {
-  animation: speakerwave-wave-pulse 0.4s ease-in-out forwards;
-}
-
-.speakerwave-wave2.speakerwave-wave-animate {
-  animation: speakerwave-wave-pulse 0.4s ease-in-out 0.2s forwards;
-}
-
-@keyframes speakerwave-wave-pulse {
-  0% {
-    opacity: 1;
-    transform: scale(1);
+  div {
+    display: inline-block;
   }
-  50% {
-    opacity: 0;
-    transform: scale(0);
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-  100% {
-    opacity: 1;
-    transform: scale(1);
+
+  /* Match React: two wave paths opacity/scale 1→0→1, duration 0.4s, second path delay 0.2s */
+  .speakerwave-wave {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-}
+
+  .speakerwave-wave1.speakerwave-wave-animate {
+    animation: speakerwave-wave-pulse 0.4s ease-in-out forwards;
+  }
+
+  .speakerwave-wave2.speakerwave-wave-animate {
+    animation: speakerwave-wave-pulse 0.4s ease-in-out 0.2s forwards;
+  }
+
+  @keyframes speakerwave-wave-pulse {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0;
+      transform: scale(0);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 </style>

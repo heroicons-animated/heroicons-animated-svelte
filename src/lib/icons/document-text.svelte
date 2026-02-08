@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 700);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 700);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -70,45 +70,45 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.documenttext-line {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
-  opacity: 1;
-}
-
-/* Hide then show: 0–50% hidden, 50–100% draw; delay i*0.1, duration 0.3s per phase */
-.documenttext-line0.documenttext-blink {
-  animation: documenttext-blink 0.6s ease-out 0s both;
-}
-.documenttext-line1.documenttext-blink {
-  animation: documenttext-blink 0.6s ease-out 0.1s both;
-}
-.documenttext-line:not(.documenttext-blink) {
-  stroke-dashoffset: 0;
-  opacity: 1;
-}
-
-@keyframes documenttext-blink {
-  0% {
-    stroke-dashoffset: 1;
-    opacity: 0;
+  div {
+    display: inline-block;
   }
-  50% {
-    stroke-dashoffset: 1;
-    opacity: 0;
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-  100% {
+
+  .documenttext-line {
+    stroke-dasharray: 1;
     stroke-dashoffset: 0;
     opacity: 1;
   }
-}
+
+  /* Hide then show: 0–50% hidden, 50–100% draw; delay i*0.1, duration 0.3s per phase */
+  .documenttext-line0.documenttext-blink {
+    animation: documenttext-blink 0.6s ease-out 0s both;
+  }
+  .documenttext-line1.documenttext-blink {
+    animation: documenttext-blink 0.6s ease-out 0.1s both;
+  }
+  .documenttext-line:not(.documenttext-blink) {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+
+  @keyframes documenttext-blink {
+    0% {
+      stroke-dashoffset: 1;
+      opacity: 0;
+    }
+    50% {
+      stroke-dashoffset: 1;
+      opacity: 0;
+    }
+    100% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+  }
 </style>

@@ -1,40 +1,40 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let svgElement: SVGSVGElement;
-let handlePath1: SVGPathElement;
-let handlePath2: SVGPathElement;
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let svgElement: SVGSVGElement;
+  let handlePath1: SVGPathElement;
+  let handlePath2: SVGPathElement;
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 400);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 400);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -73,51 +73,51 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-  transition: transform 0.4s ease-in-out;
-}
-
-.icon-svg.animate {
-  animation: briefcase-lift 0.4s ease-in-out forwards;
-}
-
-.handle-path {
-  transform-box: fill-box;
-  transform-origin: center;
-  transition: transform 0.4s ease-in-out;
-}
-
-.handle-path.animate {
-  animation: handle-lift 0.4s ease-in-out forwards;
-}
-
-@keyframes briefcase-lift {
-  0% {
-    transform: translateY(0);
+  div {
+    display: inline-block;
   }
-  50% {
-    transform: translateY(-3px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
 
-@keyframes handle-lift {
-  0% {
-    transform: translateY(0);
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.4s ease-in-out;
   }
-  50% {
-    transform: translateY(-1px);
+
+  .icon-svg.animate {
+    animation: briefcase-lift 0.4s ease-in-out forwards;
   }
-  100% {
-    transform: translateY(0);
+
+  .handle-path {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.4s ease-in-out;
   }
-}
+
+  .handle-path.animate {
+    animation: handle-lift 0.4s ease-in-out forwards;
+  }
+
+  @keyframes briefcase-lift {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-3px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes handle-lift {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-1px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
 </style>

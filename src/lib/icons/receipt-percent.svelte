@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 650);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 650);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -74,70 +74,70 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.receiptpercent-line {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
-  opacity: 1;
-}
-
-.receiptpercent-line.receiptpercent-draw {
-  animation: receiptpercent-draw 0.4s ease-out forwards;
-}
-
-@keyframes receiptpercent-draw {
-  0% {
-    stroke-dashoffset: 1;
-    opacity: 0;
+  div {
+    display: inline-block;
   }
-  25% {
-    opacity: 1;
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-  100% {
+
+  .receiptpercent-line {
+    stroke-dasharray: 1;
     stroke-dashoffset: 0;
     opacity: 1;
   }
-}
 
-.receiptpercent-dot {
-  transform-origin: center;
-  opacity: 1;
-  transform: scale(1);
-}
-
-.receiptpercent-dot.receiptpercent-dot-pop {
-  animation: receiptpercent-dot-pop 0.3s ease-out forwards;
-}
-
-.receiptpercent-dot-1.receiptpercent-dot-pop {
-  animation-delay: 0.2s;
-}
-.receiptpercent-dot-2.receiptpercent-dot-pop {
-  animation-delay: 0.35s;
-}
-
-@keyframes receiptpercent-dot-pop {
-  0% {
-    opacity: 0;
-    transform: scale(0);
+  .receiptpercent-line.receiptpercent-draw {
+    animation: receiptpercent-draw 0.4s ease-out forwards;
   }
-  33% {
-    opacity: 1;
+
+  @keyframes receiptpercent-draw {
+    0% {
+      stroke-dashoffset: 1;
+      opacity: 0;
+    }
+    25% {
+      opacity: 1;
+    }
+    100% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
   }
-  66% {
-    transform: scale(1.2);
-  }
-  100% {
+
+  .receiptpercent-dot {
+    transform-origin: center;
     opacity: 1;
     transform: scale(1);
   }
-}
+
+  .receiptpercent-dot.receiptpercent-dot-pop {
+    animation: receiptpercent-dot-pop 0.3s ease-out forwards;
+  }
+
+  .receiptpercent-dot-1.receiptpercent-dot-pop {
+    animation-delay: 0.2s;
+  }
+  .receiptpercent-dot-2.receiptpercent-dot-pop {
+    animation-delay: 0.35s;
+  }
+
+  @keyframes receiptpercent-dot-pop {
+    0% {
+      opacity: 0;
+      transform: scale(0);
+    }
+    33% {
+      opacity: 1;
+    }
+    66% {
+      transform: scale(1.2);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 </style>

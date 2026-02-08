@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 2000);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 2000);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -80,84 +80,84 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.cursor-rays-cursor.cursor-move {
-  animation: cursor-rays-move 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-@keyframes cursor-rays-move {
-  0% {
-    transform: translate(0, 0);
+  div {
+    display: inline-block;
   }
-  33% {
-    transform: translate(0, -4px);
-  }
-  66% {
-    transform: translate(-3px, 0);
-  }
-  100% {
-    transform: translate(0, 0);
-  }
-}
 
-.ray {
-  opacity: 1;
-  transform: translate(0, 0);
-}
-
-.ray.ray-spread {
-  animation: ray-spread 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 1.3s forwards;
-  opacity: 0;
-}
-
-@keyframes ray-spread {
-  0% {
-    opacity: 0;
-    transform: translate(0, 0);
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-  14% {
+
+  .cursor-rays-cursor.cursor-move {
+    animation: cursor-rays-move 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  @keyframes cursor-rays-move {
+    0% {
+      transform: translate(0, 0);
+    }
+    33% {
+      transform: translate(0, -4px);
+    }
+    66% {
+      transform: translate(-3px, 0);
+    }
+    100% {
+      transform: translate(0, 0);
+    }
+  }
+
+  .ray {
     opacity: 1;
-  }
-  28% {
-    opacity: 0;
-    transform: translate(var(--ray-x, 0), var(--ray-y, 0));
-  }
-  100% {
-    opacity: 0;
     transform: translate(0, 0);
   }
-}
 
-.ray0.ray-spread {
-  --ray-x: 0;
-  --ray-y: -2px;
-}
-.ray1.ray-spread {
-  --ray-x: 2px;
-  --ray-y: -2px;
-}
-.ray2.ray-spread {
-  --ray-x: 2px;
-  --ray-y: 0;
-}
-.ray3.ray-spread {
-  --ray-x: -2px;
-  --ray-y: 2px;
-}
-.ray4.ray-spread {
-  --ray-x: -2px;
-  --ray-y: 0;
-}
-.ray5.ray-spread {
-  --ray-x: -2px;
-  --ray-y: -2px;
-}
+  .ray.ray-spread {
+    animation: ray-spread 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 1.3s forwards;
+    opacity: 0;
+  }
+
+  @keyframes ray-spread {
+    0% {
+      opacity: 0;
+      transform: translate(0, 0);
+    }
+    14% {
+      opacity: 1;
+    }
+    28% {
+      opacity: 0;
+      transform: translate(var(--ray-x, 0), var(--ray-y, 0));
+    }
+    100% {
+      opacity: 0;
+      transform: translate(0, 0);
+    }
+  }
+
+  .ray0.ray-spread {
+    --ray-x: 0;
+    --ray-y: -2px;
+  }
+  .ray1.ray-spread {
+    --ray-x: 2px;
+    --ray-y: -2px;
+  }
+  .ray2.ray-spread {
+    --ray-x: 2px;
+    --ray-y: 0;
+  }
+  .ray3.ray-spread {
+    --ray-x: -2px;
+    --ray-y: 2px;
+  }
+  .ray4.ray-spread {
+    --ray-x: -2px;
+    --ray-y: 0;
+  }
+  .ray5.ray-spread {
+    --ray-x: -2px;
+    --ray-y: -2px;
+  }
 </style>

@@ -1,59 +1,59 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-const clipId = `battery-clip-${Math.random().toString(36).substr(2, 9)}`;
+  const clipId = `battery-clip-${Math.random().toString(36).substr(2, 9)}`;
 
-let clipRect: SVGRectElement;
-let clipAnimation: Animation | null = null;
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let clipRect: SVGRectElement;
+  let clipAnimation: Animation | null = null;
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
 
-    if (clipRect) {
-      clipAnimation = clipRect.animate([{ width: 0 }, { width: 13.5 }], {
-        duration: 500,
-        easing: "ease-out",
-        fill: "forwards",
-      });
+      if (clipRect) {
+        clipAnimation = clipRect.animate([{ width: 0 }, { width: 13.5 }], {
+          duration: 500,
+          easing: "ease-out",
+          fill: "forwards",
+        });
+      }
+
+      setTimeout(() => {
+        isAnimating = false;
+      }, 500);
+    }
+  }
+
+  export function stopAnimation() {
+    isAnimating = false;
+
+    if (clipAnimation) {
+      clipAnimation.cancel();
+      clipAnimation = null;
     }
 
-    setTimeout(() => {
-      isAnimating = false;
-    }, 500);
-  }
-}
-
-export function stopAnimation() {
-  isAnimating = false;
-
-  if (clipAnimation) {
-    clipAnimation.cancel();
-    clipAnimation = null;
+    if (clipRect) {
+      clipRect.setAttribute("width", "0");
+    }
   }
 
-  if (clipRect) {
-    clipRect.setAttribute("width", "0");
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
 
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
   }
-}
 </script>
 
 <div
@@ -96,12 +96,12 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 </style>

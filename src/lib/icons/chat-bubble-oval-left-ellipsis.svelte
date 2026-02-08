@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 1500);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 1500);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -75,105 +75,105 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-/* Match React DOT_VARIANTS: opacity [1,0,0,1,1,0,0,1], times per dot, duration 1.5s */
-.chatbubbleoval-dot0.chatbubbleoval-dot-animate {
-  animation: chatbubbleoval-dot0 1.5s ease-out forwards;
-}
-.chatbubbleoval-dot1.chatbubbleoval-dot-animate {
-  animation: chatbubbleoval-dot1 1.5s ease-out forwards;
-}
-.chatbubbleoval-dot2.chatbubbleoval-dot-animate {
-  animation: chatbubbleoval-dot2 1.5s ease-out forwards;
-}
+  /* Match React DOT_VARIANTS: opacity [1,0,0,1,1,0,0,1], times per dot, duration 1.5s */
+  .chatbubbleoval-dot0.chatbubbleoval-dot-animate {
+    animation: chatbubbleoval-dot0 1.5s ease-out forwards;
+  }
+  .chatbubbleoval-dot1.chatbubbleoval-dot-animate {
+    animation: chatbubbleoval-dot1 1.5s ease-out forwards;
+  }
+  .chatbubbleoval-dot2.chatbubbleoval-dot-animate {
+    animation: chatbubbleoval-dot2 1.5s ease-out forwards;
+  }
 
-@keyframes chatbubbleoval-dot0 {
-  0% {
-    opacity: 1;
+  @keyframes chatbubbleoval-dot0 {
+    0% {
+      opacity: 1;
+    }
+    6.67% {
+      opacity: 0;
+    }
+    13.33% {
+      opacity: 1;
+    }
+    33.33% {
+      opacity: 1;
+    }
+    40% {
+      opacity: 0;
+    }
+    46.67% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+    }
   }
-  6.67% {
-    opacity: 0;
+  @keyframes chatbubbleoval-dot1 {
+    0% {
+      opacity: 1;
+    }
+    6.67% {
+      opacity: 0;
+    }
+    13.33% {
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    33.33% {
+      opacity: 1;
+    }
+    40% {
+      opacity: 0;
+    }
+    46.67% {
+      opacity: 0;
+    }
+    53.33% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+    }
   }
-  13.33% {
-    opacity: 1;
+  @keyframes chatbubbleoval-dot2 {
+    0% {
+      opacity: 1;
+    }
+    6.67% {
+      opacity: 0;
+    }
+    20% {
+      opacity: 0;
+    }
+    26.67% {
+      opacity: 1;
+    }
+    33.33% {
+      opacity: 1;
+    }
+    40% {
+      opacity: 0;
+    }
+    53.33% {
+      opacity: 0;
+    }
+    60% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+    }
   }
-  33.33% {
-    opacity: 1;
-  }
-  40% {
-    opacity: 0;
-  }
-  46.67% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-@keyframes chatbubbleoval-dot1 {
-  0% {
-    opacity: 1;
-  }
-  6.67% {
-    opacity: 0;
-  }
-  13.33% {
-    opacity: 0;
-  }
-  20% {
-    opacity: 1;
-  }
-  33.33% {
-    opacity: 1;
-  }
-  40% {
-    opacity: 0;
-  }
-  46.67% {
-    opacity: 0;
-  }
-  53.33% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-@keyframes chatbubbleoval-dot2 {
-  0% {
-    opacity: 1;
-  }
-  6.67% {
-    opacity: 0;
-  }
-  20% {
-    opacity: 0;
-  }
-  26.67% {
-    opacity: 1;
-  }
-  33.33% {
-    opacity: 1;
-  }
-  40% {
-    opacity: 0;
-  }
-  53.33% {
-    opacity: 0;
-  }
-  60% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 1;
-  }
-}
 </style>

@@ -1,33 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 1000);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 1000);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
+  export function stopAnimation() {
+    isAnimating = false;
+  }
 
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
+  export function setControlled(value: boolean) {
+    isControlled = value;
+  }
 
-function handleMouseEnter() {
-  if (!isControlled) startAnimation();
-}
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
 
-function handleMouseLeave() {
-  if (!isControlled) stopAnimation();
-}
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -93,54 +97,54 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.sun-ray {
-  opacity: 1;
-}
-
-.sun-ray.sun-ray-fade {
-  animation: sun-ray-fade 0.3s ease-out forwards;
-}
-
-.sun-ray-0.sun-ray-fade {
-  animation-delay: 0s;
-}
-.sun-ray-1.sun-ray-fade {
-  animation-delay: 0.1s;
-}
-.sun-ray-2.sun-ray-fade {
-  animation-delay: 0.2s;
-}
-.sun-ray-3.sun-ray-fade {
-  animation-delay: 0.3s;
-}
-.sun-ray-4.sun-ray-fade {
-  animation-delay: 0.4s;
-}
-.sun-ray-5.sun-ray-fade {
-  animation-delay: 0.5s;
-}
-.sun-ray-6.sun-ray-fade {
-  animation-delay: 0.6s;
-}
-.sun-ray-7.sun-ray-fade {
-  animation-delay: 0.7s;
-}
-
-@keyframes sun-ray-fade {
-  0% {
-    opacity: 0;
+  div {
+    display: inline-block;
   }
-  100% {
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .sun-ray {
     opacity: 1;
   }
-}
+
+  .sun-ray.sun-ray-fade {
+    animation: sun-ray-fade 0.3s ease-out forwards;
+  }
+
+  .sun-ray-0.sun-ray-fade {
+    animation-delay: 0s;
+  }
+  .sun-ray-1.sun-ray-fade {
+    animation-delay: 0.1s;
+  }
+  .sun-ray-2.sun-ray-fade {
+    animation-delay: 0.2s;
+  }
+  .sun-ray-3.sun-ray-fade {
+    animation-delay: 0.3s;
+  }
+  .sun-ray-4.sun-ray-fade {
+    animation-delay: 0.4s;
+  }
+  .sun-ray-5.sun-ray-fade {
+    animation-delay: 0.5s;
+  }
+  .sun-ray-6.sun-ray-fade {
+    animation-delay: 0.6s;
+  }
+  .sun-ray-7.sun-ray-fade {
+    animation-delay: 0.7s;
+  }
+
+  @keyframes sun-ray-fade {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 </style>

@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 1000);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 1000);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -72,48 +72,48 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-.wifi-arc {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.wifi-arc.wifi-pulse {
-  animation: wifi-pulse 0.6s ease-in-out forwards;
-}
-
-.wifi-arc-2.wifi-pulse {
-  animation-delay: 0.2s;
-}
-
-.wifi-arc-3.wifi-pulse {
-  animation-delay: 0.4s;
-}
-
-@keyframes wifi-pulse {
-  0% {
+  .wifi-arc {
     opacity: 1;
     transform: scale(1);
   }
-  33.3% {
-    opacity: 0;
-    transform: scale(0);
+
+  .wifi-arc.wifi-pulse {
+    animation: wifi-pulse 0.6s ease-in-out forwards;
   }
-  66.6% {
-    opacity: 0;
-    transform: scale(0);
+
+  .wifi-arc-2.wifi-pulse {
+    animation-delay: 0.2s;
   }
-  100% {
-    opacity: 1;
-    transform: scale(1);
+
+  .wifi-arc-3.wifi-pulse {
+    animation-delay: 0.4s;
   }
-}
+
+  @keyframes wifi-pulse {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    33.3% {
+      opacity: 0;
+      transform: scale(0);
+    }
+    66.6% {
+      opacity: 0;
+      transform: scale(0);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 </style>

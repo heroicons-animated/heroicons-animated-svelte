@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 1050);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 1050);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -82,101 +82,101 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-.cake-body {
-  transform-box: fill-box;
-  transform-origin: center bottom;
-}
-.cake-body.animate {
-  animation: cake-body-in 0.4s ease-out forwards;
-}
+  .cake-body {
+    transform-box: fill-box;
+    transform-origin: center bottom;
+  }
+  .cake-body.animate {
+    animation: cake-body-in 0.4s ease-out forwards;
+  }
 
-.candle-group {
-  transform-box: fill-box;
-  transform-origin: center bottom;
-}
-.candle-group.animate {
-  animation: candle-grow 0.3s ease-out 0.3s forwards;
-  opacity: 0;
-}
-
-.flame-left {
-  transform-box: fill-box;
-  transform-origin: 37.5% 50%;
-}
-.flame-left.animate {
-  animation: flame-pop 0.25s ease-out 0.5s forwards;
-  opacity: 0;
-}
-
-.flame-middle {
-  transform-box: fill-box;
-  transform-origin: 50% 50%;
-}
-.flame-middle.animate {
-  animation: flame-pop 0.25s ease-out 0.65s forwards;
-  opacity: 0;
-}
-
-.flame-right {
-  transform-box: fill-box;
-  transform-origin: 62.5% 50%;
-}
-.flame-right.animate {
-  animation: flame-pop 0.25s ease-out 0.8s forwards;
-  opacity: 0;
-}
-
-@keyframes cake-body-in {
-  0% {
-    transform: translateY(8px);
+  .candle-group {
+    transform-box: fill-box;
+    transform-origin: center bottom;
+  }
+  .candle-group.animate {
+    animation: candle-grow 0.3s ease-out 0.3s forwards;
     opacity: 0;
   }
-  50% {
-    transform: translateY(-1px);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
 
-@keyframes candle-grow {
-  0% {
-    transform: scaleY(0);
+  .flame-left {
+    transform-box: fill-box;
+    transform-origin: 37.5% 50%;
+  }
+  .flame-left.animate {
+    animation: flame-pop 0.25s ease-out 0.5s forwards;
     opacity: 0;
   }
-  66.67% {
-    transform: scaleY(1.2);
-    opacity: 1;
-  }
-  100% {
-    transform: scaleY(1);
-    opacity: 1;
-  }
-}
 
-@keyframes flame-pop {
-  0% {
-    transform: scale(0);
+  .flame-middle {
+    transform-box: fill-box;
+    transform-origin: 50% 50%;
+  }
+  .flame-middle.animate {
+    animation: flame-pop 0.25s ease-out 0.65s forwards;
     opacity: 0;
   }
-  50% {
-    transform: scale(1.3);
-    opacity: 1;
+
+  .flame-right {
+    transform-box: fill-box;
+    transform-origin: 62.5% 50%;
   }
-  100% {
-    transform: scale(1);
-    opacity: 1;
+  .flame-right.animate {
+    animation: flame-pop 0.25s ease-out 0.8s forwards;
+    opacity: 0;
   }
-}
+
+  @keyframes cake-body-in {
+    0% {
+      transform: translateY(8px);
+      opacity: 0;
+    }
+    50% {
+      transform: translateY(-1px);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes candle-grow {
+    0% {
+      transform: scaleY(0);
+      opacity: 0;
+    }
+    66.67% {
+      transform: scaleY(1.2);
+      opacity: 1;
+    }
+    100% {
+      transform: scaleY(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes flame-pop {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.3);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
 </style>

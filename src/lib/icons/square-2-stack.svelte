@@ -1,33 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 300);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 300);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
+  export function stopAnimation() {
+    isAnimating = false;
+  }
 
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
+  export function setControlled(value: boolean) {
+    isControlled = value;
+  }
 
-function handleMouseEnter() {
-  if (!isControlled) startAnimation();
-}
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
 
-function handleMouseLeave() {
-  if (!isControlled) stopAnimation();
-}
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -62,50 +66,50 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.square2stack-back {
-  opacity: 1;
-  transform: translate(0, 0);
-}
-
-.square2stack-back.square2stack-back-animate {
-  animation: square2stack-back 0.3s ease-out forwards;
-}
-
-@keyframes square2stack-back {
-  0% {
-    transform: translate(-4px, -4px);
-    opacity: 0;
+  div {
+    display: inline-block;
   }
-  100% {
-    transform: translate(0, 0);
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .square2stack-back {
     opacity: 1;
-  }
-}
-
-.square2stack-front {
-  transform: translate(0, 0);
-}
-
-.square2stack-front.square2stack-front-animate {
-  animation: square2stack-front 0.3s ease-in-out forwards;
-}
-
-@keyframes square2stack-front {
-  0%,
-  100% {
     transform: translate(0, 0);
   }
-  50% {
-    transform: translate(1px, 1px);
+
+  .square2stack-back.square2stack-back-animate {
+    animation: square2stack-back 0.3s ease-out forwards;
   }
-}
+
+  @keyframes square2stack-back {
+    0% {
+      transform: translate(-4px, -4px);
+      opacity: 0;
+    }
+    100% {
+      transform: translate(0, 0);
+      opacity: 1;
+    }
+  }
+
+  .square2stack-front {
+    transform: translate(0, 0);
+  }
+
+  .square2stack-front.square2stack-front-animate {
+    animation: square2stack-front 0.3s ease-in-out forwards;
+  }
+
+  @keyframes square2stack-front {
+    0%,
+    100% {
+      transform: translate(0, 0);
+    }
+    50% {
+      transform: translate(1px, 1px);
+    }
+  }
 </style>

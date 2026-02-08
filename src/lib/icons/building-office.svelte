@@ -1,35 +1,64 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-const FLOOR_LINES = [
-  { path: "M9 12.75h1.5", y: 12.75, index: 0 },
-  { path: "M13.5 12.75H15", y: 12.75, index: 0 },
-  { path: "M9 9.75h1.5", y: 9.75, index: 1 },
-  { path: "M13.5 9.75H15", y: 9.75, index: 1 },
-  { path: "M9 6.75h1.5", y: 6.75, index: 2 },
-  { path: "M13.5 6.75H15", y: 6.75, index: 2 },
-];
+  const FLOOR_LINES = [
+    { path: "M9 12.75h1.5", y: 12.75, index: 0 },
+    { path: "M13.5 12.75H15", y: 12.75, index: 0 },
+    { path: "M9 9.75h1.5", y: 9.75, index: 1 },
+    { path: "M13.5 9.75H15", y: 9.75, index: 1 },
+    { path: "M9 6.75h1.5", y: 6.75, index: 2 },
+    { path: "M13.5 6.75H15", y: 6.75, index: 2 },
+  ];
 
-let floorPath1: SVGPathElement;
-let floorPath2: SVGPathElement;
-let floorPath3: SVGPathElement;
-let floorPath4: SVGPathElement;
-let floorPath5: SVGPathElement;
-let floorPath6: SVGPathElement;
-let floorAnimations: (Animation | null)[] = [
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-];
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let floorPath1: SVGPathElement;
+  let floorPath2: SVGPathElement;
+  let floorPath3: SVGPathElement;
+  let floorPath4: SVGPathElement;
+  let floorPath5: SVGPathElement;
+  let floorPath6: SVGPathElement;
+  let floorAnimations: (Animation | null)[] = [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+  ];
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+
+      const floorPaths = [
+        floorPath1,
+        floorPath2,
+        floorPath3,
+        floorPath4,
+        floorPath5,
+        floorPath6,
+      ];
+      floorPaths.forEach((path, i) => {
+        if (path) {
+          path.style.opacity = "0";
+          floorAnimations[i] = path.animate([{ opacity: 0 }, { opacity: 1 }], {
+            duration: 300,
+            delay: 100 + FLOOR_LINES[i].index * 150,
+            easing: "linear",
+            fill: "forwards",
+          });
+        }
+      });
+
+      setTimeout(() => {
+        isAnimating = false;
+      }, 550);
+    }
+  }
+
+  export function stopAnimation() {
+    isAnimating = false;
 
     const floorPaths = [
       floorPath1,
@@ -39,61 +68,32 @@ export function startAnimation() {
       floorPath5,
       floorPath6,
     ];
-    floorPaths.forEach((path, i) => {
-      if (path) {
-        path.style.opacity = "0";
-        floorAnimations[i] = path.animate([{ opacity: 0 }, { opacity: 1 }], {
-          duration: 300,
-          delay: 100 + FLOOR_LINES[i].index * 150,
-          easing: "linear",
-          fill: "forwards",
-        });
+    floorAnimations.forEach((anim, index) => {
+      if (anim) {
+        anim.cancel();
+        floorAnimations[index] = null;
+      }
+      if (floorPaths[index]) {
+        floorPaths[index].style.opacity = "";
       }
     });
-
-    setTimeout(() => {
-      isAnimating = false;
-    }, 550);
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
+  export function setControlled(value: boolean) {
+    isControlled = value;
+  }
 
-  const floorPaths = [
-    floorPath1,
-    floorPath2,
-    floorPath3,
-    floorPath4,
-    floorPath5,
-    floorPath6,
-  ];
-  floorAnimations.forEach((anim, index) => {
-    if (anim) {
-      anim.cancel();
-      floorAnimations[index] = null;
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
     }
-    if (floorPaths[index]) {
-      floorPaths[index].style.opacity = "";
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
     }
-  });
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
   }
-}
-
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
-  }
-}
 </script>
 
 <div
@@ -127,12 +127,12 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 </style>

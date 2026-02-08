@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 500);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 500);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -75,39 +75,39 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.ellipsishorizontalcircle-dot {
-  transform-origin: 50% 50%;
-}
-
-.ellipsishorizontalcircle-dot.ellipsishorizontalcircle-pulse {
-  animation: ellipsishorizontalcircle-pulse 0.4s ease-in-out forwards;
-}
-.ellipsishorizontalcircle-dot:nth-child(1).ellipsishorizontalcircle-pulse {
-  animation-delay: 0s;
-}
-.ellipsishorizontalcircle-dot:nth-child(2).ellipsishorizontalcircle-pulse {
-  animation-delay: 0.05s;
-}
-.ellipsishorizontalcircle-dot:nth-child(3).ellipsishorizontalcircle-pulse {
-  animation-delay: 0.1s;
-}
-
-@keyframes ellipsishorizontalcircle-pulse {
-  0%,
-  100% {
-    transform: scale(1);
+  div {
+    display: inline-block;
   }
-  50% {
-    transform: scale(1.2);
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-}
+
+  .ellipsishorizontalcircle-dot {
+    transform-origin: 50% 50%;
+  }
+
+  .ellipsishorizontalcircle-dot.ellipsishorizontalcircle-pulse {
+    animation: ellipsishorizontalcircle-pulse 0.4s ease-in-out forwards;
+  }
+  .ellipsishorizontalcircle-dot:nth-child(1).ellipsishorizontalcircle-pulse {
+    animation-delay: 0s;
+  }
+  .ellipsishorizontalcircle-dot:nth-child(2).ellipsishorizontalcircle-pulse {
+    animation-delay: 0.05s;
+  }
+  .ellipsishorizontalcircle-dot:nth-child(3).ellipsishorizontalcircle-pulse {
+    animation-delay: 0.1s;
+  }
+
+  @keyframes ellipsishorizontalcircle-pulse {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+  }
 </style>

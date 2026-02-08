@@ -1,68 +1,68 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let bellGroup: SVGGElement;
-let snoozePath: SVGPathElement;
-let snoozeAnimation: Animation | null = null;
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let bellGroup: SVGGElement;
+  let snoozePath: SVGPathElement;
+  let snoozeAnimation: Animation | null = null;
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
 
-    // Animate snooze path with Web Animations API
-    if (snoozePath) {
-      snoozeAnimation = snoozePath.animate(
-        [
-          { opacity: 1, transform: "translateY(0) scale(1)" },
-          { opacity: 1, transform: "translateY(-1px) scale(1.1)" },
-          { opacity: 0.6, transform: "translateY(-2px) scale(1.15)" },
-          { opacity: 1, transform: "translateY(0) scale(1)" },
-        ],
-        {
-          duration: 800,
-          easing: "ease-in-out",
-          fill: "forwards",
-        }
-      );
+      // Animate snooze path with Web Animations API
+      if (snoozePath) {
+        snoozeAnimation = snoozePath.animate(
+          [
+            { opacity: 1, transform: "translateY(0) scale(1)" },
+            { opacity: 1, transform: "translateY(-1px) scale(1.1)" },
+            { opacity: 0.6, transform: "translateY(-2px) scale(1.15)" },
+            { opacity: 1, transform: "translateY(0) scale(1)" },
+          ],
+          {
+            duration: 800,
+            easing: "ease-in-out",
+            fill: "forwards",
+          }
+        );
+      }
+
+      setTimeout(() => {
+        isAnimating = false;
+      }, 800);
+    }
+  }
+
+  export function stopAnimation() {
+    isAnimating = false;
+
+    if (snoozeAnimation) {
+      snoozeAnimation.cancel();
+      snoozeAnimation = null;
     }
 
-    setTimeout(() => {
-      isAnimating = false;
-    }, 800);
-  }
-}
-
-export function stopAnimation() {
-  isAnimating = false;
-
-  if (snoozeAnimation) {
-    snoozeAnimation.cancel();
-    snoozeAnimation = null;
+    if (snoozePath) {
+      snoozePath.style.opacity = "";
+      snoozePath.style.transform = "";
+    }
   }
 
-  if (snoozePath) {
-    snoozePath.style.opacity = "";
-    snoozePath.style.transform = "";
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
 
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
   }
-}
 </script>
 
 <div
@@ -93,37 +93,37 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.bell-group {
-  transform-box: fill-box;
-  transform-origin: center;
-  transition: transform 0.8s ease-in-out;
-}
-
-.bell-group.animate {
-  animation: bell-snooze-rotate 0.8s ease-in-out forwards;
-}
-
-@keyframes bell-snooze-rotate {
-  0% {
-    transform: rotate(0deg) scale(1);
+  div {
+    display: inline-block;
   }
-  25% {
-    transform: rotate(-8deg) scale(0.97);
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-  50% {
-    transform: rotate(-8deg) scale(0.97);
+
+  .bell-group {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.8s ease-in-out;
   }
-  100% {
-    transform: rotate(0deg) scale(1);
+
+  .bell-group.animate {
+    animation: bell-snooze-rotate 0.8s ease-in-out forwards;
   }
-}
+
+  @keyframes bell-snooze-rotate {
+    0% {
+      transform: rotate(0deg) scale(1);
+    }
+    25% {
+      transform: rotate(-8deg) scale(0.97);
+    }
+    50% {
+      transform: rotate(-8deg) scale(0.97);
+    }
+    100% {
+      transform: rotate(0deg) scale(1);
+    }
+  }
 </style>

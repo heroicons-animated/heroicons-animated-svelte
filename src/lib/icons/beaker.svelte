@@ -1,38 +1,38 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let svgElement: SVGSVGElement;
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let svgElement: SVGSVGElement;
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 800);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 800);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -62,41 +62,41 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
 
-.icon-svg.animate {
-  animation: beaker-shake 0.8s ease-in-out forwards;
-}
+  .icon-svg.animate {
+    animation: beaker-shake 0.8s ease-in-out forwards;
+  }
 
-@keyframes beaker-shake {
-  0% {
-    transform: rotate(0deg) scale(1);
+  @keyframes beaker-shake {
+    0% {
+      transform: rotate(0deg) scale(1);
+    }
+    12.5% {
+      transform: rotate(6deg) scale(0.9);
+    }
+    25% {
+      transform: rotate(-6deg) scale(0.9);
+    }
+    37.5% {
+      transform: rotate(3deg) scale(0.9);
+    }
+    50% {
+      transform: rotate(-3deg) scale(0.9);
+    }
+    62.5% {
+      transform: rotate(0deg) scale(0.9);
+    }
+    100% {
+      transform: rotate(0deg) scale(1);
+    }
   }
-  12.5% {
-    transform: rotate(6deg) scale(0.9);
-  }
-  25% {
-    transform: rotate(-6deg) scale(0.9);
-  }
-  37.5% {
-    transform: rotate(3deg) scale(0.9);
-  }
-  50% {
-    transform: rotate(-3deg) scale(0.9);
-  }
-  62.5% {
-    transform: rotate(0deg) scale(0.9);
-  }
-  100% {
-    transform: rotate(0deg) scale(1);
-  }
-}
 </style>

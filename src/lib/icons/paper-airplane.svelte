@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 1200);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 1200);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -65,39 +65,39 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-.paperairplane-plane {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .paperairplane-plane {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-.paperairplane-plane.paperairplane-plane-animate {
-  animation: paperairplane-fly 1.2s ease-in-out forwards;
-}
+  .paperairplane-plane.paperairplane-plane-animate {
+    animation: paperairplane-fly 1.2s ease-in-out forwards;
+  }
 
-@keyframes paperairplane-fly {
-  0% {
-    transform: scale(1) translateX(0);
+  @keyframes paperairplane-fly {
+    0% {
+      transform: scale(1) translateX(0);
+    }
+    25% {
+      transform: scale(0.8) translateX(-10%);
+    }
+    50% {
+      transform: scale(1) translateX(125%);
+    }
+    75% {
+      transform: scale(1) translateX(-150%);
+    }
+    100% {
+      transform: scale(1) translateX(0);
+    }
   }
-  25% {
-    transform: scale(0.8) translateX(-10%);
-  }
-  50% {
-    transform: scale(1) translateX(125%);
-  }
-  75% {
-    transform: scale(1) translateX(-150%);
-  }
-  100% {
-    transform: scale(1) translateX(0);
-  }
-}
 </style>

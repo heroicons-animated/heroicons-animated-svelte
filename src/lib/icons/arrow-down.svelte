@@ -1,63 +1,63 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let headPath: SVGPathElement;
-let linePath: SVGPathElement;
-let lineAnimation: Animation | null = null;
+  let headPath: SVGPathElement;
+  let linePath: SVGPathElement;
+  let lineAnimation: Animation | null = null;
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
 
-    // Animate line path morphing using Web Animations API
-    if (linePath) {
-      lineAnimation = linePath.animate(
-        [{ d: "M12 21V3" }, { d: "M12 18V3" }, { d: "M12 21V3" }],
-        {
-          duration: 400,
-          easing: "ease-in-out",
-          fill: "forwards",
-        }
-      );
+      // Animate line path morphing using Web Animations API
+      if (linePath) {
+        lineAnimation = linePath.animate(
+          [{ d: "M12 21V3" }, { d: "M12 18V3" }, { d: "M12 21V3" }],
+          {
+            duration: 400,
+            easing: "ease-in-out",
+            fill: "forwards",
+          }
+        );
+      }
+
+      setTimeout(() => {
+        isAnimating = false;
+      }, 400);
+    }
+  }
+
+  export function stopAnimation() {
+    isAnimating = false;
+
+    if (lineAnimation) {
+      lineAnimation.cancel();
+      lineAnimation = null;
     }
 
-    setTimeout(() => {
-      isAnimating = false;
-    }, 400);
-  }
-}
-
-export function stopAnimation() {
-  isAnimating = false;
-
-  if (lineAnimation) {
-    lineAnimation.cancel();
-    lineAnimation = null;
+    if (linePath) {
+      linePath.setAttribute("d", "M12 21V3");
+    }
   }
 
-  if (linePath) {
-    linePath.setAttribute("d", "M12 21V3");
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
 
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
   }
-}
 </script>
 
 <div
@@ -89,34 +89,34 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.head-path {
-  transform-box: fill-box;
-  transform-origin: center;
-  transition: transform 0.4s ease-in-out;
-}
-
-.head-path.animate {
-  animation: head-translate 0.4s ease-in-out forwards;
-}
-
-@keyframes head-translate {
-  0% {
-    transform: translateY(0);
+  div {
+    display: inline-block;
   }
-  50% {
-    transform: translateY(-3px);
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-  100% {
-    transform: translateY(0);
+
+  .head-path {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.4s ease-in-out;
   }
-}
+
+  .head-path.animate {
+    animation: head-translate 0.4s ease-in-out forwards;
+  }
+
+  @keyframes head-translate {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-3px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
 </style>

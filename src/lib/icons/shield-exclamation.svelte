@@ -1,34 +1,34 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -63,32 +63,32 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.shieldexclamation-inner {
-  transform-origin: 50% 50%;
-}
-
-.shieldexclamation-inner.shieldexclamation-pulse {
-  animation: shieldexclamation-pulse 0.8s ease-in-out infinite;
-}
-
-@keyframes shieldexclamation-pulse {
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
+  div {
+    display: inline-block;
   }
-  50% {
-    opacity: 0.4;
-    transform: scale(1.1);
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-}
+
+  .shieldexclamation-inner {
+    transform-origin: 50% 50%;
+  }
+
+  .shieldexclamation-inner.shieldexclamation-pulse {
+    animation: shieldexclamation-pulse 0.8s ease-in-out infinite;
+  }
+
+  @keyframes shieldexclamation-pulse {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.4;
+      transform: scale(1.1);
+    }
+  }
 </style>

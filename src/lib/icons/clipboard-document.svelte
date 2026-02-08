@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 300);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 300);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -73,49 +73,49 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-/* Match React: clipboard path y [0,-1,0] 0.3s easeInOut */
-.clipboarddocument-clipboard.clipboarddocument-clipboard-animate {
-  animation: clipboarddocument-clipboard-bounce 0.3s ease-in-out forwards;
-}
+  /* Match React: clipboard path y [0,-1,0] 0.3s easeInOut */
+  .clipboarddocument-clipboard.clipboarddocument-clipboard-animate {
+    animation: clipboarddocument-clipboard-bounce 0.3s ease-in-out forwards;
+  }
 
-@keyframes clipboarddocument-clipboard-bounce {
-  0% {
-    transform: translateY(0);
+  @keyframes clipboarddocument-clipboard-bounce {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-1px);
+    }
+    100% {
+      transform: translateY(0);
+    }
   }
-  50% {
-    transform: translateY(-1px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
 
-/* Match React: document g x [-4,0] y [4,0] opacity [0,1] 0.3s easeOut (keyframes: current→(-4,4),0→(0,0),1) */
-.clipboarddocument-doc.clipboarddocument-doc-animate {
-  animation: clipboarddocument-doc-in 0.3s ease-out forwards;
-}
+  /* Match React: document g x [-4,0] y [4,0] opacity [0,1] 0.3s easeOut (keyframes: current→(-4,4),0→(0,0),1) */
+  .clipboarddocument-doc.clipboarddocument-doc-animate {
+    animation: clipboarddocument-doc-in 0.3s ease-out forwards;
+  }
 
-@keyframes clipboarddocument-doc-in {
-  0% {
-    transform: translate(0, 0);
-    opacity: 1;
+  @keyframes clipboarddocument-doc-in {
+    0% {
+      transform: translate(0, 0);
+      opacity: 1;
+    }
+    50% {
+      transform: translate(-4px, 4px);
+      opacity: 0;
+    }
+    100% {
+      transform: translate(0, 0);
+      opacity: 1;
+    }
   }
-  50% {
-    transform: translate(-4px, 4px);
-    opacity: 0;
-  }
-  100% {
-    transform: translate(0, 0);
-    opacity: 1;
-  }
-}
 </style>

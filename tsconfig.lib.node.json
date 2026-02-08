@@ -6,7 +6,5 @@
     "moduleResolution": "bundler",
     "strictNullChecks": true
   },
-  "include": [
-    "svelte.config.js"
-  ]
+  "include": ["svelte.config.js"]
 }

@@ -1,33 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 600);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 600);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
+  export function stopAnimation() {
+    isAnimating = false;
+  }
 
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
+  export function setControlled(value: boolean) {
+    isControlled = value;
+  }
 
-function handleMouseEnter() {
-  if (!isControlled) startAnimation();
-}
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
 
-function handleMouseLeave() {
-  if (!isControlled) stopAnimation();
-}
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -60,35 +64,35 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.users-path {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-.users-path.users-slide {
-  animation: users-slide 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards;
-}
-
-@keyframes users-slide {
-  0% {
-    transform: translateX(-6px);
-    opacity: 0;
+  div {
+    display: inline-block;
   }
-  30% {
-    opacity: 0;
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-  100% {
+
+  .users-path {
     transform: translateX(0);
     opacity: 1;
   }
-}
+
+  .users-path.users-slide {
+    animation: users-slide 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards;
+  }
+
+  @keyframes users-slide {
+    0% {
+      transform: translateX(-6px);
+      opacity: 0;
+    }
+    30% {
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
 </style>

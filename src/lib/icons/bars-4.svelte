@@ -1,41 +1,41 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let bar1Path: SVGPathElement;
-let bar2Path: SVGPathElement;
-let bar3Path: SVGPathElement;
-let bar4Path: SVGPathElement;
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let bar1Path: SVGPathElement;
+  let bar2Path: SVGPathElement;
+  let bar3Path: SVGPathElement;
+  let bar4Path: SVGPathElement;
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 600);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 600);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -84,46 +84,46 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.bar-path {
-  transform-box: fill-box;
-  transform-origin: center;
-  transition: transform 0.3s ease-in-out;
-}
-
-.bar-path.animate {
-  animation: bar-scale-x 0.3s ease-in-out forwards;
-}
-
-.bar-path:nth-child(2).animate {
-  animation-delay: 0.1s;
-}
-
-.bar-path:nth-child(3).animate {
-  animation-delay: 0.2s;
-}
-
-.bar-path:nth-child(4).animate {
-  animation-delay: 0.3s;
-}
-
-@keyframes bar-scale-x {
-  0% {
-    transform: scaleX(1);
+  div {
+    display: inline-block;
   }
-  50% {
-    transform: scaleX(0.6);
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-  100% {
-    transform: scaleX(1);
+
+  .bar-path {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.3s ease-in-out;
   }
-}
+
+  .bar-path.animate {
+    animation: bar-scale-x 0.3s ease-in-out forwards;
+  }
+
+  .bar-path:nth-child(2).animate {
+    animation-delay: 0.1s;
+  }
+
+  .bar-path:nth-child(3).animate {
+    animation-delay: 0.2s;
+  }
+
+  .bar-path:nth-child(4).animate {
+    animation-delay: 0.3s;
+  }
+
+  @keyframes bar-scale-x {
+    0% {
+      transform: scaleX(1);
+    }
+    50% {
+      transform: scaleX(0.6);
+    }
+    100% {
+      transform: scaleX(1);
+    }
+  }
 </style>

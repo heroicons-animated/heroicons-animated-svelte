@@ -42,10 +42,14 @@
     </div>
   {:else}
     {#each filteredIcons as icon (icon.name)}
-      <a class="rounded-[20px] focus-visible:outline-1 focus-visible:outline-primary focus-visible:outline-offset-2" href={`/icons/${icon.name}`}><IconCard
-        name={icon.name}
-        cardClassName="transition-shadow [contain-intrinsic-size:auto_180px] [content-visibility:auto] hover:shadow-sm"
-      /></a>
+      <a
+        class="rounded-[20px] focus-visible:outline-1 focus-visible:outline-primary focus-visible:outline-offset-2"
+        href={`/icons/${icon.name}`}
+        ><IconCard
+          name={icon.name}
+          cardClassName="transition-shadow [contain-intrinsic-size:auto_180px] [content-visibility:auto] hover:shadow-sm"
+        /></a
+      >
     {/each}
   {/if}
 </div>

@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 600);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 600);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -67,41 +67,41 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-.rss-wave {
-  transform-origin: center;
-  opacity: 1;
-  transform: scale(1);
-}
-
-.rss-wave.rss-wave-pulse {
-  animation: rss-wave-pulse 0.4s ease-in-out forwards;
-}
-
-.rss-wave-1.rss-wave-pulse {
-  animation-delay: 0s;
-}
-.rss-wave-2.rss-wave-pulse {
-  animation-delay: 0.2s;
-}
-
-@keyframes rss-wave-pulse {
-  0%,
-  100% {
+  .rss-wave {
+    transform-origin: center;
     opacity: 1;
     transform: scale(1);
   }
-  50% {
-    opacity: 0;
-    transform: scale(0);
+
+  .rss-wave.rss-wave-pulse {
+    animation: rss-wave-pulse 0.4s ease-in-out forwards;
   }
-}
+
+  .rss-wave-1.rss-wave-pulse {
+    animation-delay: 0s;
+  }
+  .rss-wave-2.rss-wave-pulse {
+    animation-delay: 0.2s;
+  }
+
+  @keyframes rss-wave-pulse {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0;
+      transform: scale(0);
+    }
+  }
 </style>

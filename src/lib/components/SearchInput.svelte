@@ -17,7 +17,7 @@
   let inputRef = $state<HTMLInputElement | null>(null);
 
   const showResultCount = $derived(
-    value.length > 0 && resultCount !== undefined && totalCount !== undefined,
+    value.length > 0 && resultCount !== undefined && totalCount !== undefined
   );
 
   onMount(() => {

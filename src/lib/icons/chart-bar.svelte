@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 600);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 600);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -72,48 +72,48 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-/* scaleY [0, 1.1, 1], opacity [0, 1, 1], origin 50% 100%, delays 0, 0.1, 0.2s, 0.4s easeOut (matches React CREATE_BAR_VARIANTS) */
-.chart-bar {
-  transform-box: fill-box;
-  transform-origin: 50% 100%;
-}
+  /* scaleY [0, 1.1, 1], opacity [0, 1, 1], origin 50% 100%, delays 0, 0.1, 0.2s, 0.4s easeOut (matches React CREATE_BAR_VARIANTS) */
+  .chart-bar {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+  }
 
-.chart-bar-1.chart-bar-animate {
-  animation: chart-bar-grow 0.4s ease-out forwards;
-  opacity: 0;
-}
-.chart-bar-2.chart-bar-animate {
-  animation: chart-bar-grow 0.4s ease-out 0.1s forwards;
-  opacity: 0;
-}
-.chart-bar-3.chart-bar-animate {
-  animation: chart-bar-grow 0.4s ease-out 0.2s forwards;
-  opacity: 0;
-}
-
-@keyframes chart-bar-grow {
-  0% {
-    transform: scaleY(0);
+  .chart-bar-1.chart-bar-animate {
+    animation: chart-bar-grow 0.4s ease-out forwards;
     opacity: 0;
   }
-  25% {
-    opacity: 1;
+  .chart-bar-2.chart-bar-animate {
+    animation: chart-bar-grow 0.4s ease-out 0.1s forwards;
+    opacity: 0;
   }
-  90% {
-    transform: scaleY(1.1);
+  .chart-bar-3.chart-bar-animate {
+    animation: chart-bar-grow 0.4s ease-out 0.2s forwards;
+    opacity: 0;
   }
-  100% {
-    transform: scaleY(1);
-    opacity: 1;
+
+  @keyframes chart-bar-grow {
+    0% {
+      transform: scaleY(0);
+      opacity: 0;
+    }
+    25% {
+      opacity: 1;
+    }
+    90% {
+      transform: scaleY(1.1);
+    }
+    100% {
+      transform: scaleY(1);
+      opacity: 1;
+    }
   }
-}
 </style>

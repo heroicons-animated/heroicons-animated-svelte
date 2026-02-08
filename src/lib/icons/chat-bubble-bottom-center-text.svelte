@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 800);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 800);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -71,46 +71,46 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-/* 2 lines: pathLength 1→0→1, opacity 1→0→1, delays 0 and 0.1s, duration 0.3 each phase (matches React LINE_VARIANTS blink) */
-.text-line {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
-  opacity: 1;
-}
-
-.text-line.text-line-animate {
-  animation: text-line-blink 0.8s ease-out forwards;
-}
-
-.text-line-2.text-line-animate {
-  animation-delay: 0.1s;
-}
-
-@keyframes text-line-blink {
-  0% {
+  /* 2 lines: pathLength 1→0→1, opacity 1→0→1, delays 0 and 0.1s, duration 0.3 each phase (matches React LINE_VARIANTS blink) */
+  .text-line {
+    stroke-dasharray: 1;
     stroke-dashoffset: 0;
     opacity: 1;
   }
-  37.5% {
-    stroke-dashoffset: 1;
-    opacity: 0;
+
+  .text-line.text-line-animate {
+    animation: text-line-blink 0.8s ease-out forwards;
   }
-  75% {
-    stroke-dashoffset: 0;
-    opacity: 1;
+
+  .text-line-2.text-line-animate {
+    animation-delay: 0.1s;
   }
-  100% {
-    stroke-dashoffset: 0;
-    opacity: 1;
+
+  @keyframes text-line-blink {
+    0% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+    37.5% {
+      stroke-dashoffset: 1;
+      opacity: 0;
+    }
+    75% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+    100% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
   }
-}
 </style>

@@ -41,7 +41,7 @@
   });
 
   let currentKey = $derived(() =>
-    status === "loading" && !showLoading ? "idle" : status,
+    status === "loading" && !showLoading ? "idle" : status
   );
 </script>
 

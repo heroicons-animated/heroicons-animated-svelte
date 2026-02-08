@@ -1,52 +1,52 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
-let xMark1: SVGPathElement;
-let xMark2: SVGPathElement;
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
+  let xMark1: SVGPathElement;
+  let xMark2: SVGPathElement;
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
 
-    // Animate X marks with delays
-    setTimeout(() => {
-      xMark1?.classList.add("xmark-animate");
-    }, 200);
-    setTimeout(() => {
-      xMark2?.classList.add("xmark-animate");
-    }, 400);
+      // Animate X marks with delays
+      setTimeout(() => {
+        xMark1?.classList.add("xmark-animate");
+      }, 200);
+      setTimeout(() => {
+        xMark2?.classList.add("xmark-animate");
+      }, 400);
 
-    setTimeout(() => {
-      isAnimating = false;
-      xMark1?.classList.remove("xmark-animate");
-      xMark2?.classList.remove("xmark-animate");
-    }, 600);
+      setTimeout(() => {
+        isAnimating = false;
+        xMark1?.classList.remove("xmark-animate");
+        xMark2?.classList.remove("xmark-animate");
+      }, 600);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-  xMark1?.classList.remove("xmark-animate");
-  xMark2?.classList.remove("xmark-animate");
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
+    xMark1?.classList.remove("xmark-animate");
+    xMark2?.classList.remove("xmark-animate");
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -93,74 +93,76 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.path-group {
-  transform-box: fill-box;
-  transform-origin: center;
-  transition: transform 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-.path-group.animate {
-  animation: path-translate 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-}
-
-.lid-group {
-  transform-box: fill-box;
-  transform-origin: center;
-  transition: transform 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-.lid-group.animate {
-  animation: lid-translate 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-}
-
-.xmark-path {
-  opacity: 1;
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  transition:
-    opacity 0.3s,
-    stroke-dashoffset 0.3s;
-}
-
-.xmark-path.xmark-animate {
-  animation: xmark-draw 0.3s ease-out forwards;
-}
-
-@keyframes path-translate {
-  0% {
-    transform: translateY(0);
+  div {
+    display: inline-block;
   }
-  100% {
-    transform: translateY(1px);
-  }
-}
 
-@keyframes lid-translate {
-  0% {
-    transform: translateY(0);
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-  100% {
-    transform: translateY(-1.5px);
-  }
-}
 
-@keyframes xmark-draw {
-  0% {
-    opacity: 0;
-    stroke-dashoffset: 1000;
+  .path-group {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
-  100% {
+
+  .path-group.animate {
+    animation: path-translate 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55)
+      forwards;
+  }
+
+  .lid-group {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  .lid-group.animate {
+    animation: lid-translate 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55)
+      forwards;
+  }
+
+  .xmark-path {
     opacity: 1;
-    stroke-dashoffset: 0;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    transition:
+      opacity 0.3s,
+      stroke-dashoffset 0.3s;
   }
-}
+
+  .xmark-path.xmark-animate {
+    animation: xmark-draw 0.3s ease-out forwards;
+  }
+
+  @keyframes path-translate {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(1px);
+    }
+  }
+
+  @keyframes lid-translate {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-1.5px);
+    }
+  }
+
+  @keyframes xmark-draw {
+    0% {
+      opacity: 0;
+      stroke-dashoffset: 1000;
+    }
+    100% {
+      opacity: 1;
+      stroke-dashoffset: 0;
+    }
+  }
 </style>

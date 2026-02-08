@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 600);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 600);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -62,31 +62,31 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-/* rotate 0→360, 0.6s cubic-bezier(0.4, 0, 0.2, 1) (matches React HAND_VARIANTS) */
-.clock-path {
-  transform-box: fill-box;
-  transform-origin: 50% 50%;
-}
-
-.clock-path.clock-path-animate {
-  animation: clock-rotate 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-@keyframes clock-rotate {
-  0% {
-    transform: rotate(0deg);
+  div {
+    display: inline-block;
   }
-  100% {
-    transform: rotate(360deg);
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-}
+
+  /* rotate 0→360, 0.6s cubic-bezier(0.4, 0, 0.2, 1) (matches React HAND_VARIANTS) */
+  .clock-path {
+    transform-box: fill-box;
+    transform-origin: 50% 50%;
+  }
+
+  .clock-path.clock-path-animate {
+    animation: clock-rotate 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  @keyframes clock-rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 </style>

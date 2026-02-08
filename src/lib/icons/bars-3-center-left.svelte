@@ -1,73 +1,73 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let topBarPath: SVGPathElement;
-let centerBarPath: SVGPathElement;
-let bottomBarPath: SVGPathElement;
-let centerBarAnimation: Animation | null = null;
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let topBarPath: SVGPathElement;
+  let centerBarPath: SVGPathElement;
+  let bottomBarPath: SVGPathElement;
+  let centerBarAnimation: Animation | null = null;
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
 
-    // Animate pathLength using Web Animations API
-    if (centerBarPath) {
-      const pathLength = centerBarPath.getTotalLength();
-      centerBarPath.style.strokeDasharray = `${pathLength}`;
-      centerBarPath.style.strokeDashoffset = "0";
+      // Animate pathLength using Web Animations API
+      if (centerBarPath) {
+        const pathLength = centerBarPath.getTotalLength();
+        centerBarPath.style.strokeDasharray = `${pathLength}`;
+        centerBarPath.style.strokeDashoffset = "0";
 
-      centerBarAnimation = centerBarPath.animate(
-        [
-          { strokeDashoffset: 0 },
-          { strokeDashoffset: pathLength * 0.5 },
-          { strokeDashoffset: 0 },
-        ],
-        {
-          duration: 500,
-          easing: "ease-in-out",
-          delay: 50,
-          fill: "forwards",
-        }
-      );
+        centerBarAnimation = centerBarPath.animate(
+          [
+            { strokeDashoffset: 0 },
+            { strokeDashoffset: pathLength * 0.5 },
+            { strokeDashoffset: 0 },
+          ],
+          {
+            duration: 500,
+            easing: "ease-in-out",
+            delay: 50,
+            fill: "forwards",
+          }
+        );
+      }
+
+      setTimeout(() => {
+        isAnimating = false;
+      }, 550);
+    }
+  }
+
+  export function stopAnimation() {
+    isAnimating = false;
+
+    if (centerBarAnimation) {
+      centerBarAnimation.cancel();
+      centerBarAnimation = null;
     }
 
-    setTimeout(() => {
-      isAnimating = false;
-    }, 550);
-  }
-}
-
-export function stopAnimation() {
-  isAnimating = false;
-
-  if (centerBarAnimation) {
-    centerBarAnimation.cancel();
-    centerBarAnimation = null;
+    if (centerBarPath) {
+      centerBarPath.style.strokeDasharray = "";
+      centerBarPath.style.strokeDashoffset = "";
+    }
   }
 
-  if (centerBarPath) {
-    centerBarPath.style.strokeDasharray = "";
-    centerBarPath.style.strokeDashoffset = "";
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
 
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
   }
-}
 </script>
 
 <div
@@ -110,56 +110,56 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.top-bar,
-.center-bar,
-.bottom-bar {
-  transform-box: fill-box;
-  transform-origin: center;
-  transition: transform 0.4s ease-in-out;
-}
-
-.top-bar.animate {
-  animation: slide-left 0.4s ease-in-out forwards;
-}
-
-.center-bar.animate {
-  animation: slide-left-short 0.5s ease-in-out 0.05s forwards;
-}
-
-.bottom-bar.animate {
-  animation: slide-left 0.4s ease-in-out 0.1s forwards;
-}
-
-@keyframes slide-left {
-  0% {
-    transform: translateX(0);
+  div {
+    display: inline-block;
   }
-  50% {
-    transform: translateX(-3px);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
 
-@keyframes slide-left-short {
-  0% {
-    transform: translateX(0);
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-  50% {
-    transform: translateX(-2px);
+
+  .top-bar,
+  .center-bar,
+  .bottom-bar {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.4s ease-in-out;
   }
-  100% {
-    transform: translateX(0);
+
+  .top-bar.animate {
+    animation: slide-left 0.4s ease-in-out forwards;
   }
-}
+
+  .center-bar.animate {
+    animation: slide-left-short 0.5s ease-in-out 0.05s forwards;
+  }
+
+  .bottom-bar.animate {
+    animation: slide-left 0.4s ease-in-out 0.1s forwards;
+  }
+
+  @keyframes slide-left {
+    0% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(-3px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slide-left-short {
+    0% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(-2px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
 </style>

@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 850);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 850);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -108,78 +108,78 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-/* Match React: screen opacity [1,0.4,1] 0.2s delay 0.65; buttons scale [1,1.5,1] opacity [1,0.5,1] 0.15s delay index*0.08; enter scale [1,1.3,1] opacity [1,0.6,1] 0.2s delay 0.5 */
-.calculator-screen.calculator-screen-animate {
-  animation: calculator-screen-pulse 0.2s ease-out 0.65s forwards;
-}
-.calculator-btn0.calculator-btn-animate {
-  animation: calculator-btn-pulse 0.15s ease-out 0s forwards;
-}
-.calculator-btn1.calculator-btn-animate {
-  animation: calculator-btn-pulse 0.15s ease-out 0.16s forwards;
-}
-.calculator-btn2.calculator-btn-animate {
-  animation: calculator-btn-pulse 0.15s ease-out 0.08s forwards;
-}
-.calculator-btn3.calculator-btn-animate {
-  animation: calculator-btn-pulse 0.15s ease-out 0.32s forwards;
-}
-.calculator-btn4.calculator-btn-animate {
-  animation: calculator-btn-pulse 0.15s ease-out 0.24s forwards;
-}
-.calculator-btn5.calculator-btn-animate {
-  animation: calculator-btn-pulse 0.15s ease-out 0.4s forwards;
-}
-.calculator-enter.calculator-enter-animate {
-  animation: calculator-enter-pulse 0.2s ease-out 0.5s forwards;
-}
+  /* Match React: screen opacity [1,0.4,1] 0.2s delay 0.65; buttons scale [1,1.5,1] opacity [1,0.5,1] 0.15s delay index*0.08; enter scale [1,1.3,1] opacity [1,0.6,1] 0.2s delay 0.5 */
+  .calculator-screen.calculator-screen-animate {
+    animation: calculator-screen-pulse 0.2s ease-out 0.65s forwards;
+  }
+  .calculator-btn0.calculator-btn-animate {
+    animation: calculator-btn-pulse 0.15s ease-out 0s forwards;
+  }
+  .calculator-btn1.calculator-btn-animate {
+    animation: calculator-btn-pulse 0.15s ease-out 0.16s forwards;
+  }
+  .calculator-btn2.calculator-btn-animate {
+    animation: calculator-btn-pulse 0.15s ease-out 0.08s forwards;
+  }
+  .calculator-btn3.calculator-btn-animate {
+    animation: calculator-btn-pulse 0.15s ease-out 0.32s forwards;
+  }
+  .calculator-btn4.calculator-btn-animate {
+    animation: calculator-btn-pulse 0.15s ease-out 0.24s forwards;
+  }
+  .calculator-btn5.calculator-btn-animate {
+    animation: calculator-btn-pulse 0.15s ease-out 0.4s forwards;
+  }
+  .calculator-enter.calculator-enter-animate {
+    animation: calculator-enter-pulse 0.2s ease-out 0.5s forwards;
+  }
 
-@keyframes calculator-screen-pulse {
-  0% {
-    opacity: 1;
+  @keyframes calculator-screen-pulse {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
+    100% {
+      opacity: 1;
+    }
   }
-  50% {
-    opacity: 0.4;
+  @keyframes calculator-btn-pulse {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.5);
+      opacity: 0.5;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
   }
-  100% {
-    opacity: 1;
+  @keyframes calculator-enter-pulse {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.3);
+      opacity: 0.6;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
   }
-}
-@keyframes calculator-btn-pulse {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.5);
-    opacity: 0.5;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-@keyframes calculator-enter-pulse {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.3);
-    opacity: 0.6;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
 </style>

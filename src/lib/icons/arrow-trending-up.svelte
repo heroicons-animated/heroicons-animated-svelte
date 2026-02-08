@@ -1,109 +1,109 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let svgElement: SVGSVGElement;
-let pathElement: SVGPathElement;
-let arrowElement: SVGPathElement;
-let pathAnimation: Animation | null = null;
-let arrowAnimation: Animation | null = null;
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let svgElement: SVGSVGElement;
+  let pathElement: SVGPathElement;
+  let arrowElement: SVGPathElement;
+  let pathAnimation: Animation | null = null;
+  let arrowAnimation: Animation | null = null;
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
 
-    // Animate path drawing using Web Animations API
-    if (pathElement) {
-      const pathLength = pathElement.getTotalLength();
-      pathElement.style.strokeDasharray = `${pathLength}`;
-      pathElement.style.strokeDashoffset = `${pathLength}`;
-      pathElement.style.opacity = "0";
+      // Animate path drawing using Web Animations API
+      if (pathElement) {
+        const pathLength = pathElement.getTotalLength();
+        pathElement.style.strokeDasharray = `${pathLength}`;
+        pathElement.style.strokeDashoffset = `${pathLength}`;
+        pathElement.style.opacity = "0";
 
-      pathAnimation = pathElement.animate(
-        [
-          { strokeDashoffset: pathLength, opacity: 0 },
-          { strokeDashoffset: 0, opacity: 1 },
-        ],
-        {
-          duration: 400,
-          easing: "ease-in-out",
-          fill: "forwards",
-        }
-      );
-    }
+        pathAnimation = pathElement.animate(
+          [
+            { strokeDashoffset: pathLength, opacity: 0 },
+            { strokeDashoffset: 0, opacity: 1 },
+          ],
+          {
+            duration: 400,
+            easing: "ease-in-out",
+            fill: "forwards",
+          }
+        );
+      }
 
-    // Animate arrow path drawing with delay
-    if (arrowElement) {
-      const arrowLength = arrowElement.getTotalLength();
-      arrowElement.style.strokeDasharray = `${arrowLength}`;
-      arrowElement.style.strokeDashoffset = `${arrowLength * 0.5}`;
-      arrowElement.style.opacity = "0";
+      // Animate arrow path drawing with delay
+      if (arrowElement) {
+        const arrowLength = arrowElement.getTotalLength();
+        arrowElement.style.strokeDasharray = `${arrowLength}`;
+        arrowElement.style.strokeDashoffset = `${arrowLength * 0.5}`;
+        arrowElement.style.opacity = "0";
+
+        setTimeout(() => {
+          if (arrowElement) {
+            arrowAnimation = arrowElement.animate(
+              [
+                { strokeDashoffset: arrowLength * 0.5, opacity: 0 },
+                { strokeDashoffset: 0, opacity: 1 },
+              ],
+              {
+                duration: 300,
+                easing: "ease-in-out",
+                fill: "forwards",
+              }
+            );
+          }
+        }, 300);
+      }
 
       setTimeout(() => {
-        if (arrowElement) {
-          arrowAnimation = arrowElement.animate(
-            [
-              { strokeDashoffset: arrowLength * 0.5, opacity: 0 },
-              { strokeDashoffset: 0, opacity: 1 },
-            ],
-            {
-              duration: 300,
-              easing: "ease-in-out",
-              fill: "forwards",
-            }
-          );
-        }
-      }, 300);
+        isAnimating = false;
+      }, 500);
+    }
+  }
+
+  export function stopAnimation() {
+    isAnimating = false;
+
+    if (pathAnimation) {
+      pathAnimation.cancel();
+      pathAnimation = null;
     }
 
-    setTimeout(() => {
-      isAnimating = false;
-    }, 500);
-  }
-}
+    if (arrowAnimation) {
+      arrowAnimation.cancel();
+      arrowAnimation = null;
+    }
 
-export function stopAnimation() {
-  isAnimating = false;
+    if (pathElement) {
+      pathElement.style.strokeDasharray = "";
+      pathElement.style.strokeDashoffset = "";
+      pathElement.style.opacity = "1";
+    }
 
-  if (pathAnimation) {
-    pathAnimation.cancel();
-    pathAnimation = null;
-  }
-
-  if (arrowAnimation) {
-    arrowAnimation.cancel();
-    arrowAnimation = null;
-  }
-
-  if (pathElement) {
-    pathElement.style.strokeDasharray = "";
-    pathElement.style.strokeDashoffset = "";
-    pathElement.style.opacity = "1";
+    if (arrowElement) {
+      arrowElement.style.strokeDasharray = "";
+      arrowElement.style.strokeDashoffset = "";
+      arrowElement.style.opacity = "1";
+    }
   }
 
-  if (arrowElement) {
-    arrowElement.style.strokeDasharray = "";
-    arrowElement.style.strokeDashoffset = "";
-    arrowElement.style.opacity = "1";
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
 
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
   }
-}
 </script>
 
 <div
@@ -138,29 +138,29 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-  transition: transform 0.5s ease-in-out;
-}
-
-.icon-svg.animate {
-  animation: svg-translate 0.5s ease-in-out forwards;
-}
-
-@keyframes svg-translate {
-  0% {
-    transform: translate(0, 0);
+  div {
+    display: inline-block;
   }
-  50% {
-    transform: translate(2px, -2px);
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.5s ease-in-out;
   }
-  100% {
-    transform: translate(0, 0);
+
+  .icon-svg.animate {
+    animation: svg-translate 0.5s ease-in-out forwards;
   }
-}
+
+  @keyframes svg-translate {
+    0% {
+      transform: translate(0, 0);
+    }
+    50% {
+      transform: translate(2px, -2px);
+    }
+    100% {
+      transform: translate(0, 0);
+    }
+  }
 </style>

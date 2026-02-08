@@ -1,108 +1,108 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let circleElement: SVGCircleElement;
-let pathElement: SVGPathElement;
-let circleAnimation: Animation | null = null;
-let pathAnimation: Animation | null = null;
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let circleElement: SVGCircleElement;
+  let pathElement: SVGPathElement;
+  let circleAnimation: Animation | null = null;
+  let pathAnimation: Animation | null = null;
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
 
-    // Animate circle path drawing using Web Animations API
-    if (circleElement) {
-      const circleLength = circleElement.getTotalLength();
-      circleElement.style.strokeDasharray = `${circleLength}`;
-      circleElement.style.strokeDashoffset = `${circleLength}`;
-      circleElement.style.opacity = "0";
+      // Animate circle path drawing using Web Animations API
+      if (circleElement) {
+        const circleLength = circleElement.getTotalLength();
+        circleElement.style.strokeDasharray = `${circleLength}`;
+        circleElement.style.strokeDashoffset = `${circleLength}`;
+        circleElement.style.opacity = "0";
 
-      circleAnimation = circleElement.animate(
-        [
-          { strokeDashoffset: circleLength, opacity: 0 },
-          { strokeDashoffset: 0, opacity: 1 },
-        ],
-        {
-          duration: 300,
-          easing: "ease-in-out",
-          fill: "forwards",
-        }
-      );
-    }
+        circleAnimation = circleElement.animate(
+          [
+            { strokeDashoffset: circleLength, opacity: 0 },
+            { strokeDashoffset: 0, opacity: 1 },
+          ],
+          {
+            duration: 300,
+            easing: "ease-in-out",
+            fill: "forwards",
+          }
+        );
+      }
 
-    // Animate path drawing with delay
-    if (pathElement) {
-      const pathLength = pathElement.getTotalLength();
-      pathElement.style.strokeDasharray = `${pathLength}`;
-      pathElement.style.strokeDashoffset = `${pathLength}`;
-      pathElement.style.opacity = "0";
+      // Animate path drawing with delay
+      if (pathElement) {
+        const pathLength = pathElement.getTotalLength();
+        pathElement.style.strokeDasharray = `${pathLength}`;
+        pathElement.style.strokeDashoffset = `${pathLength}`;
+        pathElement.style.opacity = "0";
+
+        setTimeout(() => {
+          if (pathElement) {
+            pathAnimation = pathElement.animate(
+              [
+                { strokeDashoffset: pathLength, opacity: 0 },
+                { strokeDashoffset: 0, opacity: 1 },
+              ],
+              {
+                duration: 300,
+                easing: "ease-in-out",
+                fill: "forwards",
+              }
+            );
+          }
+        }, 300);
+      }
 
       setTimeout(() => {
-        if (pathElement) {
-          pathAnimation = pathElement.animate(
-            [
-              { strokeDashoffset: pathLength, opacity: 0 },
-              { strokeDashoffset: 0, opacity: 1 },
-            ],
-            {
-              duration: 300,
-              easing: "ease-in-out",
-              fill: "forwards",
-            }
-          );
-        }
-      }, 300);
+        isAnimating = false;
+      }, 600);
+    }
+  }
+
+  export function stopAnimation() {
+    isAnimating = false;
+
+    if (circleAnimation) {
+      circleAnimation.cancel();
+      circleAnimation = null;
     }
 
-    setTimeout(() => {
-      isAnimating = false;
-    }, 600);
-  }
-}
+    if (pathAnimation) {
+      pathAnimation.cancel();
+      pathAnimation = null;
+    }
 
-export function stopAnimation() {
-  isAnimating = false;
+    if (circleElement) {
+      circleElement.style.strokeDasharray = "";
+      circleElement.style.strokeDashoffset = "";
+      circleElement.style.opacity = "1";
+    }
 
-  if (circleAnimation) {
-    circleAnimation.cancel();
-    circleAnimation = null;
-  }
-
-  if (pathAnimation) {
-    pathAnimation.cancel();
-    pathAnimation = null;
-  }
-
-  if (circleElement) {
-    circleElement.style.strokeDasharray = "";
-    circleElement.style.strokeDashoffset = "";
-    circleElement.style.opacity = "1";
+    if (pathElement) {
+      pathElement.style.strokeDasharray = "";
+      pathElement.style.strokeDashoffset = "";
+      pathElement.style.opacity = "1";
+    }
   }
 
-  if (pathElement) {
-    pathElement.style.strokeDasharray = "";
-    pathElement.style.strokeDashoffset = "";
-    pathElement.style.opacity = "1";
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
 
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
   }
-}
 </script>
 
 <div
@@ -132,12 +132,12 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 </style>

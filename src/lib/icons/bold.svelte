@@ -1,59 +1,59 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let pathElement: SVGPathElement;
-let pathAnimation: Animation | null = null;
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let pathElement: SVGPathElement;
+  let pathAnimation: Animation | null = null;
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
 
-    if (pathElement) {
-      pathAnimation = pathElement.animate(
-        [{ strokeWidth: 2 }, { strokeWidth: 3.5 }],
-        {
-          duration: 300,
-          fill: "forwards",
-        }
-      );
+      if (pathElement) {
+        pathAnimation = pathElement.animate(
+          [{ strokeWidth: 2 }, { strokeWidth: 3.5 }],
+          {
+            duration: 300,
+            fill: "forwards",
+          }
+        );
+      }
+
+      setTimeout(() => {
+        isAnimating = false;
+      }, 300);
+    }
+  }
+
+  export function stopAnimation() {
+    isAnimating = false;
+
+    if (pathAnimation) {
+      pathAnimation.cancel();
+      pathAnimation = null;
     }
 
-    setTimeout(() => {
-      isAnimating = false;
-    }, 300);
-  }
-}
-
-export function stopAnimation() {
-  isAnimating = false;
-
-  if (pathAnimation) {
-    pathAnimation.cancel();
-    pathAnimation = null;
+    if (pathElement) {
+      pathElement.style.strokeWidth = "";
+    }
   }
 
-  if (pathElement) {
-    pathElement.style.strokeWidth = "";
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
 
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
   }
-}
 </script>
 
 <div
@@ -82,12 +82,12 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 </style>

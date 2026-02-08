@@ -1,4 +1,4 @@
-import { PACKAGE_MANAGER } from "./constants";
+import type { PACKAGE_MANAGER } from "./constants";
 
 type PackageManager = (typeof PACKAGE_MANAGER)[keyof typeof PACKAGE_MANAGER];
 

@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 500);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 500);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -66,52 +66,52 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-  transition: transform 0.3s ease;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.3s ease;
+  }
 
-.icon-svg.lockclosed-shake {
-  animation: lockclosed-shake 0.5s ease-in-out forwards;
-}
+  .icon-svg.lockclosed-shake {
+    animation: lockclosed-shake 0.5s ease-in-out forwards;
+  }
 
-.lockclosed-shackle.lockclosed-shackle-bounce {
-  animation: lockclosed-shackle-bounce 0.3s ease-in-out forwards;
-}
+  .lockclosed-shackle.lockclosed-shackle-bounce {
+    animation: lockclosed-shackle-bounce 0.3s ease-in-out forwards;
+  }
 
-@keyframes lockclosed-shake {
-  0% {
-    transform: rotate(0deg) scale(1);
+  @keyframes lockclosed-shake {
+    0% {
+      transform: rotate(0deg) scale(1);
+    }
+    20% {
+      transform: rotate(-3deg) scale(1.02);
+    }
+    40% {
+      transform: rotate(2deg) scale(0.98);
+    }
+    60% {
+      transform: rotate(-2deg) scale(1);
+    }
+    80% {
+      transform: rotate(1deg) scale(1);
+    }
+    100% {
+      transform: rotate(0deg) scale(1);
+    }
   }
-  20% {
-    transform: rotate(-3deg) scale(1.02);
-  }
-  40% {
-    transform: rotate(2deg) scale(0.98);
-  }
-  60% {
-    transform: rotate(-2deg) scale(1);
-  }
-  80% {
-    transform: rotate(1deg) scale(1);
-  }
-  100% {
-    transform: rotate(0deg) scale(1);
-  }
-}
 
-@keyframes lockclosed-shackle-bounce {
-  0%,
-  100% {
-    transform: translateY(0);
+  @keyframes lockclosed-shackle-bounce {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-1px);
+    }
   }
-  50% {
-    transform: translateY(-1px);
-  }
-}
 </style>

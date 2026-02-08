@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 1800);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 1800);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -71,55 +71,55 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.sparkle-path {
-  transform-box: fill-box;
-  transform-origin: center;
-  transition:
-    opacity 0.3s ease-in-out,
-    transform 0.3s ease-in-out;
-}
-
-.sparkle-path.sparkles-animate {
-  animation: sparkles-pulse 1.5s ease-in-out forwards;
-}
-
-.sparkle-1.sparkles-animate {
-  animation-delay: 0.15s;
-}
-
-.sparkle-2.sparkles-animate {
-  animation-delay: 0.3s;
-}
-
-@keyframes sparkles-pulse {
-  0% {
-    opacity: 1;
-    transform: scale(1);
+  div {
+    display: inline-block;
   }
-  20% {
-    opacity: 0.3;
-    transform: scale(1.2);
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-  40% {
-    opacity: 1;
-    transform: scale(1);
+
+  .sparkle-path {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition:
+      opacity 0.3s ease-in-out,
+      transform 0.3s ease-in-out;
   }
-  60% {
-    opacity: 0.3;
-    transform: scale(1.1);
+
+  .sparkle-path.sparkles-animate {
+    animation: sparkles-pulse 1.5s ease-in-out forwards;
   }
-  100% {
-    opacity: 1;
-    transform: scale(1);
+
+  .sparkle-1.sparkles-animate {
+    animation-delay: 0.15s;
   }
-}
+
+  .sparkle-2.sparkles-animate {
+    animation-delay: 0.3s;
+  }
+
+  @keyframes sparkles-pulse {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    20% {
+      opacity: 0.3;
+      transform: scale(1.2);
+    }
+    40% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    60% {
+      opacity: 0.3;
+      transform: scale(1.1);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 </style>

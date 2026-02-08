@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 500);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 500);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -72,49 +72,49 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-.pin-y,
-.pin-x {
-  opacity: 1;
-}
-
-.pin-y.pin-y-animate {
-  animation: pin-y-animate 0.5s ease-in-out;
-}
-
-.pin-x.pin-x-animate {
-  animation: pin-x-animate 0.5s ease-in-out;
-}
-
-@keyframes pin-y-animate {
-  0%,
-  100% {
-    transform: scaleY(1);
+  .pin-y,
+  .pin-x {
     opacity: 1;
   }
-  50% {
-    transform: scaleY(1.5);
-    opacity: 0.8;
-  }
-}
 
-@keyframes pin-x-animate {
-  0%,
-  100% {
-    transform: scaleX(1);
-    opacity: 1;
+  .pin-y.pin-y-animate {
+    animation: pin-y-animate 0.5s ease-in-out;
   }
-  50% {
-    transform: scaleX(1.5);
-    opacity: 0.8;
+
+  .pin-x.pin-x-animate {
+    animation: pin-x-animate 0.5s ease-in-out;
   }
-}
+
+  @keyframes pin-y-animate {
+    0%,
+    100% {
+      transform: scaleY(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scaleY(1.5);
+      opacity: 0.8;
+    }
+  }
+
+  @keyframes pin-x-animate {
+    0%,
+    100% {
+      transform: scaleX(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scaleX(1.5);
+      opacity: 0.8;
+    }
+  }
 </style>

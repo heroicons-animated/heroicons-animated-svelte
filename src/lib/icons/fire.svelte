@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 500);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 500);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -65,36 +65,36 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-  transition: transform 0.3s ease;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.3s ease;
+  }
 
-.icon-svg.fire-animate {
-  animation: fire-animate 0.5s ease-in-out forwards;
-}
+  .icon-svg.fire-animate {
+    animation: fire-animate 0.5s ease-in-out forwards;
+  }
 
-@keyframes fire-animate {
-  0%,
-  100% {
-    transform: rotate(0deg) scaleX(1);
+  @keyframes fire-animate {
+    0%,
+    100% {
+      transform: rotate(0deg) scaleX(1);
+    }
+    20% {
+      transform: rotate(-3deg) scaleX(0.95);
+    }
+    40% {
+      transform: rotate(3deg) scaleX(1.05);
+    }
+    60% {
+      transform: rotate(-2deg) scaleX(0.98);
+    }
+    80% {
+      transform: rotate(2deg) scaleX(1);
+    }
   }
-  20% {
-    transform: rotate(-3deg) scaleX(0.95);
-  }
-  40% {
-    transform: rotate(3deg) scaleX(1.05);
-  }
-  60% {
-    transform: rotate(-2deg) scaleX(0.98);
-  }
-  80% {
-    transform: rotate(2deg) scaleX(1);
-  }
-}
 </style>

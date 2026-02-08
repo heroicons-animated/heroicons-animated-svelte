@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 1500);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 1500);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -93,57 +93,57 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.numberedlist-number,
-.numberedlist-line {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
-  opacity: 1;
-}
-
-.numberedlist-number.numberedlist-number1-animate {
-  animation: numberedlist-draw 0.2s ease-in-out 0s forwards;
-}
-
-.numberedlist-line.numberedlist-line1-animate {
-  animation: numberedlist-draw 0.3s ease-in-out 0.2s forwards;
-}
-
-.numberedlist-number.numberedlist-number2-animate {
-  animation: numberedlist-draw 0.2s ease-in-out 0.5s forwards;
-}
-
-.numberedlist-line.numberedlist-line2-animate {
-  animation: numberedlist-draw 0.3s ease-in-out 0.7s forwards;
-}
-
-.numberedlist-number.numberedlist-number3-animate {
-  animation: numberedlist-draw 0.2s ease-in-out 1s forwards;
-}
-
-.numberedlist-line.numberedlist-line3-animate {
-  animation: numberedlist-draw 0.3s ease-in-out 1.2s forwards;
-}
-
-@keyframes numberedlist-draw {
-  0% {
-    stroke-dashoffset: 1;
-    opacity: 0;
+  div {
+    display: inline-block;
   }
-  50% {
-    opacity: 1;
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-  100% {
+
+  .numberedlist-number,
+  .numberedlist-line {
+    stroke-dasharray: 1;
     stroke-dashoffset: 0;
     opacity: 1;
   }
-}
+
+  .numberedlist-number.numberedlist-number1-animate {
+    animation: numberedlist-draw 0.2s ease-in-out 0s forwards;
+  }
+
+  .numberedlist-line.numberedlist-line1-animate {
+    animation: numberedlist-draw 0.3s ease-in-out 0.2s forwards;
+  }
+
+  .numberedlist-number.numberedlist-number2-animate {
+    animation: numberedlist-draw 0.2s ease-in-out 0.5s forwards;
+  }
+
+  .numberedlist-line.numberedlist-line2-animate {
+    animation: numberedlist-draw 0.3s ease-in-out 0.7s forwards;
+  }
+
+  .numberedlist-number.numberedlist-number3-animate {
+    animation: numberedlist-draw 0.2s ease-in-out 1s forwards;
+  }
+
+  .numberedlist-line.numberedlist-line3-animate {
+    animation: numberedlist-draw 0.3s ease-in-out 1.2s forwards;
+  }
+
+  @keyframes numberedlist-draw {
+    0% {
+      stroke-dashoffset: 1;
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+  }
 </style>

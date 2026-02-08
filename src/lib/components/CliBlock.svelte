@@ -26,35 +26,43 @@
   } = $props();
 
   const iconList = $derived(
-    (icons || []).filter((icon) => icon.name.length <= 20),
+    (icons || []).filter((icon) => icon.name.length <= 20)
   );
 
   let loopIndex = $state(0);
   let intervalId: ReturnType<typeof setInterval> | null = null;
 
   onMount(() => {
-    if (staticIconName) return;
+    if (staticIconName) {
+      return;
+    }
     intervalId = setInterval(() => {
-      if (iconList.length === 0) return;
+      if (iconList.length === 0) {
+        return;
+      }
       loopIndex = (loopIndex + 1) % iconList.length;
     }, 1500);
   });
 
   onDestroy(() => {
-    if (intervalId) clearInterval(intervalId);
+    if (intervalId) {
+      clearInterval(intervalId);
+    }
   });
 
   const currentIconName = $derived(
-    staticIconName || iconList[loopIndex]?.name || "",
+    staticIconName || iconList[loopIndex]?.name || ""
   );
 
   let state = $state<"idle" | "done" | "error">("idle");
 
   async function handleCopy() {
-    if (state !== "idle") return;
+    if (state !== "idle") {
+      return;
+    }
     try {
       await navigator.clipboard.writeText(
-        getCLICommand($packageManager, currentIconName),
+        getCLICommand($packageManager, currentIconName)
       );
       state = "done";
       setTimeout(() => (state = "idle"), 2000);
@@ -94,15 +102,17 @@
             >
               <span class="sr-only">
                 {getPackageManagerPrefix(pm)}
-                {getShadcnCLI()} add @
-                {SITE.NAME}/{staticIconName || currentIconName}
+                {getShadcnCLI()} add @{SITE.NAME}/
+                {staticIconName || currentIconName}
               </span>
               <span class="text-neutral-600 dark:text-neutral-400">
                 {getPackageManagerPrefix(pm)}
               </span>
               <span class="text-black dark:text-white">
-                {getShadcnCLI()} add @{SITE.NAME}{getRegistryPathPrefix()}
-              </span>{#if staticIconName}
+                {getShadcnCLI()} add @{SITE.NAME}
+                {getRegistryPathPrefix()}
+              </span>
+              {#if staticIconName}
                 <span class="shrink-0 text-primary">{staticIconName}</span>
               {:else}
                 {#key loopIndex}

@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 650);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 650);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -105,61 +105,61 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.qrcode-dot {
-  transform-origin: center;
-  opacity: 1;
-  transform: scale(1);
-}
-
-.qrcode-dot.qrcode-dot-animate {
-  animation: qrcode-dot-pop 0.3s ease-out forwards;
-}
-
-.qrcode-dot-0.qrcode-dot-animate {
-  animation-delay: 0s;
-}
-.qrcode-dot-1.qrcode-dot-animate {
-  animation-delay: 0.05s;
-}
-.qrcode-dot-2.qrcode-dot-animate {
-  animation-delay: 0.1s;
-}
-.qrcode-dot-3.qrcode-dot-animate {
-  animation-delay: 0.15s;
-}
-.qrcode-dot-4.qrcode-dot-animate {
-  animation-delay: 0.2s;
-}
-.qrcode-dot-5.qrcode-dot-animate {
-  animation-delay: 0.25s;
-}
-.qrcode-dot-6.qrcode-dot-animate {
-  animation-delay: 0.3s;
-}
-.qrcode-dot-7.qrcode-dot-animate {
-  animation-delay: 0.35s;
-}
-
-@keyframes qrcode-dot-pop {
-  0% {
-    opacity: 0;
-    transform: scale(0);
+  div {
+    display: inline-block;
   }
-  66% {
-    transform: scale(1.2);
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-  100% {
+
+  .qrcode-dot {
+    transform-origin: center;
     opacity: 1;
     transform: scale(1);
   }
-}
+
+  .qrcode-dot.qrcode-dot-animate {
+    animation: qrcode-dot-pop 0.3s ease-out forwards;
+  }
+
+  .qrcode-dot-0.qrcode-dot-animate {
+    animation-delay: 0s;
+  }
+  .qrcode-dot-1.qrcode-dot-animate {
+    animation-delay: 0.05s;
+  }
+  .qrcode-dot-2.qrcode-dot-animate {
+    animation-delay: 0.1s;
+  }
+  .qrcode-dot-3.qrcode-dot-animate {
+    animation-delay: 0.15s;
+  }
+  .qrcode-dot-4.qrcode-dot-animate {
+    animation-delay: 0.2s;
+  }
+  .qrcode-dot-5.qrcode-dot-animate {
+    animation-delay: 0.25s;
+  }
+  .qrcode-dot-6.qrcode-dot-animate {
+    animation-delay: 0.3s;
+  }
+  .qrcode-dot-7.qrcode-dot-animate {
+    animation-delay: 0.35s;
+  }
+
+  @keyframes qrcode-dot-pop {
+    0% {
+      opacity: 0;
+      transform: scale(0);
+    }
+    66% {
+      transform: scale(1.2);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 </style>

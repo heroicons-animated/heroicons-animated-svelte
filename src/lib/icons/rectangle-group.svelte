@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 500);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 500);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -71,46 +71,46 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.rectanglegroup-rect {
-  transform-origin: center;
-  opacity: 1;
-  transform: scale(1);
-}
-
-.rectanglegroup-rect.rectanglegroup-pop {
-  animation: rectanglegroup-pop 0.3s ease-out forwards;
-}
-
-.rectanglegroup-rect-0.rectanglegroup-pop {
-  animation-delay: 0s;
-}
-.rectanglegroup-rect-1.rectanglegroup-pop {
-  animation-delay: 0.1s;
-}
-.rectanglegroup-rect-2.rectanglegroup-pop {
-  animation-delay: 0.2s;
-}
-
-@keyframes rectanglegroup-pop {
-  0% {
-    opacity: 0.5;
-    transform: scale(0.9);
+  div {
+    display: inline-block;
   }
-  66% {
-    transform: scale(1.05);
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-  100% {
+
+  .rectanglegroup-rect {
+    transform-origin: center;
     opacity: 1;
     transform: scale(1);
   }
-}
+
+  .rectanglegroup-rect.rectanglegroup-pop {
+    animation: rectanglegroup-pop 0.3s ease-out forwards;
+  }
+
+  .rectanglegroup-rect-0.rectanglegroup-pop {
+    animation-delay: 0s;
+  }
+  .rectanglegroup-rect-1.rectanglegroup-pop {
+    animation-delay: 0.1s;
+  }
+  .rectanglegroup-rect-2.rectanglegroup-pop {
+    animation-delay: 0.2s;
+  }
+
+  @keyframes rectanglegroup-pop {
+    0% {
+      opacity: 0.5;
+      transform: scale(0.9);
+    }
+    66% {
+      transform: scale(1.05);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 </style>

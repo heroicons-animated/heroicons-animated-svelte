@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 500);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 500);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -61,41 +61,41 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: 50% 50%;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: 50% 50%;
+  }
 
-.icon-svg.devicephonemobile-shake {
-  animation: devicephonemobile-shake 0.5s ease-in-out;
-}
+  .icon-svg.devicephonemobile-shake {
+    animation: devicephonemobile-shake 0.5s ease-in-out;
+  }
 
-@keyframes devicephonemobile-shake {
-  0%,
-  100% {
-    transform: rotate(0deg);
+  @keyframes devicephonemobile-shake {
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+    14% {
+      transform: rotate(-5deg);
+    }
+    28% {
+      transform: rotate(5deg);
+    }
+    42% {
+      transform: rotate(-5deg);
+    }
+    57% {
+      transform: rotate(5deg);
+    }
+    71% {
+      transform: rotate(-3deg);
+    }
+    85% {
+      transform: rotate(3deg);
+    }
   }
-  14% {
-    transform: rotate(-5deg);
-  }
-  28% {
-    transform: rotate(5deg);
-  }
-  42% {
-    transform: rotate(-5deg);
-  }
-  57% {
-    transform: rotate(5deg);
-  }
-  71% {
-    transform: rotate(-3deg);
-  }
-  85% {
-    transform: rotate(3deg);
-  }
-}
 </style>

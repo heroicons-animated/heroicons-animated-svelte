@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 1200);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 1200);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -78,61 +78,61 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.listbullet-bullet {
-  opacity: 1;
-}
-
-.listbullet-line {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
-  opacity: 1;
-}
-
-.listbullet-item.listbullet-animate .listbullet-bullet-0 {
-  animation: listbullet-bullet 0.1s ease-in-out 0s forwards;
-}
-.listbullet-item.listbullet-animate .listbullet-line-0 {
-  animation: listbullet-line 0.3s ease-in-out 0.1s forwards;
-}
-.listbullet-item.listbullet-animate .listbullet-bullet-1 {
-  animation: listbullet-bullet 0.1s ease-in-out 0.4s forwards;
-}
-.listbullet-item.listbullet-animate .listbullet-line-1 {
-  animation: listbullet-line 0.3s ease-in-out 0.5s forwards;
-}
-.listbullet-item.listbullet-animate .listbullet-bullet-2 {
-  animation: listbullet-bullet 0.1s ease-in-out 0.8s forwards;
-}
-.listbullet-item.listbullet-animate .listbullet-line-2 {
-  animation: listbullet-line 0.3s ease-in-out 0.9s forwards;
-}
-
-@keyframes listbullet-bullet {
-  0% {
-    opacity: 0;
+  div {
+    display: inline-block;
   }
-  100% {
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .listbullet-bullet {
     opacity: 1;
   }
-}
 
-@keyframes listbullet-line {
-  0% {
-    stroke-dashoffset: 1;
-    opacity: 0;
-  }
-  100% {
+  .listbullet-line {
+    stroke-dasharray: 1;
     stroke-dashoffset: 0;
     opacity: 1;
   }
-}
+
+  .listbullet-item.listbullet-animate .listbullet-bullet-0 {
+    animation: listbullet-bullet 0.1s ease-in-out 0s forwards;
+  }
+  .listbullet-item.listbullet-animate .listbullet-line-0 {
+    animation: listbullet-line 0.3s ease-in-out 0.1s forwards;
+  }
+  .listbullet-item.listbullet-animate .listbullet-bullet-1 {
+    animation: listbullet-bullet 0.1s ease-in-out 0.4s forwards;
+  }
+  .listbullet-item.listbullet-animate .listbullet-line-1 {
+    animation: listbullet-line 0.3s ease-in-out 0.5s forwards;
+  }
+  .listbullet-item.listbullet-animate .listbullet-bullet-2 {
+    animation: listbullet-bullet 0.1s ease-in-out 0.8s forwards;
+  }
+  .listbullet-item.listbullet-animate .listbullet-line-2 {
+    animation: listbullet-line 0.3s ease-in-out 0.9s forwards;
+  }
+
+  @keyframes listbullet-bullet {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes listbullet-line {
+    0% {
+      stroke-dashoffset: 1;
+      opacity: 0;
+    }
+    100% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+  }
 </style>

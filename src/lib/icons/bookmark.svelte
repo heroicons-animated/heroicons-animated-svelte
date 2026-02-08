@@ -1,38 +1,38 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let pathElement: SVGPathElement;
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let pathElement: SVGPathElement;
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 600);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 600);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -63,40 +63,40 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-.bookmark-path {
-  transform-box: fill-box;
-  transform-origin: center;
-  transition: transform 0.6s ease-out;
-}
+  .bookmark-path {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.6s ease-out;
+  }
 
-.bookmark-path.animate {
-  animation: bookmark-bounce 0.6s ease-out forwards;
-}
+  .bookmark-path.animate {
+    animation: bookmark-bounce 0.6s ease-out forwards;
+  }
 
-@keyframes bookmark-bounce {
-  0% {
-    transform: scaleY(1) scaleX(1);
+  @keyframes bookmark-bounce {
+    0% {
+      transform: scaleY(1) scaleX(1);
+    }
+    20% {
+      transform: scaleY(1.3) scaleX(0.9);
+    }
+    40% {
+      transform: scaleY(0.9) scaleX(1.1);
+    }
+    60% {
+      transform: scaleY(1.05) scaleX(0.95);
+    }
+    100% {
+      transform: scaleY(1) scaleX(1);
+    }
   }
-  20% {
-    transform: scaleY(1.3) scaleX(0.9);
-  }
-  40% {
-    transform: scaleY(0.9) scaleX(1.1);
-  }
-  60% {
-    transform: scaleY(1.05) scaleX(0.95);
-  }
-  100% {
-    transform: scaleY(1) scaleX(1);
-  }
-}
 </style>

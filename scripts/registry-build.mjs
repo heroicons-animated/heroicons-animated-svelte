@@ -5,10 +5,7 @@ import { fileURLToPath } from "node:url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const iconsDir = path.resolve(
-  __dirname,
-  "../src/lib/icons"
-);
+const iconsDir = path.resolve(__dirname, "../src/lib/icons");
 const registryPath = path.resolve(__dirname, "../static/r");
 const registryIndexPath = path.join(registryPath, "registry.json");
 
@@ -80,10 +77,7 @@ const buildRegistry = () => {
     items: registryItems,
   };
 
-  fs.writeFileSync(
-    registryIndexPath,
-    JSON.stringify(registryIndex, null, 2)
-  );
+  fs.writeFileSync(registryIndexPath, JSON.stringify(registryIndex, null, 2));
 
   console.log(`Built ${registryItems.length} Svelte registry components`);
 };

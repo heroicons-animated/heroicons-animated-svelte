@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 500);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 500);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -68,85 +68,85 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-.top-left-group,
-.bottom-left-group,
-.top-right-group,
-.bottom-right-group {
-  transform-box: fill-box;
-  transform-origin: center;
-  transition: transform 0.5s ease-in-out;
-}
+  .top-left-group,
+  .bottom-left-group,
+  .top-right-group,
+  .bottom-right-group {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.5s ease-in-out;
+  }
 
-.top-left-group.animate {
-  animation: top-left-move 0.5s ease-in-out forwards;
-}
+  .top-left-group.animate {
+    animation: top-left-move 0.5s ease-in-out forwards;
+  }
 
-.bottom-left-group.animate {
-  animation: bottom-left-move 0.5s ease-in-out forwards;
-}
+  .bottom-left-group.animate {
+    animation: bottom-left-move 0.5s ease-in-out forwards;
+  }
 
-.top-right-group.animate {
-  animation: top-right-move 0.5s ease-in-out forwards;
-}
+  .top-right-group.animate {
+    animation: top-right-move 0.5s ease-in-out forwards;
+  }
 
-.bottom-right-group.animate {
-  animation: bottom-right-move 0.5s ease-in-out forwards;
-}
+  .bottom-right-group.animate {
+    animation: bottom-right-move 0.5s ease-in-out forwards;
+  }
 
-@keyframes top-left-move {
-  0% {
-    transform: translate(0, 0);
+  @keyframes top-left-move {
+    0% {
+      transform: translate(0, 0);
+    }
+    40% {
+      transform: translate(-2px, -2px);
+    }
+    100% {
+      transform: translate(0, 0);
+    }
   }
-  40% {
-    transform: translate(-2px, -2px);
-  }
-  100% {
-    transform: translate(0, 0);
-  }
-}
 
-@keyframes bottom-left-move {
-  0% {
-    transform: translate(0, 0);
+  @keyframes bottom-left-move {
+    0% {
+      transform: translate(0, 0);
+    }
+    40% {
+      transform: translate(-2px, 2px);
+    }
+    100% {
+      transform: translate(0, 0);
+    }
   }
-  40% {
-    transform: translate(-2px, 2px);
-  }
-  100% {
-    transform: translate(0, 0);
-  }
-}
 
-@keyframes top-right-move {
-  0% {
-    transform: translate(0, 0);
+  @keyframes top-right-move {
+    0% {
+      transform: translate(0, 0);
+    }
+    40% {
+      transform: translate(2px, -2px);
+    }
+    100% {
+      transform: translate(0, 0);
+    }
   }
-  40% {
-    transform: translate(2px, -2px);
-  }
-  100% {
-    transform: translate(0, 0);
-  }
-}
 
-@keyframes bottom-right-move {
-  0% {
-    transform: translate(0, 0);
+  @keyframes bottom-right-move {
+    0% {
+      transform: translate(0, 0);
+    }
+    40% {
+      transform: translate(2px, 2px);
+    }
+    100% {
+      transform: translate(0, 0);
+    }
   }
-  40% {
-    transform: translate(2px, 2px);
-  }
-  100% {
-    transform: translate(0, 0);
-  }
-}
 </style>

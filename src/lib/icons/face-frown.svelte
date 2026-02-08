@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 800);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 800);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -74,87 +74,87 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-/* Match React: svg scale [1,1.15,1.05,1.08] rotate [0,-2,2,0] 0.8s times 0/0.3/0.6/1 */
-.facefrown-svg.facefrown-svg-animate {
-  animation: facefrown-svg-bounce 0.8s ease-in-out forwards;
-}
-@keyframes facefrown-svg-bounce {
-  0% {
-    transform: scale(1) rotate(0deg);
+  /* Match React: svg scale [1,1.15,1.05,1.08] rotate [0,-2,2,0] 0.8s times 0/0.3/0.6/1 */
+  .facefrown-svg.facefrown-svg-animate {
+    animation: facefrown-svg-bounce 0.8s ease-in-out forwards;
   }
-  30% {
-    transform: scale(1.15) rotate(-2deg);
+  @keyframes facefrown-svg-bounce {
+    0% {
+      transform: scale(1) rotate(0deg);
+    }
+    30% {
+      transform: scale(1.15) rotate(-2deg);
+    }
+    60% {
+      transform: scale(1.05) rotate(2deg);
+    }
+    100% {
+      transform: scale(1.08) rotate(0deg);
+    }
   }
-  60% {
-    transform: scale(1.05) rotate(2deg);
-  }
-  100% {
-    transform: scale(1.08) rotate(0deg);
-  }
-}
 
-/* Mouth: pathLength [0.3,1,1] 0.5s delay 0.1 (d morph not in CSS, pathLength only) */
-.facefrown-mouth {
-  stroke-dasharray: 1;
-}
-.facefrown-mouth.facefrown-mouth-animate {
-  animation: facefrown-mouth-draw 0.5s ease-in-out 0.1s forwards;
-}
-@keyframes facefrown-mouth-draw {
-  0% {
-    stroke-dashoffset: 0.7;
+  /* Mouth: pathLength [0.3,1,1] 0.5s delay 0.1 (d morph not in CSS, pathLength only) */
+  .facefrown-mouth {
+    stroke-dasharray: 1;
   }
-  50% {
-    stroke-dashoffset: 0;
+  .facefrown-mouth.facefrown-mouth-animate {
+    animation: facefrown-mouth-draw 0.5s ease-in-out 0.1s forwards;
   }
-  100% {
-    stroke-dashoffset: 0;
+  @keyframes facefrown-mouth-draw {
+    0% {
+      stroke-dashoffset: 0.7;
+    }
+    50% {
+      stroke-dashoffset: 0;
+    }
+    100% {
+      stroke-dashoffset: 0;
+    }
   }
-}
 
-/* Left eye: scale [1,1.3,0.9,1.1] y [0,-0.5,0.3,0] 0.6s */
-.facefrown-eye-left.facefrown-eye-animate {
-  animation: facefrown-eye-left-bounce 0.6s ease-in-out forwards;
-}
-@keyframes facefrown-eye-left-bounce {
-  0% {
-    transform: scale(1) translateY(0);
+  /* Left eye: scale [1,1.3,0.9,1.1] y [0,-0.5,0.3,0] 0.6s */
+  .facefrown-eye-left.facefrown-eye-animate {
+    animation: facefrown-eye-left-bounce 0.6s ease-in-out forwards;
   }
-  30% {
-    transform: scale(1.3) translateY(-0.5px);
+  @keyframes facefrown-eye-left-bounce {
+    0% {
+      transform: scale(1) translateY(0);
+    }
+    30% {
+      transform: scale(1.3) translateY(-0.5px);
+    }
+    60% {
+      transform: scale(0.9) translateY(0.3px);
+    }
+    100% {
+      transform: scale(1.1) translateY(0);
+    }
   }
-  60% {
-    transform: scale(0.9) translateY(0.3px);
+  /* Right eye: scale [1,0.9,1.3,1.1] y [0,-0.5,0.3,0] 0.6s */
+  .facefrown-eye-right.facefrown-eye-animate {
+    animation: facefrown-eye-right-bounce 0.6s ease-in-out forwards;
   }
-  100% {
-    transform: scale(1.1) translateY(0);
+  @keyframes facefrown-eye-right-bounce {
+    0% {
+      transform: scale(1) translateY(0);
+    }
+    30% {
+      transform: scale(0.9) translateY(-0.5px);
+    }
+    60% {
+      transform: scale(1.3) translateY(0.3px);
+    }
+    100% {
+      transform: scale(1.1) translateY(0);
+    }
   }
-}
-/* Right eye: scale [1,0.9,1.3,1.1] y [0,-0.5,0.3,0] 0.6s */
-.facefrown-eye-right.facefrown-eye-animate {
-  animation: facefrown-eye-right-bounce 0.6s ease-in-out forwards;
-}
-@keyframes facefrown-eye-right-bounce {
-  0% {
-    transform: scale(1) translateY(0);
-  }
-  30% {
-    transform: scale(0.9) translateY(-0.5px);
-  }
-  60% {
-    transform: scale(1.3) translateY(0.3px);
-  }
-  100% {
-    transform: scale(1.1) translateY(0);
-  }
-}
 </style>

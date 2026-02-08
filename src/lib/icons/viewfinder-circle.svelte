@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 600);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 600);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -81,58 +81,58 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-/* Match React: 4 corners scale 1.2 rotate 45 opacity 0 (spring); circle scale 0.8 opacity 0 delay 0.1 */
-.viewfindercircle-corner {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-.viewfindercircle-corner.viewfindercircle-corner-animate {
-  animation: viewfindercircle-corner-flash 0.6s
-    cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-.viewfindercircle-circle {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-.viewfindercircle-circle.viewfindercircle-circle-animate {
-  animation: viewfindercircle-circle-flash 0.6s ease-out 0.1s forwards;
-}
+  /* Match React: 4 corners scale 1.2 rotate 45 opacity 0 (spring); circle scale 0.8 opacity 0 delay 0.1 */
+  .viewfindercircle-corner {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .viewfindercircle-corner.viewfindercircle-corner-animate {
+    animation: viewfindercircle-corner-flash 0.6s
+      cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+  .viewfindercircle-circle {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .viewfindercircle-circle.viewfindercircle-circle-animate {
+    animation: viewfindercircle-circle-flash 0.6s ease-out 0.1s forwards;
+  }
 
-@keyframes viewfindercircle-corner-flash {
-  0% {
-    transform: scale(1) rotate(0deg);
-    opacity: 1;
+  @keyframes viewfindercircle-corner-flash {
+    0% {
+      transform: scale(1) rotate(0deg);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.2) rotate(45deg);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1) rotate(0deg);
+      opacity: 1;
+    }
   }
-  50% {
-    transform: scale(1.2) rotate(45deg);
-    opacity: 0;
+  @keyframes viewfindercircle-circle-flash {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
   }
-  100% {
-    transform: scale(1) rotate(0deg);
-    opacity: 1;
-  }
-}
-@keyframes viewfindercircle-circle-flash {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(0.8);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
 </style>

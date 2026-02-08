@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 300);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 300);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -66,54 +66,54 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-/* Body: scale [1, 0.95, 1], 0.3s easeInOut (matches React BODY_VARIANTS) */
-.icon-svg.camera-body-animate {
-  animation: camera-body-animate 0.3s ease-in-out forwards;
-}
-
-@keyframes camera-body-animate {
-  0% {
-    transform: scale(1);
+  div {
+    display: inline-block;
   }
-  50% {
-    transform: scale(0.95);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
 
-/* Lens: scale [1, 1.1, 1], opacity [1, 0.6, 1], 0.3s easeInOut (matches React LENS_VARIANTS) */
-.camera-lens {
-  transform-box: fill-box;
-  transform-origin: 12px 12.75px;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-.camera-lens.camera-lens-animate {
-  animation: camera-lens-animate 0.3s ease-in-out forwards;
-}
+  /* Body: scale [1, 0.95, 1], 0.3s easeInOut (matches React BODY_VARIANTS) */
+  .icon-svg.camera-body-animate {
+    animation: camera-body-animate 0.3s ease-in-out forwards;
+  }
 
-@keyframes camera-lens-animate {
-  0% {
-    transform: scale(1);
-    opacity: 1;
+  @keyframes camera-body-animate {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.95);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
-  50% {
-    transform: scale(1.1);
-    opacity: 0.6;
+
+  /* Lens: scale [1, 1.1, 1], opacity [1, 0.6, 1], 0.3s easeInOut (matches React LENS_VARIANTS) */
+  .camera-lens {
+    transform-box: fill-box;
+    transform-origin: 12px 12.75px;
   }
-  100% {
-    transform: scale(1);
-    opacity: 1;
+
+  .camera-lens.camera-lens-animate {
+    animation: camera-lens-animate 0.3s ease-in-out forwards;
   }
-}
+
+  @keyframes camera-lens-animate {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.1);
+      opacity: 0.6;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
 </style>

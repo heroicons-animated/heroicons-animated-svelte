@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 1200);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 1200);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -102,42 +102,42 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-/* Match React: dot opacity [0,1] 0.1s delay index*0.4; line pathLength/opacity [0,1] 0.3s delay index*0.4+0.1 */
-.clipboardlist-dot.clipboardlist-dot-animate {
-  animation: clipboardlist-dot 0.1s ease-in-out forwards;
-}
-.clipboardlist-line {
-  stroke-dasharray: 1;
-}
-.clipboardlist-line.clipboardlist-line-animate {
-  animation: clipboardlist-line 0.3s ease-in-out forwards;
-}
+  /* Match React: dot opacity [0,1] 0.1s delay index*0.4; line pathLength/opacity [0,1] 0.3s delay index*0.4+0.1 */
+  .clipboardlist-dot.clipboardlist-dot-animate {
+    animation: clipboardlist-dot 0.1s ease-in-out forwards;
+  }
+  .clipboardlist-line {
+    stroke-dasharray: 1;
+  }
+  .clipboardlist-line.clipboardlist-line-animate {
+    animation: clipboardlist-line 0.3s ease-in-out forwards;
+  }
 
-@keyframes clipboardlist-dot {
-  0% {
-    opacity: 0;
+  @keyframes clipboardlist-dot {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
-  100% {
-    opacity: 1;
+  @keyframes clipboardlist-line {
+    0% {
+      stroke-dashoffset: 1;
+      opacity: 0;
+    }
+    100% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
   }
-}
-@keyframes clipboardlist-line {
-  0% {
-    stroke-dashoffset: 1;
-    opacity: 0;
-  }
-  100% {
-    stroke-dashoffset: 0;
-    opacity: 1;
-  }
-}
 </style>

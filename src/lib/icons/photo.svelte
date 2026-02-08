@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 500);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 500);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -61,37 +61,37 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-.icon-svg.photo-animate {
-  animation: photo-shake 0.5s ease-in-out forwards;
-}
+  .icon-svg.photo-animate {
+    animation: photo-shake 0.5s ease-in-out forwards;
+  }
 
-@keyframes photo-shake {
-  0% {
-    transform: rotate(0deg);
+  @keyframes photo-shake {
+    0% {
+      transform: rotate(0deg);
+    }
+    20% {
+      transform: rotate(-3deg);
+    }
+    40% {
+      transform: rotate(3deg);
+    }
+    60% {
+      transform: rotate(-2deg);
+    }
+    80% {
+      transform: rotate(2deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
   }
-  20% {
-    transform: rotate(-3deg);
-  }
-  40% {
-    transform: rotate(3deg);
-  }
-  60% {
-    transform: rotate(-2deg);
-  }
-  80% {
-    transform: rotate(2deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
-}
 </style>

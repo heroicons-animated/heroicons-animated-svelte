@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 800);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 800);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -74,69 +74,69 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
+  div {
+    display: inline-block;
+  }
 
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-/* Match React: svg scale [1,1.15,1.05,1.1] rotate [0,-3,3,0] 0.8s times 0/0.3/0.6/1 */
-.facesmile-svg.facesmile-svg-animate {
-  animation: facesmile-svg-bounce 0.8s ease-in-out forwards;
-}
-@keyframes facesmile-svg-bounce {
-  0% {
-    transform: scale(1) rotate(0deg);
+  /* Match React: svg scale [1,1.15,1.05,1.1] rotate [0,-3,3,0] 0.8s times 0/0.3/0.6/1 */
+  .facesmile-svg.facesmile-svg-animate {
+    animation: facesmile-svg-bounce 0.8s ease-in-out forwards;
   }
-  30% {
-    transform: scale(1.15) rotate(-3deg);
+  @keyframes facesmile-svg-bounce {
+    0% {
+      transform: scale(1) rotate(0deg);
+    }
+    30% {
+      transform: scale(1.15) rotate(-3deg);
+    }
+    60% {
+      transform: scale(1.05) rotate(3deg);
+    }
+    100% {
+      transform: scale(1.1) rotate(0deg);
+    }
   }
-  60% {
-    transform: scale(1.05) rotate(3deg);
-  }
-  100% {
-    transform: scale(1.1) rotate(0deg);
-  }
-}
 
-/* Mouth: pathLength [0.3,1,1] 0.5s delay 0.1 (d morph not in CSS) */
-.facesmile-mouth {
-  stroke-dasharray: 1;
-}
-.facesmile-mouth.facesmile-mouth-animate {
-  animation: facesmile-mouth-draw 0.5s ease-in-out 0.1s forwards;
-}
-@keyframes facesmile-mouth-draw {
-  0% {
-    stroke-dashoffset: 0.7;
+  /* Mouth: pathLength [0.3,1,1] 0.5s delay 0.1 (d morph not in CSS) */
+  .facesmile-mouth {
+    stroke-dasharray: 1;
   }
-  50% {
-    stroke-dashoffset: 0;
+  .facesmile-mouth.facesmile-mouth-animate {
+    animation: facesmile-mouth-draw 0.5s ease-in-out 0.1s forwards;
   }
-  100% {
-    stroke-dashoffset: 0;
+  @keyframes facesmile-mouth-draw {
+    0% {
+      stroke-dashoffset: 0.7;
+    }
+    50% {
+      stroke-dashoffset: 0;
+    }
+    100% {
+      stroke-dashoffset: 0;
+    }
   }
-}
 
-/* Both eyes: scale [1,1.5,0.8,1.2] 0.5s times 0/0.3/0.6/1 */
-.facesmile-eye.facesmile-eye-animate {
-  animation: facesmile-eye-bounce 0.5s ease-in-out forwards;
-}
-@keyframes facesmile-eye-bounce {
-  0% {
-    transform: scale(1);
+  /* Both eyes: scale [1,1.5,0.8,1.2] 0.5s times 0/0.3/0.6/1 */
+  .facesmile-eye.facesmile-eye-animate {
+    animation: facesmile-eye-bounce 0.5s ease-in-out forwards;
   }
-  30% {
-    transform: scale(1.5);
+  @keyframes facesmile-eye-bounce {
+    0% {
+      transform: scale(1);
+    }
+    30% {
+      transform: scale(1.5);
+    }
+    60% {
+      transform: scale(0.8);
+    }
+    100% {
+      transform: scale(1.2);
+    }
   }
-  60% {
-    transform: scale(0.8);
-  }
-  100% {
-    transform: scale(1.2);
-  }
-}
 </style>

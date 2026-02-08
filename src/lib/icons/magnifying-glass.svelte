@@ -1,37 +1,37 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 1000);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 1000);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -61,31 +61,31 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-  transition: transform 0.3s ease;
-}
-
-.icon-svg.magnifyingglass-bounce {
-  animation: magnifyingglass-bounce 1s cubic-bezier(0.34, 1.56, 0.64, 1)
-    forwards;
-}
-
-@keyframes magnifyingglass-bounce {
-  0%,
-  100% {
-    transform: translate(0, 0);
+  div {
+    display: inline-block;
   }
-  33% {
-    transform: translate(0, -4px);
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.3s ease;
   }
-  66% {
-    transform: translate(-3px, 0);
+
+  .icon-svg.magnifyingglass-bounce {
+    animation: magnifyingglass-bounce 1s cubic-bezier(0.34, 1.56, 0.64, 1)
+      forwards;
   }
-}
+
+  @keyframes magnifyingglass-bounce {
+    0%,
+    100% {
+      transform: translate(0, 0);
+    }
+    33% {
+      transform: translate(0, -4px);
+    }
+    66% {
+      transform: translate(-3px, 0);
+    }
+  }
 </style>

@@ -1,39 +1,39 @@
 <script lang="ts">
-let { size = 28, class: className = "" } = $props();
+  let { size = 28, class: className = "" } = $props();
 
-let leftPageGroup: SVGGElement;
-let rightPageGroup: SVGGElement;
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let leftPageGroup: SVGGElement;
+  let rightPageGroup: SVGGElement;
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 500);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 500);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -73,56 +73,56 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.left-page {
-  transform-box: fill-box;
-  transform-origin: 100% 50%;
-  transition: transform 0.5s ease-in-out;
-}
-
-.right-page {
-  transform-box: fill-box;
-  transform-origin: 0% 50%;
-  transition: transform 0.5s ease-in-out;
-}
-
-.left-page.animate {
-  animation: left-page-rotate 0.5s ease-in-out forwards;
-}
-
-.right-page.animate {
-  animation: right-page-rotate 0.5s ease-in-out forwards;
-}
-
-@keyframes left-page-rotate {
-  0% {
-    transform: rotateY(0deg);
+  div {
+    display: inline-block;
   }
-  50% {
-    transform: rotateY(15deg);
-  }
-  100% {
-    transform: rotateY(0deg);
-  }
-}
 
-@keyframes right-page-rotate {
-  0% {
-    transform: rotateY(0deg);
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-  50% {
-    transform: rotateY(-15deg);
+
+  .left-page {
+    transform-box: fill-box;
+    transform-origin: 100% 50%;
+    transition: transform 0.5s ease-in-out;
   }
-  100% {
-    transform: rotateY(0deg);
+
+  .right-page {
+    transform-box: fill-box;
+    transform-origin: 0% 50%;
+    transition: transform 0.5s ease-in-out;
   }
-}
+
+  .left-page.animate {
+    animation: left-page-rotate 0.5s ease-in-out forwards;
+  }
+
+  .right-page.animate {
+    animation: right-page-rotate 0.5s ease-in-out forwards;
+  }
+
+  @keyframes left-page-rotate {
+    0% {
+      transform: rotateY(0deg);
+    }
+    50% {
+      transform: rotateY(15deg);
+    }
+    100% {
+      transform: rotateY(0deg);
+    }
+  }
+
+  @keyframes right-page-rotate {
+    0% {
+      transform: rotateY(0deg);
+    }
+    50% {
+      transform: rotateY(-15deg);
+    }
+    100% {
+      transform: rotateY(0deg);
+    }
+  }
 </style>

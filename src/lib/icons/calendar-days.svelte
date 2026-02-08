@@ -1,52 +1,52 @@
 <script lang="ts">
-let { size = 28, class: className = "", ...restProps } = $props();
+  let { size = 28, class: className = "", ...restProps } = $props();
 
-const DOTS = [
-  { d: "M12 12.75h.008v.008H12v-.008Z", index: 0 },
-  { d: "M14.25 12.75h.008v.008h-.008v-.008Z", index: 1 },
-  { d: "M16.5 12.75h.008v.008H16.5v-.008Z", index: 2 },
-  { d: "M7.5 15h.008v.008H7.5V15Z", index: 3 },
-  { d: "M9.75 15h.008v.008H9.75V15Z", index: 4 },
-  { d: "M12 15h.008v.008H12V15Z", index: 5 },
-  { d: "M14.25 15h.008v.008h-.008V15Z", index: 6 },
-  { d: "M16.5 15h.008v.008H16.5V15Z", index: 7 },
-  { d: "M7.5 17.25h.008v.008H7.5v-.008Z", index: 8 },
-  { d: "M9.75 17.25h.008v.008H9.75v-.008Z", index: 9 },
-  { d: "M12 17.25h.008v.008H12v-.008Z", index: 10 },
-  { d: "M14.25 17.25h.008v.008h-.008v-.008Z", index: 11 },
-];
+  const DOTS = [
+    { d: "M12 12.75h.008v.008H12v-.008Z", index: 0 },
+    { d: "M14.25 12.75h.008v.008h-.008v-.008Z", index: 1 },
+    { d: "M16.5 12.75h.008v.008H16.5v-.008Z", index: 2 },
+    { d: "M7.5 15h.008v.008H7.5V15Z", index: 3 },
+    { d: "M9.75 15h.008v.008H9.75V15Z", index: 4 },
+    { d: "M12 15h.008v.008H12V15Z", index: 5 },
+    { d: "M14.25 15h.008v.008h-.008V15Z", index: 6 },
+    { d: "M16.5 15h.008v.008H16.5V15Z", index: 7 },
+    { d: "M7.5 17.25h.008v.008H7.5v-.008Z", index: 8 },
+    { d: "M9.75 17.25h.008v.008H9.75v-.008Z", index: 9 },
+    { d: "M12 17.25h.008v.008H12v-.008Z", index: 10 },
+    { d: "M14.25 17.25h.008v.008h-.008v-.008Z", index: 11 },
+  ];
 
-let isAnimating = $state(false);
-let isControlled = $state(false);
+  let isAnimating = $state(false);
+  let isControlled = $state(false);
 
-export function startAnimation() {
-  if (!isControlled) {
-    isAnimating = true;
-    setTimeout(() => {
-      isAnimating = false;
-    }, 1500);
+  export function startAnimation() {
+    if (!isControlled) {
+      isAnimating = true;
+      setTimeout(() => {
+        isAnimating = false;
+      }, 1500);
+    }
   }
-}
 
-export function stopAnimation() {
-  isAnimating = false;
-}
-
-export function setControlled(value: boolean) {
-  isControlled = value;
-}
-
-function handleMouseEnter() {
-  if (!isControlled) {
-    startAnimation();
+  export function stopAnimation() {
+    isAnimating = false;
   }
-}
 
-function handleMouseLeave() {
-  if (!isControlled) {
-    stopAnimation();
+  export function setControlled(value: boolean) {
+    isControlled = value;
   }
-}
+
+  function handleMouseEnter() {
+    if (!isControlled) {
+      startAnimation();
+    }
+  }
+
+  function handleMouseLeave() {
+    if (!isControlled) {
+      stopAnimation();
+    }
+  }
 </script>
 
 <div
@@ -83,33 +83,33 @@ function handleMouseLeave() {
 </div>
 
 <style>
-div {
-  display: inline-block;
-}
-
-.icon-svg {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.calendar-dot {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.calendar-dot.animate {
-  animation: dot-pulse 0.4s ease-out forwards;
-}
-
-@keyframes dot-pulse {
-  0% {
-    opacity: 1;
+  div {
+    display: inline-block;
   }
-  50% {
-    opacity: 0.3;
+
+  .icon-svg {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-  100% {
-    opacity: 1;
+
+  .calendar-dot {
+    transform-box: fill-box;
+    transform-origin: center;
   }
-}
+
+  .calendar-dot.animate {
+    animation: dot-pulse 0.4s ease-out forwards;
+  }
+
+  @keyframes dot-pulse {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.3;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 </style>
