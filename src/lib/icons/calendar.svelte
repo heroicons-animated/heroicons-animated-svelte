@@ -1,36 +1,58 @@
 <script lang="ts">
-  let { size = 28, class: className = "", ...restProps } = $props();
+  import type { IconProps } from "./types.js";
+  let {
+    color = "currentColor",
+    size = 28,
+    strokeWidth = 1.5,
+    animate = false,
+    class: className = "",
+    ...restProps
+  }: IconProps = $props();
 
-  let isAnimating = $state(false);
-  let isControlled = $state(false);
+  let isInternal = $state(false);
 
-  export function startAnimation() {
-    if (!isControlled) {
-      isAnimating = true;
-      setTimeout(() => {
-        isAnimating = false;
-      }, 400);
+  function startAnimation(controlled = false) {
+    if (!controlled) {
+      if (animate) {
+        return;
+      }
+      isInternal = true;
+      animate = true;
+    }
+
+    setTimeout(() => {
+      if (!controlled) {
+        isInternal = true;
+        animate = false;
+      }
+    }, 400);
+  }
+
+  function stopAnimation(controlled = false) {
+    if (!controlled) {
+      isInternal = true;
+      animate = false;
     }
   }
+  $effect(() => {
+    if (isInternal) {
+      isInternal = false;
+      return;
+    }
 
-  export function stopAnimation() {
-    isAnimating = false;
-  }
-
-  export function setControlled(value: boolean) {
-    isControlled = value;
-  }
+    if (animate) {
+      startAnimation(true);
+    } else {
+      stopAnimation(true);
+    }
+  });
 
   function handleMouseEnter() {
-    if (!isControlled) {
-      startAnimation();
-    }
+    startAnimation();
   }
 
   function handleMouseLeave() {
-    if (!isControlled) {
-      stopAnimation();
-    }
+    stopAnimation();
   }
 </script>
 
@@ -39,6 +61,7 @@
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
+  aria-label="calendar"
   role="img"
 >
   <svg
@@ -47,12 +70,12 @@
     height={size}
     viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor"
-    stroke-width="1.5"
+    stroke={color}
+    stroke-width={strokeWidth}
     stroke-linecap="round"
     stroke-linejoin="round"
     class="icon-svg"
-    class:calendar-animate={isAnimating}
+    class:calendar-animate={animate}
   >
     <path
       d="M6.75 3V5.25M17.25 3V5.25M3 18.75V7.5C3 6.25736 4.00736 5.25 5.25 5.25H18.75C19.9926 5.25 21 6.25736 21 7.5V18.75M3 18.75C3 19.9926 4.00736 21 5.25 21H18.75C19.9926 21 21 19.9926 21 18.75M3 18.75V11.25C3 10.0074 4.00736 9 5.25 9H18.75C19.9926 9 21 10.0074 21 11.25V18.75"

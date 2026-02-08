@@ -1,36 +1,58 @@
 <script lang="ts">
-  let { size = 28, class: className = "", ...restProps } = $props();
+  import type { IconProps } from "./types.js";
+  let {
+    color = "currentColor",
+    size = 28,
+    strokeWidth = 1.5,
+    animate = false,
+    class: className = "",
+    ...restProps
+  }: IconProps = $props();
 
-  let isAnimating = $state(false);
-  let isControlled = $state(false);
+  let isInternal = $state(false);
 
-  export function startAnimation() {
-    if (!isControlled) {
-      isAnimating = true;
-      setTimeout(() => {
-        isAnimating = false;
-      }, 500);
+  function startAnimation(controlled = false) {
+    if (!controlled) {
+      if (animate) {
+        return;
+      }
+      isInternal = true;
+      animate = true;
+    }
+
+    setTimeout(() => {
+      if (!controlled) {
+        isInternal = true;
+        animate = false;
+      }
+    }, 500);
+  }
+
+  function stopAnimation(controlled = false) {
+    if (!controlled) {
+      isInternal = true;
+      animate = false;
     }
   }
+  $effect(() => {
+    if (isInternal) {
+      isInternal = false;
+      return;
+    }
 
-  export function stopAnimation() {
-    isAnimating = false;
-  }
-
-  export function setControlled(value: boolean) {
-    isControlled = value;
-  }
+    if (animate) {
+      startAnimation(true);
+    } else {
+      stopAnimation(true);
+    }
+  });
 
   function handleMouseEnter() {
-    if (!isControlled) {
-      startAnimation();
-    }
+    startAnimation();
   }
 
   function handleMouseLeave() {
-    if (!isControlled) {
-      stopAnimation();
-    }
+    stopAnimation();
   }
 </script>
 
@@ -39,6 +61,7 @@
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
+  aria-label="forward"
   role="img"
 >
   <svg
@@ -47,12 +70,12 @@
     height={size}
     viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor"
-    stroke-width="1.5"
+    stroke={color}
+    stroke-width={strokeWidth}
     stroke-linecap="round"
     stroke-linejoin="round"
     class="icon-svg"
-    class:forward-animate={isAnimating}
+    class:forward-animate={animate}
   >
     <path
       d="M3 8.689c0-.864.933-1.406 1.683-.977l7.108 4.061a1.125 1.125 0 0 1 0 1.954l-7.108 4.061A1.125 1.125 0 0 1 3 16.811V8.69ZM12.75 8.689c0-.864.933-1.406 1.683-.977l7.108 4.061a1.125 1.125 0 0 1 0 1.954l-7.108 4.061a1.125 1.125 0 0 1-1.683-.977V8.69Z"

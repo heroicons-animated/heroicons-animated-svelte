@@ -1,36 +1,57 @@
 <script lang="ts">
-  let { size = 28, class: className = "" } = $props();
+  import type { IconProps } from "./types.js";
+  let {
+    color = "currentColor",
+    size = 28,
+    strokeWidth = 1.5,
+    animate = false,
+    class: className = "",
+  }: IconProps = $props();
 
-  let isAnimating = $state(false);
-  let isControlled = $state(false);
+  let isInternal = $state(false);
 
-  export function startAnimation() {
-    if (!isControlled) {
-      isAnimating = true;
-      setTimeout(() => {
-        isAnimating = false;
-      }, 600);
+  function startAnimation(controlled = false) {
+    if (!controlled) {
+      if (animate) {
+        return;
+      }
+      isInternal = true;
+      animate = true;
+    }
+
+    setTimeout(() => {
+      if (!controlled) {
+        isInternal = true;
+        animate = false;
+      }
+    }, 600);
+  }
+
+  function stopAnimation(controlled = false) {
+    if (!controlled) {
+      isInternal = true;
+      animate = false;
     }
   }
+  $effect(() => {
+    if (isInternal) {
+      isInternal = false;
+      return;
+    }
 
-  export function stopAnimation() {
-    isAnimating = false;
-  }
-
-  export function setControlled(value: boolean) {
-    isControlled = value;
-  }
+    if (animate) {
+      startAnimation(true);
+    } else {
+      stopAnimation(true);
+    }
+  });
 
   function handleMouseEnter() {
-    if (!isControlled) {
-      startAnimation();
-    }
+    startAnimation();
   }
 
   function handleMouseLeave() {
-    if (!isControlled) {
-      stopAnimation();
-    }
+    stopAnimation();
   }
 </script>
 
@@ -38,6 +59,7 @@
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
+  aria-label="users"
   role="img"
 >
   <svg
@@ -46,8 +68,8 @@
     height={size}
     viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor"
-    stroke-width="1.5"
+    stroke={color}
+    stroke-width={strokeWidth}
     stroke-linecap="round"
     stroke-linejoin="round"
     class="icon-svg"
@@ -57,7 +79,7 @@
     />
     <path
       class="users-path"
-      class:users-slide={isAnimating}
+      class:users-slide={animate}
       d="M15 19.1276C15.8329 19.37 16.7138 19.5 17.625 19.5C19.1037 19.5 20.5025 19.1576 21.7464 18.5478C21.7488 18.4905 21.75 18.4329 21.75 18.375C21.75 16.0968 19.9031 14.25 17.625 14.25C16.2069 14.25 14.956 14.9655 14.2136 16.0552M20.25 8.625C20.25 10.0747 19.0747 11.25 17.625 11.25C16.1753 11.25 15 10.0747 15 8.625C15 7.17525 16.1753 6 17.625 6C19.0747 6 20.25 7.17525 20.25 8.625Z"
     />
   </svg>

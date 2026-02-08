@@ -1,53 +1,70 @@
 <script lang="ts">
-  let { size = 28, class: className = "" } = $props();
+  import type { IconProps } from "./types.js";
+  let {
+    color = "currentColor",
+    size = 28,
+    strokeWidth = 1.5,
+    animate = false,
+    class: className = "",
+  }: IconProps = $props();
+
+  let isInternal = $state(false);
 
   let pathElement: SVGPathElement;
   let pathAnimation: Animation | null = null;
-  let isAnimating = $state(false);
-  let isControlled = $state(false);
 
   // Must match React PATH_VARIANTS exactly: pathLength [0,1], opacity [0,1], scale [0.5,1], duration 0.4s
-  export function startAnimation() {
-    if (!isControlled) {
-      isAnimating = true;
-
-      if (pathElement) {
-        const len = pathElement.getTotalLength();
-        pathElement.style.strokeDasharray = `${len}`;
-        pathElement.style.strokeDashoffset = `${len}`;
-        pathElement.style.opacity = "0";
-        pathElement.style.transform = "scale(0.5)";
-        pathElement.style.transformOrigin = "center";
-
-        pathAnimation = pathElement.animate(
-          [
-            {
-              strokeDashoffset: len,
-              opacity: 0,
-              transform: "scale(0.5)",
-            },
-            {
-              strokeDashoffset: 0,
-              opacity: 1,
-              transform: "scale(1)",
-            },
-          ],
-          {
-            duration: 400,
-            easing: "ease-out",
-            fill: "forwards",
-          }
-        );
+  function startAnimation(controlled = false) {
+    if (!controlled) {
+      if (animate) {
+        return;
       }
-
-      setTimeout(() => {
-        isAnimating = false;
-      }, 400);
+      isInternal = true;
+      animate = true;
     }
+
+    if (pathElement) {
+      const len = pathElement.getTotalLength();
+      pathElement.style.strokeDasharray = `${len}`;
+      pathElement.style.strokeDashoffset = `${len}`;
+      pathElement.style.opacity = "0";
+      pathElement.style.transform = "scale(0.5)";
+      pathElement.style.transformOrigin = "center";
+
+      pathAnimation = pathElement.animate(
+        [
+          {
+            strokeDashoffset: len,
+            opacity: 0,
+            transform: "scale(0.5)",
+          },
+          {
+            strokeDashoffset: 0,
+            opacity: 1,
+            transform: "scale(1)",
+          },
+        ],
+        {
+          duration: 400,
+          easing: "ease-out",
+          fill: "forwards",
+        }
+      );
+    }
+
+    setTimeout(() => {
+      if (!controlled) {
+        isInternal = true;
+        animate = false;
+      }
+    }, 400);
   }
 
-  export function stopAnimation() {
-    isAnimating = false;
+  function stopAnimation(controlled = false) {
+    if (!controlled) {
+      isInternal = true;
+      animate = false;
+    }
 
     if (pathAnimation) {
       pathAnimation.cancel();
@@ -61,21 +78,25 @@
       pathElement.style.transform = "";
     }
   }
+  $effect(() => {
+    if (isInternal) {
+      isInternal = false;
+      return;
+    }
 
-  export function setControlled(value: boolean) {
-    isControlled = value;
-  }
+    if (animate) {
+      startAnimation(true);
+    } else {
+      stopAnimation(true);
+    }
+  });
 
   function handleMouseEnter() {
-    if (!isControlled) {
-      startAnimation();
-    }
+    startAnimation();
   }
 
   function handleMouseLeave() {
-    if (!isControlled) {
-      stopAnimation();
-    }
+    stopAnimation();
   }
 </script>
 
@@ -83,6 +104,7 @@
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
+  aria-label="check"
   role="img"
 >
   <svg
@@ -91,8 +113,8 @@
     height={size}
     viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor"
-    stroke-width="1.5"
+    stroke={color}
+    stroke-width={strokeWidth}
     stroke-linecap="round"
     stroke-linejoin="round"
     class="icon-svg"

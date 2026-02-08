@@ -1,36 +1,58 @@
 <script lang="ts">
-  let { size = 28, class: className = "", ...restProps } = $props();
+  import type { IconProps } from "./types.js";
+  let {
+    color = "currentColor",
+    size = 28,
+    strokeWidth = 1.5,
+    animate = false,
+    class: className = "",
+    ...restProps
+  }: IconProps = $props();
 
-  let isAnimating = $state(false);
-  let isControlled = $state(false);
+  let isInternal = $state(false);
 
-  export function startAnimation() {
-    if (!isControlled) {
-      isAnimating = true;
-      setTimeout(() => {
-        isAnimating = false;
-      }, 850);
+  function startAnimation(controlled = false) {
+    if (!controlled) {
+      if (animate) {
+        return;
+      }
+      isInternal = true;
+      animate = true;
+    }
+
+    setTimeout(() => {
+      if (!controlled) {
+        isInternal = true;
+        animate = false;
+      }
+    }, 850);
+  }
+
+  function stopAnimation(controlled = false) {
+    if (!controlled) {
+      isInternal = true;
+      animate = false;
     }
   }
+  $effect(() => {
+    if (isInternal) {
+      isInternal = false;
+      return;
+    }
 
-  export function stopAnimation() {
-    isAnimating = false;
-  }
-
-  export function setControlled(value: boolean) {
-    isControlled = value;
-  }
+    if (animate) {
+      startAnimation(true);
+    } else {
+      stopAnimation(true);
+    }
+  });
 
   function handleMouseEnter() {
-    if (!isControlled) {
-      startAnimation();
-    }
+    startAnimation();
   }
 
   function handleMouseLeave() {
-    if (!isControlled) {
-      stopAnimation();
-    }
+    stopAnimation();
   }
 </script>
 
@@ -39,6 +61,7 @@
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
+  aria-label="chart-bar-square"
   role="img"
 >
   <svg
@@ -47,8 +70,8 @@
     height={size}
     viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor"
-    stroke-width="1.5"
+    stroke={color}
+    stroke-width={strokeWidth}
     stroke-linecap="round"
     stroke-linejoin="round"
     class="icon-svg"
@@ -58,25 +81,25 @@
     />
     <path
       class="chart-bar"
-      class:chart-bar-animate={isAnimating}
+      class:chart-bar-animate={animate}
       style="animation-delay: 0s"
       d="M7.5 14.25v2.25"
     />
     <path
       class="chart-bar"
-      class:chart-bar-animate={isAnimating}
+      class:chart-bar-animate={animate}
       style="animation-delay: 0.15s"
       d="M10.5 12v4.5"
     />
     <path
       class="chart-bar"
-      class:chart-bar-animate={isAnimating}
+      class:chart-bar-animate={animate}
       style="animation-delay: 0.3s"
       d="M13.5 9.75v6.75"
     />
     <path
       class="chart-bar"
-      class:chart-bar-animate={isAnimating}
+      class:chart-bar-animate={animate}
       style="animation-delay: 0.45s"
       d="M16.5 7.5v9"
     />

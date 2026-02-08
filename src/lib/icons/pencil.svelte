@@ -1,36 +1,58 @@
 <script lang="ts">
-  let { size = 28, class: className = "", ...restProps } = $props();
+  import type { IconProps } from "./types.js";
+  let {
+    color = "currentColor",
+    size = 28,
+    strokeWidth = 1.5,
+    animate = false,
+    class: className = "",
+    ...restProps
+  }: IconProps = $props();
 
-  let isAnimating = $state(false);
-  let isControlled = $state(false);
+  let isInternal = $state(false);
 
-  export function startAnimation() {
-    if (!isControlled) {
-      isAnimating = true;
-      setTimeout(() => {
-        isAnimating = false;
-      }, 600);
+  function startAnimation(controlled = false) {
+    if (!controlled) {
+      if (animate) {
+        return;
+      }
+      isInternal = true;
+      animate = true;
+    }
+
+    setTimeout(() => {
+      if (!controlled) {
+        isInternal = true;
+        animate = false;
+      }
+    }, 600);
+  }
+
+  function stopAnimation(controlled = false) {
+    if (!controlled) {
+      isInternal = true;
+      animate = false;
     }
   }
+  $effect(() => {
+    if (isInternal) {
+      isInternal = false;
+      return;
+    }
 
-  export function stopAnimation() {
-    isAnimating = false;
-  }
-
-  export function setControlled(value: boolean) {
-    isControlled = value;
-  }
+    if (animate) {
+      startAnimation(true);
+    } else {
+      stopAnimation(true);
+    }
+  });
 
   function handleMouseEnter() {
-    if (!isControlled) {
-      startAnimation();
-    }
+    startAnimation();
   }
 
   function handleMouseLeave() {
-    if (!isControlled) {
-      stopAnimation();
-    }
+    stopAnimation();
   }
 </script>
 
@@ -39,6 +61,7 @@
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
+  aria-label="pencil"
   role="img"
 >
   <svg
@@ -47,12 +70,12 @@
     height={size}
     viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor"
-    stroke-width="1.5"
+    stroke={color}
+    stroke-width={strokeWidth}
     stroke-linecap="round"
     stroke-linejoin="round"
     class="icon-svg"
-    class:pencil-animate={isAnimating}
+    class:pencil-animate={animate}
   >
     <path
       d="M16.8617 4.48667L18.5492 2.79917C19.2814 2.06694 20.4686 2.06694 21.2008 2.79917C21.9331 3.53141 21.9331 4.71859 21.2008 5.45083L6.83218 19.8195C6.30351 20.3481 5.65144 20.7368 4.93489 20.9502L2.25 21.75L3.04978 19.0651C3.26323 18.3486 3.65185 17.6965 4.18052 17.1678L16.8617 4.48667ZM16.8617 4.48667L19.5 7.12499"

@@ -1,40 +1,62 @@
 <script lang="ts">
-  let { size = 28, class: className = "" } = $props();
+  import type { IconProps } from "./types.js";
+  let {
+    color = "currentColor",
+    size = 28,
+    strokeWidth = 1.5,
+    animate = false,
+    class: className = "",
+  }: IconProps = $props();
+
+  let isInternal = $state(false);
 
   let bar1Path: SVGPathElement;
   let bar2Path: SVGPathElement;
   let bar3Path: SVGPathElement;
   let bar4Path: SVGPathElement;
-  let isAnimating = $state(false);
-  let isControlled = $state(false);
 
-  export function startAnimation() {
-    if (!isControlled) {
-      isAnimating = true;
-      setTimeout(() => {
-        isAnimating = false;
-      }, 600);
+  function startAnimation(controlled = false) {
+    if (!controlled) {
+      if (animate) {
+        return;
+      }
+      isInternal = true;
+      animate = true;
+    }
+
+    setTimeout(() => {
+      if (!controlled) {
+        isInternal = true;
+        animate = false;
+      }
+    }, 600);
+  }
+
+  function stopAnimation(controlled = false) {
+    if (!controlled) {
+      isInternal = true;
+      animate = false;
     }
   }
+  $effect(() => {
+    if (isInternal) {
+      isInternal = false;
+      return;
+    }
 
-  export function stopAnimation() {
-    isAnimating = false;
-  }
-
-  export function setControlled(value: boolean) {
-    isControlled = value;
-  }
+    if (animate) {
+      startAnimation(true);
+    } else {
+      stopAnimation(true);
+    }
+  });
 
   function handleMouseEnter() {
-    if (!isControlled) {
-      startAnimation();
-    }
+    startAnimation();
   }
 
   function handleMouseLeave() {
-    if (!isControlled) {
-      stopAnimation();
-    }
+    stopAnimation();
   }
 </script>
 
@@ -42,6 +64,7 @@
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
+  aria-label="bars-4"
   role="img"
 >
   <svg
@@ -50,8 +73,8 @@
     height={size}
     viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor"
-    stroke-width="1.5"
+    stroke={color}
+    stroke-width={strokeWidth}
     stroke-linecap="round"
     stroke-linejoin="round"
     class="icon-svg"
@@ -59,25 +82,25 @@
     <path
       bind:this={bar1Path}
       class="bar-path"
-      class:animate={isAnimating}
+      class:animate={animate}
       d="M3.75 5.25h16.5"
     />
     <path
       bind:this={bar2Path}
       class="bar-path"
-      class:animate={isAnimating}
+      class:animate={animate}
       d="M3.75 9.75h16.5"
     />
     <path
       bind:this={bar3Path}
       class="bar-path"
-      class:animate={isAnimating}
+      class:animate={animate}
       d="M3.75 14.25h16.5"
     />
     <path
       bind:this={bar4Path}
       class="bar-path"
-      class:animate={isAnimating}
+      class:animate={animate}
       d="M3.75 18.75h16.5"
     />
   </svg>

@@ -1,46 +1,63 @@
 <script lang="ts">
-  let { size = 28, class: className = "" } = $props();
+  import type { IconProps } from "./types.js";
+  let {
+    color = "currentColor",
+    size = 28,
+    strokeWidth = 1.5,
+    animate = false,
+    class: className = "",
+  }: IconProps = $props();
+
+  let isInternal = $state(false);
 
   let topBarPath: SVGPathElement;
   let centerBarPath: SVGPathElement;
   let bottomBarPath: SVGPathElement;
   let centerBarAnimation: Animation | null = null;
-  let isAnimating = $state(false);
-  let isControlled = $state(false);
 
-  export function startAnimation() {
-    if (!isControlled) {
-      isAnimating = true;
-
-      // Animate pathLength using Web Animations API
-      if (centerBarPath) {
-        const pathLength = centerBarPath.getTotalLength();
-        centerBarPath.style.strokeDasharray = `${pathLength}`;
-        centerBarPath.style.strokeDashoffset = "0";
-
-        centerBarAnimation = centerBarPath.animate(
-          [
-            { strokeDashoffset: 0 },
-            { strokeDashoffset: pathLength * 0.5 },
-            { strokeDashoffset: 0 },
-          ],
-          {
-            duration: 500,
-            easing: "ease-in-out",
-            delay: 50,
-            fill: "forwards",
-          }
-        );
+  function startAnimation(controlled = false) {
+    if (!controlled) {
+      if (animate) {
+        return;
       }
-
-      setTimeout(() => {
-        isAnimating = false;
-      }, 550);
+      isInternal = true;
+      animate = true;
     }
+
+    // Animate pathLength using Web Animations API
+    if (centerBarPath) {
+      const pathLength = centerBarPath.getTotalLength();
+      centerBarPath.style.strokeDasharray = `${pathLength}`;
+      centerBarPath.style.strokeDashoffset = "0";
+
+      centerBarAnimation = centerBarPath.animate(
+        [
+          { strokeDashoffset: 0 },
+          { strokeDashoffset: pathLength * 0.5 },
+          { strokeDashoffset: 0 },
+        ],
+        {
+          duration: 500,
+          easing: "ease-in-out",
+          delay: 50,
+          fill: "forwards",
+        }
+      );
+    }
+
+    setTimeout(() => {
+      if (!controlled) {
+        isInternal = true;
+        animate = false;
+      }
+    }, 550);
   }
 
-  export function stopAnimation() {
-    isAnimating = false;
+  function stopAnimation(controlled = false) {
+    if (!controlled) {
+      isInternal = true;
+      animate = false;
+    }
 
     if (centerBarAnimation) {
       centerBarAnimation.cancel();
@@ -52,21 +69,25 @@
       centerBarPath.style.strokeDashoffset = "";
     }
   }
+  $effect(() => {
+    if (isInternal) {
+      isInternal = false;
+      return;
+    }
 
-  export function setControlled(value: boolean) {
-    isControlled = value;
-  }
+    if (animate) {
+      startAnimation(true);
+    } else {
+      stopAnimation(true);
+    }
+  });
 
   function handleMouseEnter() {
-    if (!isControlled) {
-      startAnimation();
-    }
+    startAnimation();
   }
 
   function handleMouseLeave() {
-    if (!isControlled) {
-      stopAnimation();
-    }
+    stopAnimation();
   }
 </script>
 
@@ -74,6 +95,7 @@
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
+  aria-label="bars-3-center-left"
   role="img"
 >
   <svg
@@ -82,8 +104,8 @@
     height={size}
     viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor"
-    stroke-width="1.5"
+    stroke={color}
+    stroke-width={strokeWidth}
     stroke-linecap="round"
     stroke-linejoin="round"
     class="icon-svg"
@@ -91,19 +113,19 @@
     <path
       bind:this={topBarPath}
       class="top-bar"
-      class:animate={isAnimating}
+      class:animate={animate}
       d="M3.75 6.75h16.5"
     />
     <path
       bind:this={centerBarPath}
       class="center-bar"
-      class:animate={isAnimating}
+      class:animate={animate}
       d="M3.75 12H12"
     />
     <path
       bind:this={bottomBarPath}
       class="bottom-bar"
-      class:animate={isAnimating}
+      class:animate={animate}
       d="M3.75 17.25h16.5"
     />
   </svg>

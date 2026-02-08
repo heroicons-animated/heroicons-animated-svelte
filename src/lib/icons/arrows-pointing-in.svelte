@@ -1,36 +1,57 @@
 <script lang="ts">
-  let { size = 28, class: className = "" } = $props();
+  import type { IconProps } from "./types.js";
+  let {
+    color = "currentColor",
+    size = 28,
+    strokeWidth = 1.5,
+    animate = false,
+    class: className = "",
+  }: IconProps = $props();
 
-  let isAnimating = $state(false);
-  let isControlled = $state(false);
+  let isInternal = $state(false);
 
-  export function startAnimation() {
-    if (!isControlled) {
-      isAnimating = true;
-      setTimeout(() => {
-        isAnimating = false;
-      }, 500);
+  function startAnimation(controlled = false) {
+    if (!controlled) {
+      if (animate) {
+        return;
+      }
+      isInternal = true;
+      animate = true;
+    }
+
+    setTimeout(() => {
+      if (!controlled) {
+        isInternal = true;
+        animate = false;
+      }
+    }, 500);
+  }
+
+  function stopAnimation(controlled = false) {
+    if (!controlled) {
+      isInternal = true;
+      animate = false;
     }
   }
+  $effect(() => {
+    if (isInternal) {
+      isInternal = false;
+      return;
+    }
 
-  export function stopAnimation() {
-    isAnimating = false;
-  }
-
-  export function setControlled(value: boolean) {
-    isControlled = value;
-  }
+    if (animate) {
+      startAnimation(true);
+    } else {
+      stopAnimation(true);
+    }
+  });
 
   function handleMouseEnter() {
-    if (!isControlled) {
-      startAnimation();
-    }
+    startAnimation();
   }
 
   function handleMouseLeave() {
-    if (!isControlled) {
-      stopAnimation();
-    }
+    stopAnimation();
   }
 </script>
 
@@ -38,6 +59,7 @@
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
+  aria-label="arrows-pointing-in"
   role="img"
 >
   <svg
@@ -46,22 +68,22 @@
     height={size}
     viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor"
-    stroke-width="1.5"
+    stroke={color}
+    stroke-width={strokeWidth}
     stroke-linecap="round"
     stroke-linejoin="round"
     class="icon-svg"
   >
-    <g class="top-left-group" class:animate={isAnimating}>
+    <g class="top-left-group" class:animate={animate}>
       <path d="M9 9V4.5M9 9H4.5M9 9 3.75 3.75" />
     </g>
-    <g class="bottom-left-group" class:animate={isAnimating}>
+    <g class="bottom-left-group" class:animate={animate}>
       <path d="M9 15v4.5M9 15H4.5M9 15l-5.25 5.25" />
     </g>
-    <g class="top-right-group" class:animate={isAnimating}>
+    <g class="top-right-group" class:animate={animate}>
       <path d="M15 9h4.5M15 9V4.5M15 9l5.25-5.25" />
     </g>
-    <g class="bottom-right-group" class:animate={isAnimating}>
+    <g class="bottom-right-group" class:animate={animate}>
       <path d="M15 15h4.5M15 15v4.5m0-4.5 5.25 5.25" />
     </g>
   </svg>

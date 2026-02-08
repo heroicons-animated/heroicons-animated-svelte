@@ -1,46 +1,63 @@
 <script lang="ts">
-  let { size = 28, class: className = "" } = $props();
+  import type { IconProps } from "./types.js";
+  let {
+    color = "currentColor",
+    size = 28,
+    strokeWidth = 1.5,
+    animate = false,
+    class: className = "",
+  }: IconProps = $props();
+
+  let isInternal = $state(false);
 
   let topBarPath: SVGPathElement;
   let middleBarPath: SVGPathElement;
   let bottomBarPath: SVGPathElement;
   let bottomBarAnimation: Animation | null = null;
-  let isAnimating = $state(false);
-  let isControlled = $state(false);
 
-  export function startAnimation() {
-    if (!isControlled) {
-      isAnimating = true;
-
-      // Animate pathLength using Web Animations API
-      if (bottomBarPath) {
-        const pathLength = bottomBarPath.getTotalLength();
-        bottomBarPath.style.strokeDasharray = `${pathLength}`;
-        bottomBarPath.style.strokeDashoffset = "0";
-
-        bottomBarAnimation = bottomBarPath.animate(
-          [
-            { strokeDashoffset: 0 },
-            { strokeDashoffset: pathLength * 0.5 },
-            { strokeDashoffset: 0 },
-          ],
-          {
-            duration: 500,
-            easing: "ease-in-out",
-            delay: 150,
-            fill: "forwards",
-          }
-        );
+  function startAnimation(controlled = false) {
+    if (!controlled) {
+      if (animate) {
+        return;
       }
-
-      setTimeout(() => {
-        isAnimating = false;
-      }, 650);
+      isInternal = true;
+      animate = true;
     }
+
+    // Animate pathLength using Web Animations API
+    if (bottomBarPath) {
+      const pathLength = bottomBarPath.getTotalLength();
+      bottomBarPath.style.strokeDasharray = `${pathLength}`;
+      bottomBarPath.style.strokeDashoffset = "0";
+
+      bottomBarAnimation = bottomBarPath.animate(
+        [
+          { strokeDashoffset: 0 },
+          { strokeDashoffset: pathLength * 0.5 },
+          { strokeDashoffset: 0 },
+        ],
+        {
+          duration: 500,
+          easing: "ease-in-out",
+          delay: 150,
+          fill: "forwards",
+        }
+      );
+    }
+
+    setTimeout(() => {
+      if (!controlled) {
+        isInternal = true;
+        animate = false;
+      }
+    }, 650);
   }
 
-  export function stopAnimation() {
-    isAnimating = false;
+  function stopAnimation(controlled = false) {
+    if (!controlled) {
+      isInternal = true;
+      animate = false;
+    }
 
     if (bottomBarAnimation) {
       bottomBarAnimation.cancel();
@@ -52,21 +69,25 @@
       bottomBarPath.style.strokeDashoffset = "";
     }
   }
+  $effect(() => {
+    if (isInternal) {
+      isInternal = false;
+      return;
+    }
 
-  export function setControlled(value: boolean) {
-    isControlled = value;
-  }
+    if (animate) {
+      startAnimation(true);
+    } else {
+      stopAnimation(true);
+    }
+  });
 
   function handleMouseEnter() {
-    if (!isControlled) {
-      startAnimation();
-    }
+    startAnimation();
   }
 
   function handleMouseLeave() {
-    if (!isControlled) {
-      stopAnimation();
-    }
+    stopAnimation();
   }
 </script>
 
@@ -74,6 +95,7 @@
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
+  aria-label="bars-3-bottom-left"
   role="img"
 >
   <svg
@@ -82,8 +104,8 @@
     height={size}
     viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor"
-    stroke-width="1.5"
+    stroke={color}
+    stroke-width={strokeWidth}
     stroke-linecap="round"
     stroke-linejoin="round"
     class="icon-svg"
@@ -91,19 +113,19 @@
     <path
       bind:this={topBarPath}
       class="top-bar"
-      class:animate={isAnimating}
+      class:animate={animate}
       d="M3.75 6.75h16.5"
     />
     <path
       bind:this={middleBarPath}
       class="middle-bar"
-      class:animate={isAnimating}
+      class:animate={animate}
       d="M3.75 12h16.5"
     />
     <path
       bind:this={bottomBarPath}
       class="bottom-bar"
-      class:animate={isAnimating}
+      class:animate={animate}
       d="M3.75 17.25H12"
     />
   </svg>

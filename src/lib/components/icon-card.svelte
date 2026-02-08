@@ -36,13 +36,8 @@
     iconClassName?: string;
   } = $props();
 
-  interface IconElement {
-    startAnimation: () => void;
-    stopAnimation: () => void;
-  }
-
   let IconComponent = $derived(ICON_COMPONENTS[name]);
-  let iconRef = $state<unknown>(null);
+  let iconAnimate = $state(false);
   let isTouch = $state(false);
   let isAnimating = $state(false);
   let playTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -62,19 +57,19 @@
     if (isTouch) {
       return;
     }
-    (iconRef as IconElement)?.startAnimation?.();
+    iconAnimate = true;
   }
 
   function handleMouseLeave() {
     if (isTouch) {
       return;
     }
-    (iconRef as IconElement)?.stopAnimation?.();
+    iconAnimate = false;
   }
 
   function handlePlayClick() {
     if (isAnimating) {
-      (iconRef as IconElement)?.stopAnimation?.();
+      iconAnimate = false;
       isAnimating = false;
       if (playTimeout) {
         clearTimeout(playTimeout);
@@ -82,11 +77,11 @@
       return;
     }
 
-    (iconRef as IconElement)?.startAnimation?.();
+    iconAnimate = true;
     isAnimating = true;
     playTimeout = setTimeout(() => {
       isAnimating = false;
-      (iconRef as IconElement)?.stopAnimation?.();
+      iconAnimate = false;
     }, 1500);
   }
 
@@ -176,8 +171,8 @@
 
   {#if IconComponent}
     <IconComponent
-      bind:this={iconRef}
       {size}
+      animate={iconAnimate}
       class={cn(
         "flex items-center justify-center [&>svg]:size-10 [&>svg]:text-neutral-800 dark:[&>svg]:text-neutral-100",
         iconClassName,

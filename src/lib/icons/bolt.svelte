@@ -1,48 +1,65 @@
 <script lang="ts">
-  let { size = 28, class: className = "" } = $props();
+  import type { IconProps } from "./types.js";
+  let {
+    color = "currentColor",
+    size = 28,
+    strokeWidth = 1.5,
+    animate = false,
+    class: className = "",
+  }: IconProps = $props();
+
+  let isInternal = $state(false);
 
   let pathElement: SVGPathElement;
   let pathAnimation: Animation | null = null;
-  let isAnimating = $state(false);
-  let isControlled = $state(false);
 
-  export function startAnimation() {
-    if (!isControlled) {
-      isAnimating = true;
-
-      if (pathElement) {
-        const pathLength = pathElement.getTotalLength();
-        pathElement.style.strokeDasharray = `${pathLength}`;
-        pathElement.style.strokeDashoffset = `${pathLength}`;
-        pathElement.style.opacity = "0";
-
-        pathAnimation = pathElement.animate(
-          [
-            {
-              strokeDashoffset: pathLength,
-              opacity: 0,
-            },
-            {
-              strokeDashoffset: 0,
-              opacity: 1,
-            },
-          ],
-          {
-            duration: 600,
-            easing: "linear",
-            fill: "forwards",
-          }
-        );
+  function startAnimation(controlled = false) {
+    if (!controlled) {
+      if (animate) {
+        return;
       }
-
-      setTimeout(() => {
-        isAnimating = false;
-      }, 600);
+      isInternal = true;
+      animate = true;
     }
+
+    if (pathElement) {
+      const pathLength = pathElement.getTotalLength();
+      pathElement.style.strokeDasharray = `${pathLength}`;
+      pathElement.style.strokeDashoffset = `${pathLength}`;
+      pathElement.style.opacity = "0";
+
+      pathAnimation = pathElement.animate(
+        [
+          {
+            strokeDashoffset: pathLength,
+            opacity: 0,
+          },
+          {
+            strokeDashoffset: 0,
+            opacity: 1,
+          },
+        ],
+        {
+          duration: 600,
+          easing: "linear",
+          fill: "forwards",
+        }
+      );
+    }
+
+    setTimeout(() => {
+      if (!controlled) {
+        isInternal = true;
+        animate = false;
+      }
+    }, 600);
   }
 
-  export function stopAnimation() {
-    isAnimating = false;
+  function stopAnimation(controlled = false) {
+    if (!controlled) {
+      isInternal = true;
+      animate = false;
+    }
 
     if (pathAnimation) {
       pathAnimation.cancel();
@@ -55,21 +72,25 @@
       pathElement.style.opacity = "";
     }
   }
+  $effect(() => {
+    if (isInternal) {
+      isInternal = false;
+      return;
+    }
 
-  export function setControlled(value: boolean) {
-    isControlled = value;
-  }
+    if (animate) {
+      startAnimation(true);
+    } else {
+      stopAnimation(true);
+    }
+  });
 
   function handleMouseEnter() {
-    if (!isControlled) {
-      startAnimation();
-    }
+    startAnimation();
   }
 
   function handleMouseLeave() {
-    if (!isControlled) {
-      stopAnimation();
-    }
+    stopAnimation();
   }
 </script>
 
@@ -77,6 +98,7 @@
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
+  aria-label="bolt"
   role="img"
 >
   <svg
@@ -85,8 +107,8 @@
     height={size}
     viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor"
-    stroke-width="1.5"
+    stroke={color}
+    stroke-width={strokeWidth}
     stroke-linecap="round"
     stroke-linejoin="round"
     class="icon-svg"

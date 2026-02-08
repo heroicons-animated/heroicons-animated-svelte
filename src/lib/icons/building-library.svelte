@@ -1,5 +1,14 @@
 <script lang="ts">
-  let { size = 28, class: className = "" } = $props();
+  import type { IconProps } from "./types.js";
+  let {
+    color = "currentColor",
+    size = 28,
+    strokeWidth = 1.5,
+    animate = false,
+    class: className = "",
+  }: IconProps = $props();
+
+  let isInternal = $state(false);
 
   let dotPath: SVGPathElement;
   let pillarPath1: SVGPathElement;
@@ -7,8 +16,6 @@
   let pillarPath3: SVGPathElement;
   let dotAnimation: Animation | null = null;
   let pillarAnimations: (Animation | null)[] = [null, null, null];
-  let isAnimating = $state(false);
-  let isControlled = $state(false);
 
   const PILLARS = [
     { d: "M8.25 12.75v8.25", index: 0 },
@@ -16,52 +23,62 @@
     { d: "M15.75 12.75v8.25", index: 2 },
   ];
 
-  export function startAnimation() {
-    if (!isControlled) {
-      isAnimating = true;
-
-      // Animate dot opacity
-      if (dotPath) {
-        dotPath.style.opacity = "0";
-        dotAnimation = dotPath.animate([{ opacity: 0 }, { opacity: 1 }], {
-          duration: 100,
-          delay: 100,
-          fill: "forwards",
-        });
+  function startAnimation(controlled = false) {
+    if (!controlled) {
+      if (animate) {
+        return;
       }
-
-      // Animate pillars with staggered delays
-      const pillarPaths = [pillarPath1, pillarPath2, pillarPath3];
-      pillarPaths.forEach((path, index) => {
-        if (path) {
-          const pathLength = path.getTotalLength();
-          path.style.strokeDasharray = `${pathLength}`;
-          path.style.strokeDashoffset = `${pathLength}`;
-          path.style.opacity = "0";
-
-          pillarAnimations[index] = path.animate(
-            [
-              { strokeDashoffset: pathLength, opacity: 0 },
-              { strokeDashoffset: 0, opacity: 1 },
-            ],
-            {
-              duration: 300,
-              delay: 200 + PILLARS[index].index * 150,
-              easing: "linear",
-              fill: "forwards",
-            }
-          );
-        }
-      });
-
-      setTimeout(() => {
-        isAnimating = false;
-      }, 800);
+      isInternal = true;
+      animate = true;
     }
+
+    // Animate dot opacity
+    if (dotPath) {
+      dotPath.style.opacity = "0";
+      dotAnimation = dotPath.animate([{ opacity: 0 }, { opacity: 1 }], {
+        duration: 100,
+        delay: 100,
+        fill: "forwards",
+      });
+    }
+
+    // Animate pillars with staggered delays
+    const pillarPaths = [pillarPath1, pillarPath2, pillarPath3];
+    pillarPaths.forEach((path, index) => {
+      if (path) {
+        const pathLength = path.getTotalLength();
+        path.style.strokeDasharray = `${pathLength}`;
+        path.style.strokeDashoffset = `${pathLength}`;
+        path.style.opacity = "0";
+
+        pillarAnimations[index] = path.animate(
+          [
+            { strokeDashoffset: pathLength, opacity: 0 },
+            { strokeDashoffset: 0, opacity: 1 },
+          ],
+          {
+            duration: 300,
+            delay: 200 + PILLARS[index].index * 150,
+            easing: "linear",
+            fill: "forwards",
+          }
+        );
+      }
+    });
+
+    setTimeout(() => {
+      if (!controlled) {
+        isInternal = true;
+        animate = false;
+      }
+    }, 800);
   }
 
-  export function stopAnimation() {
-    isAnimating = false;
+  function stopAnimation(controlled = false) {
+    if (!controlled) {
+      isInternal = true;
+      animate = false;
+    }
 
     if (dotAnimation) {
       dotAnimation.cancel();
@@ -85,21 +102,25 @@
       }
     });
   }
+  $effect(() => {
+    if (isInternal) {
+      isInternal = false;
+      return;
+    }
 
-  export function setControlled(value: boolean) {
-    isControlled = value;
-  }
+    if (animate) {
+      startAnimation(true);
+    } else {
+      stopAnimation(true);
+    }
+  });
 
   function handleMouseEnter() {
-    if (!isControlled) {
-      startAnimation();
-    }
+    startAnimation();
   }
 
   function handleMouseLeave() {
-    if (!isControlled) {
-      stopAnimation();
-    }
+    stopAnimation();
   }
 </script>
 
@@ -107,6 +128,7 @@
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
+  aria-label="building-library"
   role="img"
 >
   <svg
@@ -115,8 +137,8 @@
     height={size}
     viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor"
-    stroke-width="1.5"
+    stroke={color}
+    stroke-width={strokeWidth}
     stroke-linecap="round"
     stroke-linejoin="round"
     class="icon-svg"

@@ -1,36 +1,58 @@
 <script lang="ts">
-  let { size = 28, class: className = "", ...restProps } = $props();
+  import type { IconProps } from "./types.js";
+  let {
+    color = "currentColor",
+    size = 28,
+    strokeWidth = 1.5,
+    animate = false,
+    class: className = "",
+    ...restProps
+  }: IconProps = $props();
 
-  let isAnimating = $state(false);
-  let isControlled = $state(false);
+  let isInternal = $state(false);
 
-  export function startAnimation() {
-    if (!isControlled) {
-      isAnimating = true;
-      setTimeout(() => {
-        isAnimating = false;
-      }, 850);
+  function startAnimation(controlled = false) {
+    if (!controlled) {
+      if (animate) {
+        return;
+      }
+      isInternal = true;
+      animate = true;
+    }
+
+    setTimeout(() => {
+      if (!controlled) {
+        isInternal = true;
+        animate = false;
+      }
+    }, 850);
+  }
+
+  function stopAnimation(controlled = false) {
+    if (!controlled) {
+      isInternal = true;
+      animate = false;
     }
   }
+  $effect(() => {
+    if (isInternal) {
+      isInternal = false;
+      return;
+    }
 
-  export function stopAnimation() {
-    isAnimating = false;
-  }
-
-  export function setControlled(value: boolean) {
-    isControlled = value;
-  }
+    if (animate) {
+      startAnimation(true);
+    } else {
+      stopAnimation(true);
+    }
+  });
 
   function handleMouseEnter() {
-    if (!isControlled) {
-      startAnimation();
-    }
+    startAnimation();
   }
 
   function handleMouseLeave() {
-    if (!isControlled) {
-      stopAnimation();
-    }
+    stopAnimation();
   }
 </script>
 
@@ -39,6 +61,7 @@
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
+  aria-label="calculator"
   role="img"
 >
   <svg
@@ -47,8 +70,8 @@
     height={size}
     viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor"
-    stroke-width="1.5"
+    stroke={color}
+    stroke-width={strokeWidth}
     stroke-linecap="round"
     stroke-linejoin="round"
     class="icon-svg"
@@ -59,37 +82,37 @@
     <path
       d="M8.25 6H15.75V8.25H8.25V6Z"
       class="calculator-screen"
-      class:calculator-screen-animate={isAnimating}
+      class:calculator-screen-animate={animate}
     />
     <path
       d="M8.25 11.25H8.2575V11.2575H8.25V11.25Z"
       class="calculator-btn calculator-btn0"
-      class:calculator-btn-animate={isAnimating}
+      class:calculator-btn-animate={animate}
     />
     <path
       d="M10.7476 11.25H10.7551V11.2575H10.7476V11.25Z"
       class="calculator-btn calculator-btn1"
-      class:calculator-btn-animate={isAnimating}
+      class:calculator-btn-animate={animate}
     />
     <path
       d="M13.2524 13.5H13.2599V13.5075H13.2524V13.5Z"
       class="calculator-btn calculator-btn2"
-      class:calculator-btn-animate={isAnimating}
+      class:calculator-btn-animate={animate}
     />
     <path
       d="M8.25 15.75H8.2575V15.7575H8.25V15.75Z"
       class="calculator-btn calculator-btn3"
-      class:calculator-btn-animate={isAnimating}
+      class:calculator-btn-animate={animate}
     />
     <path
       d="M15.75 11.25H15.7575V11.2575H15.75V11.25Z"
       class="calculator-btn calculator-btn4"
-      class:calculator-btn-animate={isAnimating}
+      class:calculator-btn-animate={animate}
     />
     <path
       d="M10.7476 18H10.7551V18.0075H10.7476V18Z"
       class="calculator-btn calculator-btn5"
-      class:calculator-btn-animate={isAnimating}
+      class:calculator-btn-animate={animate}
     />
     <path d="M8.25 13.5H8.2575V13.5075H8.25V13.5Z" />
     <path d="M8.25 18H8.2575V18.0075H8.25V18Z" />
@@ -102,7 +125,7 @@
     <path
       d="M15.75 15.75V18"
       class="calculator-enter"
-      class:calculator-enter-animate={isAnimating}
+      class:calculator-enter-animate={animate}
     />
   </svg>
 </div>

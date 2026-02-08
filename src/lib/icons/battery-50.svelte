@@ -1,33 +1,50 @@
 <script lang="ts">
-  let { size = 28, class: className = "" } = $props();
+  import type { IconProps } from "./types.js";
+  let {
+    color = "currentColor",
+    size = 28,
+    strokeWidth = 1.5,
+    animate = false,
+    class: className = "",
+  }: IconProps = $props();
+
+  let isInternal = $state(false);
 
   const clipId = `battery-clip-${Math.random().toString(36).substr(2, 9)}`;
 
   let clipRect: SVGRectElement;
   let clipAnimation: Animation | null = null;
-  let isAnimating = $state(false);
-  let isControlled = $state(false);
 
-  export function startAnimation() {
-    if (!isControlled) {
-      isAnimating = true;
-
-      if (clipRect) {
-        clipAnimation = clipRect.animate([{ width: 0 }, { width: 6.75 }], {
-          duration: 400,
-          easing: "ease-out",
-          fill: "forwards",
-        });
+  function startAnimation(controlled = false) {
+    if (!controlled) {
+      if (animate) {
+        return;
       }
-
-      setTimeout(() => {
-        isAnimating = false;
-      }, 400);
+      isInternal = true;
+      animate = true;
     }
+
+    if (clipRect) {
+      clipAnimation = clipRect.animate([{ width: 0 }, { width: 6.75 }], {
+        duration: 400,
+        easing: "ease-out",
+        fill: "forwards",
+      });
+    }
+
+    setTimeout(() => {
+      if (!controlled) {
+        isInternal = true;
+        animate = false;
+      }
+    }, 400);
   }
 
-  export function stopAnimation() {
-    isAnimating = false;
+  function stopAnimation(controlled = false) {
+    if (!controlled) {
+      isInternal = true;
+      animate = false;
+    }
 
     if (clipAnimation) {
       clipAnimation.cancel();
@@ -38,21 +55,25 @@
       clipRect.setAttribute("width", "0");
     }
   }
+  $effect(() => {
+    if (isInternal) {
+      isInternal = false;
+      return;
+    }
 
-  export function setControlled(value: boolean) {
-    isControlled = value;
-  }
+    if (animate) {
+      startAnimation(true);
+    } else {
+      stopAnimation(true);
+    }
+  });
 
   function handleMouseEnter() {
-    if (!isControlled) {
-      startAnimation();
-    }
+    startAnimation();
   }
 
   function handleMouseLeave() {
-    if (!isControlled) {
-      stopAnimation();
-    }
+    stopAnimation();
   }
 </script>
 
@@ -60,6 +81,7 @@
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
+  aria-label="battery-50"
   role="img"
 >
   <svg
@@ -68,8 +90,8 @@
     height={size}
     viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor"
-    stroke-width="1.5"
+    stroke={color}
+    stroke-width={strokeWidth}
     stroke-linecap="round"
     stroke-linejoin="round"
     class="icon-svg"
@@ -89,7 +111,7 @@
     <path
       clip-path={`url(#${clipId})`}
       d="M4.5 10.5h6.75V15H4.5v-4.5Z"
-      fill="currentColor"
+      fill={color}
       stroke="none"
     />
   </svg>

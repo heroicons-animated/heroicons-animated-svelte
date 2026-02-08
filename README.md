@@ -14,11 +14,21 @@ pnpm add @heroicons-animated/svelte
 
 ```svelte
 <script>
-  import { BeakerIcon } from '@heroicons-animated/svelte'
+  import { Beaker } from '@heroicons-animated/svelte'
 </script>
 
-<BeakerIcon class="size-6" />
+<Beaker size={28} color="currentColor" strokeWidth={1.5} class="size-6" />
 ```
+
+### Props
+
+| Prop          | Type    | Default        | Description                     |
+| ------------- | ------- | -------------- | ------------------------------- |
+| `size`        | number  | 28             | Icon size in pixels             |
+| `color`       | string  | 'currentColor' | Stroke color (CSS color value)  |
+| `strokeWidth` | number  | 1.5            | SVG stroke width                |
+| `class`       | string  | —              | Optional additional CSS classes |
+| `animate`     | boolean | false          | Controls icon animation state   |
 
 ### Tree-shakable Imports
 
@@ -26,7 +36,7 @@ Import individual icons to reduce bundle size:
 
 ```svelte
 <script>
-  import BeakerIcon from '@heroicons-animated/svelte/beaker'
+  import Beaker from '@heroicons-animated/svelte/beaker'
 </script>
 ```
 

@@ -1,36 +1,57 @@
 <script lang="ts">
-  let { size = 28, class: className = "" } = $props();
+  import type { IconProps } from "./types.js";
+  let {
+    color = "currentColor",
+    size = 28,
+    strokeWidth = 1.5,
+    animate = false,
+    class: className = "",
+  }: IconProps = $props();
 
-  let isAnimating = $state(false);
-  let isControlled = $state(false);
+  let isInternal = $state(false);
 
-  export function startAnimation() {
-    if (!isControlled) {
-      isAnimating = true;
-      setTimeout(() => {
-        isAnimating = false;
-      }, 600);
+  function startAnimation(controlled = false) {
+    if (!controlled) {
+      if (animate) {
+        return;
+      }
+      isInternal = true;
+      animate = true;
+    }
+
+    setTimeout(() => {
+      if (!controlled) {
+        isInternal = true;
+        animate = false;
+      }
+    }, 600);
+  }
+
+  function stopAnimation(controlled = false) {
+    if (!controlled) {
+      isInternal = true;
+      animate = false;
     }
   }
+  $effect(() => {
+    if (isInternal) {
+      isInternal = false;
+      return;
+    }
 
-  export function stopAnimation() {
-    isAnimating = false;
-  }
-
-  export function setControlled(value: boolean) {
-    isControlled = value;
-  }
+    if (animate) {
+      startAnimation(true);
+    } else {
+      stopAnimation(true);
+    }
+  });
 
   function handleMouseEnter() {
-    if (!isControlled) {
-      startAnimation();
-    }
+    startAnimation();
   }
 
   function handleMouseLeave() {
-    if (!isControlled) {
-      stopAnimation();
-    }
+    stopAnimation();
   }
 </script>
 
@@ -38,6 +59,7 @@
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
+  aria-label="viewfinder-circle"
   role="img"
 >
   <svg
@@ -46,8 +68,8 @@
     height={size}
     viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor"
-    stroke-width="1.5"
+    stroke={color}
+    stroke-width={strokeWidth}
     stroke-linecap="round"
     stroke-linejoin="round"
     class="icon-svg"
@@ -55,27 +77,27 @@
     <path
       d="M7.5 3.75H6C4.75736 3.75 3.75 4.75736 3.75 6V7.5"
       class="viewfindercircle-corner"
-      class:viewfindercircle-corner-animate={isAnimating}
+      class:viewfindercircle-corner-animate={animate}
     />
     <path
       d="M16.5 3.75H18C19.2426 3.75 20.25 4.75736 20.25 6V7.5"
       class="viewfindercircle-corner"
-      class:viewfindercircle-corner-animate={isAnimating}
+      class:viewfindercircle-corner-animate={animate}
     />
     <path
       d="M20.25 16.5V18C20.25 19.2426 19.2426 20.25 18 20.25H16.5"
       class="viewfindercircle-corner"
-      class:viewfindercircle-corner-animate={isAnimating}
+      class:viewfindercircle-corner-animate={animate}
     />
     <path
       d="M7.5 20.25H6C4.75736 20.25 3.75 19.2426 3.75 18V16.5"
       class="viewfindercircle-corner"
-      class:viewfindercircle-corner-animate={isAnimating}
+      class:viewfindercircle-corner-animate={animate}
     />
     <path
       d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z"
       class="viewfindercircle-circle"
-      class:viewfindercircle-circle-animate={isAnimating}
+      class:viewfindercircle-circle-animate={animate}
     />
   </svg>
 </div>

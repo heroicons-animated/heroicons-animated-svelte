@@ -10,10 +10,10 @@
   }>();
 
   const kebabToPascal = (value: string) =>
-    `${value
+    value
       .split("-")
       .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-      .join("")}Icon`;
+      .join("");
 
   let icon = $state<{ name: string; keywords: string[] }>(
     props.data?.icon ?? { name: "", keywords: [] }
@@ -22,7 +22,7 @@
   let iconName = $derived(icon.name ?? "");
   let keywords = $derived(Array.isArray(icon.keywords) ? icon.keywords : []);
   let pascalName = $derived(iconName ? kebabToPascal(iconName) : "");
-  let displayName = $derived(pascalName ? pascalName.split("Icon")[0] : "Icon");
+  let displayName = $derived(pascalName || "Icon");
   let description = $derived(
     `Free animated ${iconName} icon for Svelte. Smooth animations, copy-paste ready.`
   );

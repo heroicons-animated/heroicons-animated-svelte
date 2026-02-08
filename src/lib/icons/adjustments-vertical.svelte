@@ -1,8 +1,15 @@
 <script lang="ts">
-  let { size = 28, class: className = "" } = $props();
+  import type { IconProps } from "./types.js";
+  let {
+    color = "currentColor",
+    size = 28,
+    strokeWidth = 1.5,
+    animate = false,
+    class: className = "",
+  }: IconProps = $props();
 
-  let isAnimating = $state(false);
-  let isControlled = $state(false);
+  let isInternal = $state(false);
+
   let line1: SVGLineElement;
   let line2: SVGLineElement;
   let circle1: SVGCircleElement;
@@ -18,33 +25,43 @@
     easing: "cubic-bezier(0.68, -0.55, 0.265, 1.55)", // Approximate spring
   };
 
-  export function startAnimation() {
-    if (!isControlled) {
-      isAnimating = true;
-
-      // Column 1
-      line1?.animate([{ y2: 13.5 }, { y2: 10.5 }], defaultOptions);
-      line2?.animate([{ y1: 16.5 }, { y1: 13.5 }], defaultOptions);
-      circle1?.animate([{ cy: 15 }, { cy: 12 }], defaultOptions);
-
-      // Column 2
-      line3?.animate([{ y2: 7.5 }, { y2: 10.5 }], defaultOptions);
-      line4?.animate([{ y1: 10.5 }, { y1: 13.5 }], defaultOptions);
-      circle2?.animate([{ cy: 9 }, { cy: 12 }], defaultOptions);
-
-      // Column 3
-      line5?.animate([{ y2: 13.5 }, { y2: 10.5 }], defaultOptions);
-      line6?.animate([{ y1: 16.5 }, { y1: 13.5 }], defaultOptions);
-      circle3?.animate([{ cy: 15 }, { cy: 12 }], defaultOptions);
-
-      setTimeout(() => {
-        isAnimating = false;
-      }, 300);
+  function startAnimation(controlled = false) {
+    if (!controlled) {
+      if (animate) {
+        return;
+      }
+      isInternal = true;
+      animate = true;
     }
+
+    // Column 1
+    line1?.animate([{ y2: 13.5 }, { y2: 10.5 }], defaultOptions);
+    line2?.animate([{ y1: 16.5 }, { y1: 13.5 }], defaultOptions);
+    circle1?.animate([{ cy: 15 }, { cy: 12 }], defaultOptions);
+
+    // Column 2
+    line3?.animate([{ y2: 7.5 }, { y2: 10.5 }], defaultOptions);
+    line4?.animate([{ y1: 10.5 }, { y1: 13.5 }], defaultOptions);
+    circle2?.animate([{ cy: 9 }, { cy: 12 }], defaultOptions);
+
+    // Column 3
+    line5?.animate([{ y2: 13.5 }, { y2: 10.5 }], defaultOptions);
+    line6?.animate([{ y1: 16.5 }, { y1: 13.5 }], defaultOptions);
+    circle3?.animate([{ cy: 15 }, { cy: 12 }], defaultOptions);
+
+    setTimeout(() => {
+      if (!controlled) {
+        isInternal = true;
+        animate = false;
+      }
+    }, 300);
   }
 
-  export function stopAnimation() {
-    isAnimating = false;
+  function stopAnimation(controlled = false) {
+    if (!controlled) {
+      isInternal = true;
+      animate = false;
+    }
 
     // Column 1
     line1?.animate([{ y2: 10.5 }, { y2: 13.5 }], defaultOptions);
@@ -61,21 +78,25 @@
     line6?.animate([{ y1: 13.5 }, { y1: 16.5 }], defaultOptions);
     circle3?.animate([{ cy: 12 }, { cy: 15 }], defaultOptions);
   }
+  $effect(() => {
+    if (isInternal) {
+      isInternal = false;
+      return;
+    }
 
-  export function setControlled(value: boolean) {
-    isControlled = value;
-  }
+    if (animate) {
+      startAnimation(true);
+    } else {
+      stopAnimation(true);
+    }
+  });
 
   function handleMouseEnter() {
-    if (!isControlled) {
-      startAnimation();
-    }
+    startAnimation();
   }
 
   function handleMouseLeave() {
-    if (!isControlled) {
-      stopAnimation();
-    }
+    stopAnimation();
   }
 </script>
 
@@ -83,6 +104,7 @@
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
+  aria-label="adjustments-vertical"
   role="img"
 >
   <svg
@@ -91,8 +113,8 @@
     height={size}
     viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor"
-    stroke-width="1.5"
+    stroke={color}
+    stroke-width={strokeWidth}
     stroke-linecap="round"
     stroke-linejoin="round"
     class="icon-svg"

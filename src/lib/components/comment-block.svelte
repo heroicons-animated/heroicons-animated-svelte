@@ -5,9 +5,7 @@
     AvatarFallback,
     AvatarImage,
   } from "$lib/components/ui/avatar";
-  let arrowRef:
-    | { startAnimation: () => void; stopAnimation: () => void }
-    | undefined;
+  let isArrowHovered = $state(false);
 </script>
 
 <div
@@ -75,11 +73,11 @@
       tabindex="0"
       target="_blank"
       class="supports-[corner-shape:squircle]:corner-squircle flex w-fit cursor-pointer items-center justify-center gap-1 rounded-[8px] bg-primary px-[12px] py-[4px] font-sans text-sm text-white transition-[background-color] duration-100 hover:bg-[color-mix(in_oklab,var(--color-primary),black_10%)] focus-visible:outline-1 focus-visible:outline-primary focus-visible:outline-offset-1 supports-[corner-shape:squircle]:rounded-[12px] max-[445px]:w-full"
-      onmouseenter={() => arrowRef?.startAnimation?.()}
-      onmouseleave={() => arrowRef?.stopAnimation?.()}
+      onmouseenter={() => (isArrowHovered = true)}
+      onmouseleave={() => (isArrowHovered = false)}
     >
       Take the course
-      <ArrowTopRightOnSquare bind:this={arrowRef} size={14} />
+      <ArrowTopRightOnSquare size={14} animate={isArrowHovered} />
     </a>
   </div>
 </div>

@@ -1,69 +1,86 @@
 <script lang="ts">
-  let { size = 28, class: className = "" } = $props();
+  import type { IconProps } from "./types.js";
+  let {
+    color = "currentColor",
+    size = 28,
+    strokeWidth = 1.5,
+    animate = false,
+    class: className = "",
+  }: IconProps = $props();
+
+  let isInternal = $state(false);
 
   let circleElement: SVGCircleElement;
   let pathElement: SVGPathElement;
   let circleAnimation: Animation | null = null;
   let pathAnimation: Animation | null = null;
-  let isAnimating = $state(false);
-  let isControlled = $state(false);
 
-  export function startAnimation() {
-    if (!isControlled) {
-      isAnimating = true;
-
-      // Animate circle path drawing using Web Animations API
-      if (circleElement) {
-        const circleLength = circleElement.getTotalLength();
-        circleElement.style.strokeDasharray = `${circleLength}`;
-        circleElement.style.strokeDashoffset = `${circleLength}`;
-        circleElement.style.opacity = "0";
-
-        circleAnimation = circleElement.animate(
-          [
-            { strokeDashoffset: circleLength, opacity: 0 },
-            { strokeDashoffset: 0, opacity: 1 },
-          ],
-          {
-            duration: 300,
-            easing: "ease-in-out",
-            fill: "forwards",
-          }
-        );
+  function startAnimation(controlled = false) {
+    if (!controlled) {
+      if (animate) {
+        return;
       }
+      isInternal = true;
+      animate = true;
+    }
 
-      // Animate path drawing with delay
-      if (pathElement) {
-        const pathLength = pathElement.getTotalLength();
-        pathElement.style.strokeDasharray = `${pathLength}`;
-        pathElement.style.strokeDashoffset = `${pathLength}`;
-        pathElement.style.opacity = "0";
+    // Animate circle path drawing using Web Animations API
+    if (circleElement) {
+      const circleLength = circleElement.getTotalLength();
+      circleElement.style.strokeDasharray = `${circleLength}`;
+      circleElement.style.strokeDashoffset = `${circleLength}`;
+      circleElement.style.opacity = "0";
 
-        setTimeout(() => {
-          if (pathElement) {
-            pathAnimation = pathElement.animate(
-              [
-                { strokeDashoffset: pathLength, opacity: 0 },
-                { strokeDashoffset: 0, opacity: 1 },
-              ],
-              {
-                duration: 300,
-                easing: "ease-in-out",
-                fill: "forwards",
-              }
-            );
-          }
-        }, 300);
-      }
+      circleAnimation = circleElement.animate(
+        [
+          { strokeDashoffset: circleLength, opacity: 0 },
+          { strokeDashoffset: 0, opacity: 1 },
+        ],
+        {
+          duration: 300,
+          easing: "ease-in-out",
+          fill: "forwards",
+        }
+      );
+    }
+
+    // Animate path drawing with delay
+    if (pathElement) {
+      const pathLength = pathElement.getTotalLength();
+      pathElement.style.strokeDasharray = `${pathLength}`;
+      pathElement.style.strokeDashoffset = `${pathLength}`;
+      pathElement.style.opacity = "0";
 
       setTimeout(() => {
-        isAnimating = false;
-      }, 600);
+        if (pathElement) {
+          pathAnimation = pathElement.animate(
+            [
+              { strokeDashoffset: pathLength, opacity: 0 },
+              { strokeDashoffset: 0, opacity: 1 },
+            ],
+            {
+              duration: 300,
+              easing: "ease-in-out",
+              fill: "forwards",
+            }
+          );
+        }
+      }, 300);
     }
+
+    setTimeout(() => {
+      if (!controlled) {
+        isInternal = true;
+        animate = false;
+      }
+    }, 600);
   }
 
-  export function stopAnimation() {
-    isAnimating = false;
+  function stopAnimation(controlled = false) {
+    if (!controlled) {
+      isInternal = true;
+      animate = false;
+    }
 
     if (circleAnimation) {
       circleAnimation.cancel();
@@ -87,21 +104,25 @@
       pathElement.style.opacity = "1";
     }
   }
+  $effect(() => {
+    if (isInternal) {
+      isInternal = false;
+      return;
+    }
 
-  export function setControlled(value: boolean) {
-    isControlled = value;
-  }
+    if (animate) {
+      startAnimation(true);
+    } else {
+      stopAnimation(true);
+    }
+  });
 
   function handleMouseEnter() {
-    if (!isControlled) {
-      startAnimation();
-    }
+    startAnimation();
   }
 
   function handleMouseLeave() {
-    if (!isControlled) {
-      stopAnimation();
-    }
+    stopAnimation();
   }
 </script>
 
@@ -109,6 +130,7 @@
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
+  aria-label="at-symbol"
   role="img"
 >
   <svg
@@ -117,8 +139,8 @@
     height={size}
     viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor"
-    stroke-width="1.5"
+    stroke={color}
+    stroke-width={strokeWidth}
     stroke-linecap="round"
     stroke-linejoin="round"
     class="icon-svg"
