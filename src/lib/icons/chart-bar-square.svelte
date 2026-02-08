@@ -47,26 +47,30 @@
     <path
       class="chart-bar"
       class:chart-bar-animate={shouldAnimate}
+      pathLength="1"
       style="animation-delay: 0s"
-      d="M7.5 14.25v2.25"
+      d="M7.5 16.5v-2.25"
     />
     <path
       class="chart-bar"
       class:chart-bar-animate={shouldAnimate}
+      pathLength="1"
       style="animation-delay: 0.15s"
-      d="M10.5 12v4.5"
+      d="M10.5 16.5v-4.5"
     />
     <path
       class="chart-bar"
       class:chart-bar-animate={shouldAnimate}
+      pathLength="1"
       style="animation-delay: 0.3s"
-      d="M13.5 9.75v6.75"
+      d="M13.5 16.5v-6.75"
     />
     <path
       class="chart-bar"
       class:chart-bar-animate={shouldAnimate}
+      pathLength="1"
       style="animation-delay: 0.45s"
-      d="M16.5 7.5v9"
+      d="M16.5 16.5v-9"
     />
   </svg>
 </div>

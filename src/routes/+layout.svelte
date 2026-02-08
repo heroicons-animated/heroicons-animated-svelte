@@ -1,6 +1,7 @@
 <script lang="ts">
   import "../app.css";
   import Header from "$lib/components/header.svelte";
+  import { NuqsAdapter } from "nuqs-svelte/adapters/svelte-kit";
   import { SvelteTheme } from "svelte-themes";
 
   let { data, children } = $props();
@@ -16,8 +17,10 @@
 </svelte:head>
 
 <SvelteTheme attribute="class">
-  <div class="root relative bg-background antialiased">
-    <Header stars={data.githubStars} />
-    {@render children()}
-  </div>
+  <NuqsAdapter>
+    <div class="root relative bg-background antialiased">
+      <Header stars={data.githubStars} />
+      {@render children()}
+    </div>
+  </NuqsAdapter>
 </SvelteTheme>

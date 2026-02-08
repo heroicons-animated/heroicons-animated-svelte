@@ -12,6 +12,18 @@
   let isHovered = $state(false);
   let shouldAnimate = $derived(animate || isHovered);
 
+  const WINDOWS = [
+    { path: "M6.75 12.75h.75", index: 0 },
+    { path: "M6.75 9.75h.75", index: 1 },
+    { path: "M6.75 6.75h.75", index: 2 },
+    { path: "M10.5 12.75h.75", index: 0 },
+    { path: "M10.5 9.75h.75", index: 1 },
+    { path: "M10.5 6.75h.75", index: 2 },
+    { path: "M17.25 17h.008v.008h-.008v-.008Z", index: 0 },
+    { path: "M17.25 14h.008v.008h-.008v-.008Z", index: 1 },
+    { path: "M17.25 11h.008v.008h-.008v-.008Z", index: 2 },
+  ] as const;
+
   function handleMouseEnter() {
     isHovered = true;
   }
@@ -45,7 +57,14 @@
     <path
       d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21"
     />
-    <!-- Animation paths removed - needs regeneration -->
+    {#each WINDOWS as window, index (`${window.path}-${index}`)}
+      <path
+        d={window.path}
+        class="buildingoffice2-window"
+        class:buildingoffice2-window-animate={shouldAnimate}
+        style={`animation-delay: ${0.1 + window.index * 0.15}s`}
+      />
+    {/each}
   </svg>
 </div>
 
@@ -57,22 +76,22 @@
   .icon-svg {
     transform-box: fill-box;
     transform-origin: center;
-    transition: transform 0.3s ease;
   }
 
-  .icon-svg.buildingoffice2-animate {
-    animation: buildingoffice2-animate 0.6s ease-in-out;
+  .buildingoffice2-window {
+    opacity: 1;
   }
 
-  @keyframes buildingoffice2-animate {
+  .buildingoffice2-window.buildingoffice2-window-animate {
+    animation: buildingoffice2-window-fade 0.3s linear forwards;
+  }
+
+  @keyframes buildingoffice2-window-fade {
     0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.1);
+      opacity: 0;
     }
     100% {
-      transform: scale(1);
+      opacity: 1;
     }
   }
 </style>

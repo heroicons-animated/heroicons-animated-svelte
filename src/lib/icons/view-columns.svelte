@@ -6,6 +6,7 @@
     strokeWidth = 1.5,
     animate = false,
     class: className = "",
+    ...restProps
   }: IconProps = $props();
 
   let isHovered = $state(false);
@@ -21,6 +22,7 @@
 </script>
 
 <div
+  {...restProps}
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
@@ -45,11 +47,13 @@
     <path
       class="viewcolumns-line viewcolumns-line-0"
       class:viewcolumns-draw={shouldAnimate}
+      pathLength="1"
       d="M9 4.5v15"
     />
     <path
       class="viewcolumns-line viewcolumns-line-1"
       class:viewcolumns-draw={shouldAnimate}
+      pathLength="1"
       d="M15 4.5v15"
     />
   </svg>

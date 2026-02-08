@@ -12,6 +12,154 @@
   let isHovered = $state(false);
   let shouldAnimate = $derived(animate || isHovered);
 
+  const MOUTH_PATHS = [
+    "M15.182 15.182C13.4246 16.9393 10.5754 16.9393 8.81802 15.182",
+    "M14.5 14C13 15.5 11 15.5 9.5 14",
+    "M15.182 15.182C13.4246 16.9393 10.5754 16.9393 8.81802 15.182",
+  ] as const;
+  const MOUTH_TIMES = [0, 0.5, 1] as const;
+  const MOUTH_MORPH_DURATION = 400;
+  const MOUTH_MORPH_DELAY = 100;
+  const NUMBER_PATTERN = /-?\d*\.?\d+(?:e[-+]?\d+)?/gi;
+
+  interface ParsedPath {
+    template: string;
+    numbers: number[];
+  }
+
+  const parsedMouthPaths = MOUTH_PATHS.map((path) => {
+    const numbers: number[] = [];
+    const template = path.replace(NUMBER_PATTERN, (value) => {
+      numbers.push(Number.parseFloat(value));
+      return "__N__";
+    });
+    return { template, numbers } satisfies ParsedPath;
+  });
+  const mouthTemplate = parsedMouthPaths[0].template;
+  const mouthNumberCount = parsedMouthPaths[0].numbers.length;
+  const canMorphMouth = parsedMouthPaths.every(
+    (path) =>
+      path.template === mouthTemplate &&
+      path.numbers.length === mouthNumberCount
+  );
+
+  let mouthPath: SVGPathElement;
+  let mouthAnimationFrame: number | null = null;
+  let mouthDelayTimeout: number | null = null;
+
+  function formatNumber(value: number): string {
+    return Number(value.toFixed(4)).toString();
+  }
+
+  function interpolatePath(
+    template: string,
+    from: number[],
+    to: number[],
+    progress: number
+  ): string {
+    let numberIndex = 0;
+    return template.replace(/__N__/g, () => {
+      const start = from[numberIndex];
+      const end = to[numberIndex];
+      numberIndex += 1;
+      return formatNumber(start + (end - start) * progress);
+    });
+  }
+
+  function cancelMouthMorph() {
+    if (mouthDelayTimeout !== null) {
+      clearTimeout(mouthDelayTimeout);
+      mouthDelayTimeout = null;
+    }
+    if (mouthAnimationFrame !== null) {
+      cancelAnimationFrame(mouthAnimationFrame);
+      mouthAnimationFrame = null;
+    }
+  }
+
+  function setMouthPathAt(progress: number) {
+    if (!mouthPath) {
+      return;
+    }
+
+    if (!canMorphMouth) {
+      if (progress < 0.25) {
+        mouthPath.setAttribute("d", MOUTH_PATHS[0]);
+      } else if (progress < 0.75) {
+        mouthPath.setAttribute("d", MOUTH_PATHS[1]);
+      } else {
+        mouthPath.setAttribute("d", MOUTH_PATHS[2]);
+      }
+      return;
+    }
+
+    const clampedProgress = Math.max(0, Math.min(progress, 1));
+
+    let segmentIndex = MOUTH_TIMES.length - 2;
+    for (let index = 1; index < MOUTH_TIMES.length; index += 1) {
+      if (clampedProgress <= MOUTH_TIMES[index]) {
+        segmentIndex = index - 1;
+        break;
+      }
+    }
+
+    const segmentStart = MOUTH_TIMES[segmentIndex];
+    const segmentEnd = MOUTH_TIMES[segmentIndex + 1];
+    const localProgress =
+      segmentEnd === segmentStart
+        ? 0
+        : (clampedProgress - segmentStart) / (segmentEnd - segmentStart);
+
+    const from = parsedMouthPaths[segmentIndex].numbers;
+    const to = parsedMouthPaths[segmentIndex + 1].numbers;
+    mouthPath.setAttribute(
+      "d",
+      interpolatePath(mouthTemplate, from, to, localProgress)
+    );
+  }
+
+  function startMouthMorph() {
+    if (!mouthPath) {
+      return;
+    }
+
+    cancelMouthMorph();
+
+    mouthDelayTimeout = window.setTimeout(() => {
+      const startTime = performance.now();
+
+      const step = (currentTime: number) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / MOUTH_MORPH_DURATION, 1);
+        setMouthPathAt(progress);
+
+        if (progress < 1) {
+          mouthAnimationFrame = requestAnimationFrame(step);
+        } else {
+          mouthAnimationFrame = null;
+        }
+      };
+
+      mouthAnimationFrame = requestAnimationFrame(step);
+      mouthDelayTimeout = null;
+    }, MOUTH_MORPH_DELAY);
+  }
+
+  function stopMouthMorph() {
+    cancelMouthMorph();
+    if (mouthPath) {
+      mouthPath.setAttribute("d", MOUTH_PATHS[0]);
+    }
+  }
+
+  $effect(() => {
+    if (shouldAnimate) {
+      startMouthMorph();
+    } else {
+      stopMouthMorph();
+    }
+  });
+
   function handleMouseEnter() {
     isHovered = true;
   }
@@ -44,7 +192,9 @@
   >
     <circle cx="12" cy="12" r="9" />
     <path
+      bind:this={mouthPath}
       d="M15.182 15.182C13.4246 16.9393 10.5754 16.9393 8.81802 15.182"
+      pathLength="1"
       class="facesmile-mouth"
       class:facesmile-mouth-animate={shouldAnimate}
     />
@@ -112,6 +262,10 @@
   /* Both eyes: scale [1,1.5,0.8,1.2] 0.5s times 0/0.3/0.6/1 */
   .facesmile-eye.facesmile-eye-animate {
     animation: facesmile-eye-bounce 0.5s ease-in-out forwards;
+  }
+  .facesmile-eye {
+    transform-box: fill-box;
+    transform-origin: center;
   }
   @keyframes facesmile-eye-bounce {
     0% {

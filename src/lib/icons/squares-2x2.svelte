@@ -6,6 +6,7 @@
     strokeWidth = 1.5,
     animate = false,
     class: className = "",
+    ...restProps
   }: IconProps = $props();
 
   let isHovered = $state(false);
@@ -21,6 +22,7 @@
 </script>
 
 <div
+  {...restProps}
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
@@ -73,6 +75,7 @@
   }
 
   .squares2x2-cell {
+    transform-box: fill-box;
     transform-origin: center;
     opacity: 1;
     transform: scale(1);

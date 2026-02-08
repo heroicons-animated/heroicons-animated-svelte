@@ -73,6 +73,7 @@
   }
 
   .ellipsishorizontalcircle-dot {
+    transform-box: fill-box;
     transform-origin: 50% 50%;
   }
 

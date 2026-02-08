@@ -47,7 +47,8 @@
     <path
       class="magnifyingglassminus-line"
       class:magnifyingglassminus-draw={shouldAnimate}
-      d="M13.5 10.5H7.5"
+      pathLength="1"
+      d="M7.5 10.5H13.5"
     />
   </svg>
 </div>
@@ -60,7 +61,6 @@
   .icon-svg {
     transform-box: fill-box;
     transform-origin: center;
-    transition: transform 0.3s ease;
   }
 
   .magnifyingglassminus-line {
@@ -70,13 +70,16 @@
   }
 
   .magnifyingglassminus-line.magnifyingglassminus-draw {
-    animation: magnifyingglassminus-draw 0.4s ease-in-out forwards;
+    animation: magnifyingglassminus-draw 0.3s ease-out forwards;
   }
 
   @keyframes magnifyingglassminus-draw {
     0% {
       stroke-dashoffset: 1;
       opacity: 0;
+    }
+    33% {
+      opacity: 1;
     }
     100% {
       stroke-dashoffset: 0;

@@ -6,6 +6,7 @@
     strokeWidth = 1.5,
     animate = false,
     class: className = "",
+    ...restProps
   }: IconProps = $props();
 
   let isHovered = $state(false);
@@ -21,6 +22,7 @@
 </script>
 
 <div
+  {...restProps}
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
@@ -45,6 +47,7 @@
     <path
       class="receiptpercent-line"
       class:receiptpercent-draw={shouldAnimate}
+      pathLength="1"
       d="M9 14.25L15 8.25"
     />
     <path
@@ -95,6 +98,7 @@
   }
 
   .receiptpercent-dot {
+    transform-box: fill-box;
     transform-origin: center;
     opacity: 1;
     transform: scale(1);

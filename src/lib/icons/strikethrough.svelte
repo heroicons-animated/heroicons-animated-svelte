@@ -6,6 +6,7 @@
     strokeWidth = 1.5,
     animate = false,
     class: className = "",
+    ...restProps
   }: IconProps = $props();
 
   let isHovered = $state(false);
@@ -21,6 +22,7 @@
 </script>
 
 <div
+  {...restProps}
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
@@ -44,6 +46,7 @@
     />
     <path
       d="M3.75 12h16.5"
+      pathLength="1"
       class="strikethrough-line"
       class:strikethrough-draw={shouldAnimate}
     />
@@ -67,7 +70,7 @@
   }
 
   .strikethrough-line.strikethrough-draw {
-    animation: strikethrough-draw 0.4s ease-out forwards;
+    animation: strikethrough-draw 0.4s ease-in-out forwards;
   }
 
   @keyframes strikethrough-draw {

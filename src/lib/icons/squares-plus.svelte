@@ -6,6 +6,7 @@
     strokeWidth = 1.5,
     animate = false,
     class: className = "",
+    ...restProps
   }: IconProps = $props();
 
   let isHovered = $state(false);
@@ -21,6 +22,7 @@
 </script>
 
 <div
+  {...restProps}
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
@@ -45,11 +47,13 @@
     <path
       class="squaresplus-vertical"
       class:squaresplus-draw={shouldAnimate}
+      pathLength="1"
       d="M16.875 13.5v6.75"
     />
     <path
       class="squaresplus-horizontal"
       class:squaresplus-draw={shouldAnimate}
+      pathLength="1"
       d="M13.5 16.875h6.75"
     />
   </svg>
@@ -72,7 +76,7 @@
   }
 
   .squaresplus-vertical.squaresplus-draw {
-    animation: squaresplus-draw-line 0.2s ease-out 0.3s forwards;
+    animation: squaresplus-draw-line 0.2s ease-in-out 0.3s both;
   }
 
   .squaresplus-horizontal {
@@ -82,7 +86,7 @@
   }
 
   .squaresplus-horizontal.squaresplus-draw {
-    animation: squaresplus-draw-line 0.2s ease-out 0.6s forwards;
+    animation: squaresplus-draw-line 0.2s ease-in-out 0.6s both;
   }
 
   @keyframes squaresplus-draw-line {

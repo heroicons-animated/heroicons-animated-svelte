@@ -46,11 +46,13 @@
     />
     <path
       d="M8.25 12.75h7.5"
+      pathLength="1"
       class="documenttext-line documenttext-line0"
       class:documenttext-blink={shouldAnimate}
     />
     <path
       d="M8.25 15.75H12"
+      pathLength="1"
       class="documenttext-line documenttext-line1"
       class:documenttext-blink={shouldAnimate}
     />

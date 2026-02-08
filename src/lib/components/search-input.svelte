@@ -61,7 +61,6 @@
         placeholder="Search icons..."
         role="search"
         spellcheck="false"
-        type="search"
       />
       <span
         class="pointer-events-none absolute top-1/2 right-3 inline-flex shrink-0 -translate-y-1/2 [&_svg]:shrink-0"

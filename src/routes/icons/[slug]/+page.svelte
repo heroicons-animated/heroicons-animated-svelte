@@ -2,6 +2,7 @@
   import IconCard from "$lib/components/icon-card.svelte";
   import CliBlock from "$lib/components/cli-block.svelte";
   import SimilarIcons from "$lib/components/similar-icons.svelte";
+  import ArrowLeft from "$lib/icons/arrow-left.svelte";
   import { SITE } from "$lib/constants";
   import { JsonLd, MetaTags } from "svelte-meta-tags";
 
@@ -31,6 +32,7 @@
     iconName ? `${SITE.URL}/icons/${iconName}` : `${SITE.URL}/icons`
   );
   let metaKeywords = $derived([...keywords, "animated icon", "svelte icon"]);
+  let isBackLinkHovered = $state(false);
   const ogImageUrl = `${SITE.URL}${SITE.OG_IMAGE}`;
 </script>
 
@@ -111,19 +113,17 @@
     <a
       class="mb-8 flex items-center gap-2 font-sans text-secondary text-sm transition-[color] duration-100 hover:text-primary focus-visible:outline-1 focus-visible:outline-primary focus-visible:outline-offset-2"
       href="/"
+      onblur={() => (isBackLinkHovered = false)}
+      onfocus={() => (isBackLinkHovered = true)}
+      onmouseenter={() => (isBackLinkHovered = true)}
+      onmouseleave={() => (isBackLinkHovered = false)}
     >
-      <svg
+      <ArrowLeft
+        animate={isBackLinkHovered}
+        aria-hidden="true"
         class="size-4"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path d="M19 12H5" />
-        <path d="m12 19-7-7 7-7" />
-      </svg>
+        size={16}
+      />
       Back to all icons
     </a>
 

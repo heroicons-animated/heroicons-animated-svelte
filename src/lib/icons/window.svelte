@@ -6,6 +6,7 @@
     strokeWidth = 1.5,
     animate = false,
     class: className = "",
+    ...restProps
   }: IconProps = $props();
 
   let isHovered = $state(false);
@@ -21,6 +22,7 @@
 </script>
 
 <div
+  {...restProps}
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
@@ -71,6 +73,7 @@
   }
 
   .window-btn {
+    transform-box: fill-box;
     transform-origin: center;
     opacity: 1;
     transform: scale(1);
@@ -88,21 +91,6 @@
   }
   .window-btn-2.window-btn-pop {
     animation-delay: 0.2s;
-  }
-
-  @keyframes window-btn-pop {
-    0% {
-      transform: scale(0);
-      opacity: 0;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-
-  .window-btn.window-btn-pop {
-    animation: window-btn-pop 0.3s ease-out forwards;
   }
 
   @keyframes window-btn-pop {

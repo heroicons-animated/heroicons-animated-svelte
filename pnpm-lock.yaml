@@ -7,10 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      svelte-themes:
-        specifier: ^2.0.10
-        version: 2.0.10(svelte@5.49.2)
     devDependencies:
       '@biomejs/biome':
         specifier: 2.3.13
@@ -54,6 +50,9 @@ importers:
       fuse.js:
         specifier: ^7.1.0
         version: 7.1.0
+      nuqs-svelte:
+        specifier: ^1.2.2
+        version: 1.2.2(@sveltejs/kit@2.50.2(@sveltejs/vite-plugin-svelte@5.1.1(svelte@5.49.2)(vite@6.4.1(@types/node@20.19.32)(jiti@2.6.1)(lightningcss@1.30.2)))(svelte@5.49.2)(typescript@5.9.3)(vite@6.4.1(@types/node@20.19.32)(jiti@2.6.1)(lightningcss@1.30.2)))(svelte@5.49.2)
       svelte:
         specifier: ^5.48.2
         version: 5.49.2
@@ -63,6 +62,9 @@ importers:
       svelte-meta-tags:
         specifier: ^4.5.0
         version: 4.5.0(svelte@5.49.2)
+      svelte-themes:
+        specifier: ^2.0.10
+        version: 2.0.10(svelte@5.49.2)
       tailwind-merge:
         specifier: ^3.4.0
         version: 3.4.0
@@ -1097,6 +1099,9 @@ packages:
     resolution: {integrity: sha512-qOOzS1cBTWYF4BH8fVePDBOO9iptMnGUEZwNc/cMWnTV2nVLZ7VoNWEPHkYczZA0pdoA7dl6e7FL659nX9S2aw==}
     engines: {node: '>=16 || 14 >=14.17'}
 
+  mitt@3.0.1:
+    resolution: {integrity: sha512-vKivATfr97l2/QBCYAkXYDbrIWPM2IIKEl7YPhjCvKlG3kE2gm+uBo6nEXK3M5/Ffh/FLpKExzOQ3JJoJGFKBw==}
+
   mri@1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
     engines: {node: '>=4'}
@@ -1120,6 +1125,15 @@ packages:
       encoding: ^0.1.0
     peerDependenciesMeta:
       encoding:
+        optional: true
+
+  nuqs-svelte@1.2.2:
+    resolution: {integrity: sha512-9iQ9Aas0eNvfjcEnYLMUQTd7ERtmk39idT53hNOWd7i1YS9IMAkA7xEwwo/x0GAT/fIOpvtGacvxam1ouijR1A==}
+    peerDependencies:
+      '@sveltejs/kit': '>=2.16.0'
+      svelte: '>=5.0.0'
+    peerDependenciesMeta:
+      '@sveltejs/kit':
         optional: true
 
   nypm@0.6.5:
@@ -2394,6 +2408,8 @@ snapshots:
 
   minipass@7.1.2: {}
 
+  mitt@3.0.1: {}
+
   mri@1.2.0: {}
 
   mrmime@2.0.1: {}
@@ -2405,6 +2421,13 @@ snapshots:
   node-fetch@2.7.0:
     dependencies:
       whatwg-url: 5.0.0
+
+  nuqs-svelte@1.2.2(@sveltejs/kit@2.50.2(@sveltejs/vite-plugin-svelte@5.1.1(svelte@5.49.2)(vite@6.4.1(@types/node@20.19.32)(jiti@2.6.1)(lightningcss@1.30.2)))(svelte@5.49.2)(typescript@5.9.3)(vite@6.4.1(@types/node@20.19.32)(jiti@2.6.1)(lightningcss@1.30.2)))(svelte@5.49.2):
+    dependencies:
+      mitt: 3.0.1
+      svelte: 5.49.2
+    optionalDependencies:
+      '@sveltejs/kit': 2.50.2(@sveltejs/vite-plugin-svelte@5.1.1(svelte@5.49.2)(vite@6.4.1(@types/node@20.19.32)(jiti@2.6.1)(lightningcss@1.30.2)))(svelte@5.49.2)(typescript@5.9.3)(vite@6.4.1(@types/node@20.19.32)(jiti@2.6.1)(lightningcss@1.30.2))
 
   nypm@0.6.5:
     dependencies:

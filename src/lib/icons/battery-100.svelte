@@ -6,34 +6,91 @@
     strokeWidth = 1.5,
     animate = false,
     class: className = "",
+    ...restProps
   }: IconProps = $props();
 
   let isHovered = $state(false);
   let shouldAnimate = $derived(animate || isHovered);
 
   const clipId = `battery-clip-${Math.random().toString(36).substr(2, 9)}`;
+  const clipWidthMin = 0;
+  const clipWidthExpanded = 13.5;
+  const clipAnimationDuration = 500;
 
   let clipRect: SVGRectElement;
-  let clipAnimation: Animation | null = null;
+  let clipAnimationFrame: number | null = null;
+  let clipAnimationToken = 0;
+
+  function clampClipWidth(value: number): number {
+    return Math.max(clipWidthMin, Math.min(value, clipWidthExpanded));
+  }
+
+  function cancelClipAnimation() {
+    if (clipAnimationFrame !== null) {
+      cancelAnimationFrame(clipAnimationFrame);
+      clipAnimationFrame = null;
+    }
+    clipAnimationToken += 1;
+  }
+
+  function animateClipWidth(targetWidth: number) {
+    if (!clipRect) {
+      return;
+    }
+
+    cancelClipAnimation();
+
+    const parsedWidth = Number.parseFloat(
+      clipRect.getAttribute("width") ?? "0"
+    );
+    const startWidth = Number.isFinite(parsedWidth)
+      ? clampClipWidth(parsedWidth)
+      : clipWidthMin;
+    const boundedTargetWidth = clampClipWidth(targetWidth);
+    const delta = boundedTargetWidth - startWidth;
+
+    if (delta === 0) {
+      clipRect.setAttribute("width", boundedTargetWidth.toFixed(3));
+      return;
+    }
+
+    const animationToken = clipAnimationToken;
+    const startTime = performance.now();
+    const step = (time: number) => {
+      if (animationToken !== clipAnimationToken) {
+        return;
+      }
+
+      const elapsed = time - startTime;
+      const progress = Math.max(
+        0,
+        Math.min(elapsed / clipAnimationDuration, 1)
+      );
+      const easedProgress = 1 - (1 - progress) ** 3;
+      const nextWidth = startWidth + delta * easedProgress;
+      const clampedWidth = clampClipWidth(nextWidth);
+
+      clipRect.setAttribute("width", clampedWidth.toFixed(3));
+
+      if (progress < 1) {
+        clipAnimationFrame = requestAnimationFrame(step);
+      } else {
+        clipRect.setAttribute("width", boundedTargetWidth.toFixed(3));
+        clipAnimationFrame = null;
+      }
+    };
+
+    clipAnimationFrame = requestAnimationFrame(step);
+  }
 
   function startAnimation() {
-    if (clipRect) {
-      clipAnimation = clipRect.animate([{ width: 0 }, { width: 13.5 }], {
-        duration: 500,
-        easing: "ease-out",
-        fill: "forwards",
-      });
-    }
+    animateClipWidth(clipWidthExpanded);
   }
 
   function stopAnimation() {
-    if (clipAnimation) {
-      clipAnimation.cancel();
-      clipAnimation = null;
-    }
-
+    cancelClipAnimation();
     if (clipRect) {
-      clipRect.setAttribute("width", "0");
+      clipRect.setAttribute("width", clipWidthMin.toFixed(3));
     }
   }
   $effect(() => {
@@ -54,6 +111,7 @@
 </script>
 
 <div
+  {...restProps}
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}

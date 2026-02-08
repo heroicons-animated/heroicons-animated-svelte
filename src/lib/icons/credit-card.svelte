@@ -46,11 +46,13 @@
     />
     <path
       d="M5.25 14.25h6"
+      pathLength="1"
       class="creditcard-line creditcard-line1"
       class:creditcard-animate={shouldAnimate}
     />
     <path
       d="M5.25 16.5h3"
+      pathLength="1"
       class="creditcard-line creditcard-line2"
       class:creditcard-animate={shouldAnimate}
     />
@@ -73,30 +75,25 @@
     opacity: 1;
   }
 
-  /* Phase 1: hide (pathLength 0, opacity 0). Phase 2: show (pathLength 1, opacity 1). Delay i*0.1, duration 0.3s each. */
   .creditcard-line.creditcard-line1.creditcard-animate {
-    animation: creditcard-seq1 0.8s ease-out forwards;
+    animation: creditcard-seq1 0.7s ease-out forwards;
   }
 
   .creditcard-line.creditcard-line2.creditcard-animate {
-    animation: creditcard-seq2 0.8s ease-out forwards;
+    animation: creditcard-seq2 0.7s ease-out forwards;
   }
 
-  /* Line 1: hide 0–0.3s, show 0.4–0.7s. Line 2: hide 0.1–0.4s, show 0.5–0.8s (delay i*0.1, duration 0.3). */
+  /* React parity: hide first (duration 0.3, line2 delayed 0.1), then show (duration 0.3, same delays). */
   @keyframes creditcard-seq1 {
     0% {
       stroke-dashoffset: 0;
       opacity: 1;
     }
-    37.5% {
+    42.857% {
       stroke-dashoffset: 1;
       opacity: 0;
     }
-    50% {
-      stroke-dashoffset: 1;
-      opacity: 0;
-    }
-    87.5% {
+    85.714% {
       stroke-dashoffset: 0;
       opacity: 1;
     }
@@ -108,15 +105,11 @@
 
   @keyframes creditcard-seq2 {
     0%,
-    12.5% {
+    14.286% {
       stroke-dashoffset: 0;
       opacity: 1;
     }
-    50% {
-      stroke-dashoffset: 1;
-      opacity: 0;
-    }
-    62.5% {
+    57.143% {
       stroke-dashoffset: 1;
       opacity: 0;
     }

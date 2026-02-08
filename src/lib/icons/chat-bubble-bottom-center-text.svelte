@@ -44,12 +44,13 @@
     <path
       class="text-line text-line-1"
       class:text-line-animate={shouldAnimate}
+      pathLength="1"
       d="M7.5 8.25h9"
     />
     <path
       class="text-line text-line-2"
       class:text-line-animate={shouldAnimate}
-      style="animation-delay: 0.1s"
+      pathLength="1"
       d="M7.5 11.25H12"
     />
     <path

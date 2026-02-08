@@ -46,11 +46,13 @@
     />
     <path
       d="M12 10.5v6"
+      pathLength="1"
       class="folderplus-vertical"
       class:folderplus-draw={shouldAnimate}
     />
     <path
       d="M9 13.5h6"
+      pathLength="1"
       class="folderplus-horizontal"
       class:folderplus-draw={shouldAnimate}
     />
@@ -75,11 +77,11 @@
   }
 
   .folderplus-vertical.folderplus-draw {
-    animation: folderplus-draw 0.2s ease-out 0.3s both;
+    animation: folderplus-draw 0.2s ease-in-out 0.3s both;
   }
 
   .folderplus-horizontal.folderplus-draw {
-    animation: folderplus-draw 0.2s ease-out 0.6s both;
+    animation: folderplus-draw 0.2s ease-in-out 0.6s both;
   }
 
   @keyframes folderplus-draw {

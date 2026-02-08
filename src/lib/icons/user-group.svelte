@@ -6,6 +6,7 @@
     strokeWidth = 1.5,
     animate = false,
     class: className = "",
+    ...restProps
   }: IconProps = $props();
 
   let isHovered = $state(false);
@@ -21,6 +22,7 @@
 </script>
 
 <div
+  {...restProps}
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
@@ -74,7 +76,7 @@
   }
 
   .usergroup-right.usergroup-slide {
-    animation: usergroup-right-slide 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s
+    animation: usergroup-right-slide 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s
       forwards;
   }
 
@@ -84,7 +86,7 @@
   }
 
   .usergroup-left.usergroup-slide {
-    animation: usergroup-left-slide 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s
+    animation: usergroup-left-slide 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s
       forwards;
   }
 

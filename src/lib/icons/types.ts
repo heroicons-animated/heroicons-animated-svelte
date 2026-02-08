@@ -1,8 +1,8 @@
-export interface IconProps {
+import type { HTMLAttributes } from "svelte/elements";
+
+export interface IconProps extends HTMLAttributes<HTMLDivElement> {
   color?: string;
   size?: number;
   strokeWidth?: number;
   animate?: boolean;
-  class?: string;
-  "aria-hidden"?: boolean | "true" | "false";
 }

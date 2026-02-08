@@ -6,6 +6,7 @@
     strokeWidth = 1.5,
     animate = false,
     class: className = "",
+    ...restProps
   }: IconProps = $props();
 
   let isHovered = $state(false);
@@ -21,6 +22,7 @@
 </script>
 
 <div
+  {...restProps}
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
@@ -42,11 +44,13 @@
     <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
     <path
       d="m9.75 9.75 4.5 4.5"
+      pathLength="1"
       class="xcircle-line"
       class:xcircle-draw={shouldAnimate}
     />
     <path
       d="m14.25 9.75-4.5 4.5"
+      pathLength="1"
       class="xcircle-line xcircle-line-2"
       class:xcircle-draw={shouldAnimate}
     />
@@ -75,6 +79,7 @@
 
   .xcircle-line-2.xcircle-draw {
     animation-delay: 0.2s;
+    animation-fill-mode: both;
   }
 
   @keyframes xcircle-draw {

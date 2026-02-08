@@ -6,65 +6,156 @@
     strokeWidth = 1.5,
     animate = false,
     class: className = "",
+    ...restProps
   }: IconProps = $props();
 
   let isHovered = $state(false);
   let shouldAnimate = $derived(animate || isHovered);
 
-  let line1: SVGLineElement;
-  let line2: SVGLineElement;
-  let circle1: SVGCircleElement;
-  let line3: SVGLineElement;
-  let line4: SVGLineElement;
-  let circle2: SVGCircleElement;
-  let line5: SVGLineElement;
-  let line6: SVGLineElement;
-  let circle3: SVGCircleElement;
+  const DURATION_MS = 450;
 
-  const defaultOptions = {
-    duration: 300,
-    easing: "cubic-bezier(0.68, -0.55, 0.265, 1.55)", // Approximate spring
+  const NORMAL_STATE = {
+    row1RightX1: 10.5,
+    row1LeftX2: 7.5,
+    row1KnobCX: 9,
+    row2RightX1: 16.5,
+    row2LeftX2: 13.5,
+    row2KnobCX: 15,
+    row3RightX1: 10.5,
+    row3LeftX2: 7.5,
+    row3KnobCX: 9,
   };
 
-  function startAnimation() {
-    // Row 1
-    line1?.animate([{ x1: 10.5 }, { x1: 13.5 }], defaultOptions);
-    line2?.animate([{ x2: 7.5 }, { x2: 10.5 }], defaultOptions);
-    circle1?.animate([{ cx: 9 }, { cx: 12 }], defaultOptions);
+  const ANIMATE_STATE = {
+    row1RightX1: 13.5,
+    row1LeftX2: 10.5,
+    row1KnobCX: 12,
+    row2RightX1: 13.5,
+    row2LeftX2: 10.5,
+    row2KnobCX: 12,
+    row3RightX1: 13.5,
+    row3LeftX2: 10.5,
+    row3KnobCX: 12,
+  };
 
-    // Row 2
-    line3?.animate([{ x1: 16.5 }, { x1: 13.5 }], defaultOptions);
-    line4?.animate([{ x2: 13.5 }, { x2: 10.5 }], defaultOptions);
-    circle2?.animate([{ cx: 15 }, { cx: 12 }], defaultOptions);
+  let row1RightX1 = $state(NORMAL_STATE.row1RightX1);
+  let row1LeftX2 = $state(NORMAL_STATE.row1LeftX2);
+  let row1KnobCX = $state(NORMAL_STATE.row1KnobCX);
+  let row2RightX1 = $state(NORMAL_STATE.row2RightX1);
+  let row2LeftX2 = $state(NORMAL_STATE.row2LeftX2);
+  let row2KnobCX = $state(NORMAL_STATE.row2KnobCX);
+  let row3RightX1 = $state(NORMAL_STATE.row3RightX1);
+  let row3LeftX2 = $state(NORMAL_STATE.row3LeftX2);
+  let row3KnobCX = $state(NORMAL_STATE.row3KnobCX);
 
-    // Row 3
-    line5?.animate([{ x1: 10.5 }, { x1: 13.5 }], defaultOptions);
-    line6?.animate([{ x2: 7.5 }, { x2: 10.5 }], defaultOptions);
-    circle3?.animate([{ cx: 9 }, { cx: 12 }], defaultOptions);
-  }
+  let rafId = 0;
+  let animationToken = 0;
 
-  function stopAnimation() {
-    // Row 1
-    line1?.animate([{ x1: 13.5 }, { x1: 10.5 }], defaultOptions);
-    line2?.animate([{ x2: 10.5 }, { x2: 7.5 }], defaultOptions);
-    circle1?.animate([{ cx: 12 }, { cx: 9 }], defaultOptions);
+  const easeOutBack = (progress: number): number => {
+    const c1 = 1.701_58;
+    const c3 = c1 + 1;
+    const p = progress - 1;
+    return 1 + c3 * p * p * p + c1 * p * p;
+  };
 
-    // Row 2
-    line3?.animate([{ x1: 13.5 }, { x1: 16.5 }], defaultOptions);
-    line4?.animate([{ x2: 10.5 }, { x2: 13.5 }], defaultOptions);
-    circle2?.animate([{ cx: 12 }, { cx: 15 }], defaultOptions);
+  const lerp = (from: number, to: number, progress: number): number =>
+    from + (to - from) * progress;
 
-    // Row 3
-    line5?.animate([{ x1: 13.5 }, { x1: 10.5 }], defaultOptions);
-    line6?.animate([{ x2: 10.5 }, { x2: 7.5 }], defaultOptions);
-    circle3?.animate([{ cx: 12 }, { cx: 9 }], defaultOptions);
-  }
-  $effect(() => {
-    if (shouldAnimate) {
-      startAnimation();
-    } else {
-      stopAnimation();
+  const runStateAnimation = (active: boolean): void => {
+    const target = active ? ANIMATE_STATE : NORMAL_STATE;
+    const startValues = {
+      row1RightX1,
+      row1LeftX2,
+      row1KnobCX,
+      row2RightX1,
+      row2LeftX2,
+      row2KnobCX,
+      row3RightX1,
+      row3LeftX2,
+      row3KnobCX,
+    };
+
+    const currentToken = ++animationToken;
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = 0;
     }
+
+    const start = performance.now();
+
+    const tick = (now: number): void => {
+      if (currentToken !== animationToken) {
+        return;
+      }
+
+      const rawProgress = Math.min((now - start) / DURATION_MS, 1);
+      const easedProgress = easeOutBack(rawProgress);
+
+      row1RightX1 = lerp(
+        startValues.row1RightX1,
+        target.row1RightX1,
+        easedProgress
+      );
+      row1LeftX2 = lerp(
+        startValues.row1LeftX2,
+        target.row1LeftX2,
+        easedProgress
+      );
+      row1KnobCX = lerp(
+        startValues.row1KnobCX,
+        target.row1KnobCX,
+        easedProgress
+      );
+      row2RightX1 = lerp(
+        startValues.row2RightX1,
+        target.row2RightX1,
+        easedProgress
+      );
+      row2LeftX2 = lerp(
+        startValues.row2LeftX2,
+        target.row2LeftX2,
+        easedProgress
+      );
+      row2KnobCX = lerp(
+        startValues.row2KnobCX,
+        target.row2KnobCX,
+        easedProgress
+      );
+      row3RightX1 = lerp(
+        startValues.row3RightX1,
+        target.row3RightX1,
+        easedProgress
+      );
+      row3LeftX2 = lerp(
+        startValues.row3LeftX2,
+        target.row3LeftX2,
+        easedProgress
+      );
+      row3KnobCX = lerp(
+        startValues.row3KnobCX,
+        target.row3KnobCX,
+        easedProgress
+      );
+
+      if (rawProgress < 1) {
+        rafId = requestAnimationFrame(tick);
+      } else {
+        rafId = 0;
+      }
+    };
+
+    rafId = requestAnimationFrame(tick);
+  };
+
+  $effect(() => {
+    runStateAnimation(shouldAnimate);
+    return () => {
+      animationToken += 1;
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = 0;
+      }
+    };
   });
 
   function handleMouseEnter() {
@@ -77,6 +168,7 @@
 </script>
 
 <div
+  {...restProps}
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
@@ -95,17 +187,17 @@
     stroke-linejoin="round"
     class="icon-svg"
   >
-    <line bind:this={line1} x1="10.5" x2="20.25" y1="6" y2="6" />
-    <line bind:this={line2} x1="3.75" x2="7.5" y1="6" y2="6" />
-    <circle bind:this={circle1} cx="9" cy="6" fill="none" r="1.5" />
+    <line x1={row1RightX1} x2="20.25" y1="6" y2="6" />
+    <line x1="3.75" x2={row1LeftX2} y1="6" y2="6" />
+    <circle cx={row1KnobCX} cy="6" fill="none" r="1.5" />
 
-    <line bind:this={line3} x1="16.5" x2="20.25" y1="12" y2="12" />
-    <line bind:this={line4} x1="3.75" x2="13.5" y1="12" y2="12" />
-    <circle bind:this={circle2} cx="15" cy="12" fill="none" r="1.5" />
+    <line x1={row2RightX1} x2="20.25" y1="12" y2="12" />
+    <line x1="3.75" x2={row2LeftX2} y1="12" y2="12" />
+    <circle cx={row2KnobCX} cy="12" fill="none" r="1.5" />
 
-    <line bind:this={line5} x1="10.5" x2="20.25" y1="18" y2="18" />
-    <line bind:this={line6} x1="3.75" x2="7.5" y1="18" y2="18" />
-    <circle bind:this={circle3} cx="9" cy="18" fill="none" r="1.5" />
+    <line x1={row3RightX1} x2="20.25" y1="18" y2="18" />
+    <line x1="3.75" x2={row3LeftX2} y1="18" y2="18" />
+    <circle cx={row3KnobCX} cy="18" fill="none" r="1.5" />
   </svg>
 </div>
 

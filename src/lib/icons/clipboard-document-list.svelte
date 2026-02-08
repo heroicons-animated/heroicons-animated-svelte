@@ -53,6 +53,7 @@
       />
       <path
         d="M9 12h3.75"
+        pathLength="1"
         class="clipboardlist-line"
         class:clipboardlist-line-animate={shouldAnimate}
         style="animation-delay: 0.1s"
@@ -67,6 +68,7 @@
       />
       <path
         d="M9 15h3.75"
+        pathLength="1"
         class="clipboardlist-line"
         class:clipboardlist-line-animate={shouldAnimate}
         style="animation-delay: 0.5s"
@@ -81,6 +83,7 @@
       />
       <path
         d="M9 18h3.75"
+        pathLength="1"
         class="clipboardlist-line"
         class:clipboardlist-line-animate={shouldAnimate}
         style="animation-delay: 0.9s"
@@ -105,6 +108,8 @@
   }
   .clipboardlist-line {
     stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+    opacity: 1;
   }
   .clipboardlist-line.clipboardlist-line-animate {
     animation: clipboardlist-line 0.3s ease-in-out forwards;

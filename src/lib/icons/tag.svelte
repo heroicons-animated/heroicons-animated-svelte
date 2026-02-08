@@ -6,6 +6,7 @@
     strokeWidth = 1.5,
     animate = false,
     class: className = "",
+    ...restProps
   }: IconProps = $props();
 
   let isHovered = $state(false);
@@ -21,6 +22,7 @@
 </script>
 
 <div
+  {...restProps}
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
@@ -54,23 +56,31 @@
 
   .icon-svg {
     transform-box: fill-box;
-    transform-origin: center;
-    transition: transform 0.3s ease;
+    transform-origin: 25% 25%;
   }
 
   .icon-svg.tag-animate {
-    animation: tag-animate 0.6s ease-in-out;
+    animation: tag-wobble 0.5s ease-in-out forwards;
   }
 
-  @keyframes tag-animate {
+  @keyframes tag-wobble {
     0% {
-      transform: scale(1);
+      transform: rotate(0deg);
     }
-    50% {
-      transform: scale(1.1);
+    20% {
+      transform: rotate(-10deg);
+    }
+    40% {
+      transform: rotate(8deg);
+    }
+    60% {
+      transform: rotate(-5deg);
+    }
+    80% {
+      transform: rotate(3deg);
     }
     100% {
-      transform: scale(1);
+      transform: rotate(0deg);
     }
   }
 </style>

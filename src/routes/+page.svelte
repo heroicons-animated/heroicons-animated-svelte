@@ -6,6 +6,8 @@
   import IconsList from "$lib/components/icons-list.svelte";
   import { JsonLd, MetaTags } from "svelte-meta-tags";
 
+  let { data } = $props<{ data: { initialSearch: string } }>();
+
   const metaTitle = "heroicons-animated | Animated Heroicons for Svelte";
   const ogImageUrl = `${SITE.URL}${SITE.OG_IMAGE}`;
 </script>
@@ -177,5 +179,5 @@
   <CommentBlock />
 </section>
 <section id="icons">
-  <IconsList />
+  <IconsList initialSearch={data.initialSearch} />
 </section>

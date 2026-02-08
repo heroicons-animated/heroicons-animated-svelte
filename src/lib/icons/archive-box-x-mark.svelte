@@ -6,40 +6,11 @@
     strokeWidth = 1.5,
     animate = false,
     class: className = "",
+    ...restProps
   }: IconProps = $props();
 
   let isHovered = $state(false);
   let shouldAnimate = $derived(animate || isHovered);
-
-  let xMark1: SVGPathElement;
-  let xMark2: SVGPathElement;
-
-  function startAnimation() {
-    // Animate X marks with delays
-    setTimeout(() => {
-      xMark1?.classList.add("xmark-animate");
-    }, 200);
-    setTimeout(() => {
-      xMark2?.classList.add("xmark-animate");
-    }, 400);
-
-    setTimeout(() => {
-      xMark1?.classList.remove("xmark-animate");
-      xMark2?.classList.remove("xmark-animate");
-    }, 600);
-  }
-
-  function stopAnimation() {
-    xMark1?.classList.remove("xmark-animate");
-    xMark2?.classList.remove("xmark-animate");
-  }
-  $effect(() => {
-    if (shouldAnimate) {
-      startAnimation();
-    } else {
-      stopAnimation();
-    }
-  });
 
   function handleMouseEnter() {
     isHovered = true;
@@ -51,6 +22,7 @@
 </script>
 
 <div
+  {...restProps}
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
@@ -70,25 +42,35 @@
     class="icon-svg"
   >
     <path
-      class="path-group"
-      class:animate={shouldAnimate}
+      class="archiveboxxmark-path"
+      class:archiveboxxmark-path-animate={shouldAnimate}
       d="M19.6246 18.1321C19.5546 19.3214 18.5698 20.25 17.3785 20.25H6.62154C5.43022 20.25 4.44538 19.3214 4.37542 18.1321"
     />
     <path
-      class="path-group"
-      class:animate={shouldAnimate}
+      class="archiveboxxmark-path"
+      class:archiveboxxmark-path-animate={shouldAnimate}
       d="M20.25 7.5L19.6246 18.1321"
     />
     <path
-      class="path-group"
-      class:animate={shouldAnimate}
+      class="archiveboxxmark-path"
+      class:archiveboxxmark-path-animate={shouldAnimate}
       d="M3.75 7.5L4.37542 18.1321"
     />
-    <path bind:this={xMark1} class="xmark-path" d="M9.75 11.625L14.25 16.125" />
-    <path bind:this={xMark2} class="xmark-path" d="M14.25 11.625L9.75 16.125" />
     <path
-      class="lid-group"
-      class:animate={shouldAnimate}
+      d="M9.75 11.625L14.25 16.125"
+      pathLength="1"
+      class="archiveboxxmark-xline archiveboxxmark-xline1"
+      class:archiveboxxmark-xdraw={shouldAnimate}
+    />
+    <path
+      d="M14.25 11.625L9.75 16.125"
+      pathLength="1"
+      class="archiveboxxmark-xline archiveboxxmark-xline2"
+      class:archiveboxxmark-xdraw={shouldAnimate}
+    />
+    <path
+      class="archiveboxxmark-lid"
+      class:archiveboxxmark-lid-animate={shouldAnimate}
       d="M3.375 7.5H20.625C21.2463 7.5 21.75 6.99632 21.75 6.375V4.875C21.75 4.25368 21.2463 3.75 20.625 3.75H3.375C2.75368 3.75 2.25 4.25368 2.25 4.875V6.375C2.25 6.99632 2.75368 7.5 3.375 7.5Z"
     />
   </svg>
@@ -104,67 +86,54 @@
     transform-origin: center;
   }
 
-  .path-group {
+  .archiveboxxmark-path {
     transform-box: fill-box;
     transform-origin: center;
-    transition: transform 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
-  .path-group.animate {
-    animation: path-translate 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55)
-      forwards;
+  .archiveboxxmark-path.archiveboxxmark-path-animate {
+    transform: translateY(1px);
   }
 
-  .lid-group {
+  .archiveboxxmark-lid {
     transform-box: fill-box;
     transform-origin: center;
-    transition: transform 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
-  .lid-group.animate {
-    animation: lid-translate 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55)
-      forwards;
+  .archiveboxxmark-lid.archiveboxxmark-lid-animate {
+    transform: translateY(-1.5px);
   }
 
-  .xmark-path {
+  .archiveboxxmark-xline {
     opacity: 1;
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
-    transition:
-      opacity 0.3s,
-      stroke-dashoffset 0.3s;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
   }
 
-  .xmark-path.xmark-animate {
-    animation: xmark-draw 0.3s ease-out forwards;
+  .archiveboxxmark-xline.archiveboxxmark-xdraw {
+    animation: archiveboxxmark-draw 0.4s ease-out forwards;
   }
 
-  @keyframes path-translate {
+  .archiveboxxmark-xline1.archiveboxxmark-xdraw {
+    animation-delay: 0.2s;
+    animation-fill-mode: both;
+  }
+
+  .archiveboxxmark-xline2.archiveboxxmark-xdraw {
+    animation-delay: 0.4s;
+    animation-fill-mode: both;
+  }
+
+  @keyframes archiveboxxmark-draw {
     0% {
-      transform: translateY(0);
-    }
-    100% {
-      transform: translateY(1px);
-    }
-  }
-
-  @keyframes lid-translate {
-    0% {
-      transform: translateY(0);
-    }
-    100% {
-      transform: translateY(-1.5px);
-    }
-  }
-
-  @keyframes xmark-draw {
-    0% {
+      stroke-dashoffset: 1;
       opacity: 0;
-      stroke-dashoffset: 1000;
     }
     100% {
-      opacity: 1;
       stroke-dashoffset: 0;
+      opacity: 1;
     }
   }
 </style>

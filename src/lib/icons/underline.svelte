@@ -6,6 +6,7 @@
     strokeWidth = 1.5,
     animate = false,
     class: className = "",
+    ...restProps
   }: IconProps = $props();
 
   let isHovered = $state(false);
@@ -21,6 +22,7 @@
 </script>
 
 <div
+  {...restProps}
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
@@ -40,12 +42,14 @@
     class="icon-svg"
   >
     <path
-      d="M17.995 3.744v7.5a6 6 0 1 1-12 0v-7.5"
+      d="M6.005 3.744v7.5a6 6 0 0 0 12 0v-7.5"
+      pathLength="1"
       class="underline-u"
       class:underline-draw={shouldAnimate}
     />
     <path
       d="M3.745 20.246h16.5"
+      pathLength="1"
       class="underline-line"
       class:underline-draw={shouldAnimate}
     />
@@ -81,6 +85,9 @@
     0% {
       stroke-dashoffset: 1;
       opacity: 0;
+    }
+    33.333% {
+      opacity: 1;
     }
     100% {
       stroke-dashoffset: 0;

@@ -1,11 +1,23 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import Fuse from "fuse.js";
+  import { parseAsString, useQueryState } from "nuqs-svelte";
   import { ICON_MANIFEST } from "$lib/manifest";
   import SearchInput from "$lib/components/search-input.svelte";
   import IconCard from "$lib/components/icon-card.svelte";
 
-  let query = $state("");
-  let filteredIcons = $state(ICON_MANIFEST);
+  let { initialSearch = "" }: { initialSearch?: string } = $props();
+
+  const searchParam = useQueryState(
+    "search",
+    parseAsString.withDefault("").withOptions({
+      clearOnDefault: true,
+      history: "replace",
+    })
+  );
+
+  const getInitialSearch = () => initialSearch;
+  let query = $state(getInitialSearch());
 
   const fuse = new Fuse(ICON_MANIFEST, {
     keys: [
@@ -19,12 +31,24 @@
     minMatchCharLength: 2,
   });
 
-  $effect(() => {
-    if (!query.trim()) {
-      filteredIcons = ICON_MANIFEST;
-      return;
+  onMount(() => {
+    if (searchParam.current && searchParam.current !== query) {
+      query = searchParam.current;
     }
-    filteredIcons = fuse.search(query).map((result) => result.item);
+  });
+
+  $effect(() => {
+    if (query !== searchParam.current) {
+      searchParam.current = query;
+    }
+  });
+
+  const filteredIcons = $derived.by(() => {
+    if (!query.trim()) {
+      return ICON_MANIFEST;
+    }
+
+    return fuse.search(query).map((result) => result.item);
   });
 </script>
 

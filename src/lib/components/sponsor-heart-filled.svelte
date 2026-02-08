@@ -62,7 +62,7 @@
   }
 
   .icon-svg.heart-animate {
-    animation: heart-pulse 0.45s ease-in-out 2;
+    animation: heart-pulse 0.45s ease-in-out 3;
   }
 
   @keyframes heart-pulse {

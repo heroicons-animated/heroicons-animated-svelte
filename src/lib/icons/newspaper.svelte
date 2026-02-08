@@ -51,21 +51,25 @@
     />
     <path
       d="M12 7.5h1.5"
+      pathLength="1"
       class="newspaper-line"
       class:newspaper-line1-animate={shouldAnimate}
     />
     <path
       d="M12 10.5h1.5"
+      pathLength="1"
       class="newspaper-line"
       class:newspaper-line2-animate={shouldAnimate}
     />
     <path
       d="M6 13.5h7.5"
+      pathLength="1"
       class="newspaper-line"
       class:newspaper-line3-animate={shouldAnimate}
     />
     <path
       d="M6 16.5h7.5"
+      pathLength="1"
       class="newspaper-line"
       class:newspaper-line4-animate={shouldAnimate}
     />

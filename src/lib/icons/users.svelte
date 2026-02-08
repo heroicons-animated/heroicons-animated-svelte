@@ -6,6 +6,7 @@
     strokeWidth = 1.5,
     animate = false,
     class: className = "",
+    ...restProps
   }: IconProps = $props();
 
   let isHovered = $state(false);
@@ -21,6 +22,7 @@
 </script>
 
 <div
+  {...restProps}
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
@@ -66,7 +68,7 @@
   }
 
   .users-path.users-slide {
-    animation: users-slide 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards;
+    animation: users-slide 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards;
   }
 
   @keyframes users-slide {

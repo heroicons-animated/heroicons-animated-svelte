@@ -56,22 +56,27 @@
   .icon-svg {
     transform-box: fill-box;
     transform-origin: center;
-    transition: transform 0.3s ease;
   }
 
   .icon-svg.key-animate {
-    animation: key-animate 0.6s ease-in-out;
+    animation: key-animate 0.9s ease-in-out forwards;
   }
 
   @keyframes key-animate {
     0% {
-      transform: scale(1);
+      transform: translateY(0) rotate(0deg);
+    }
+    25% {
+      transform: translateY(-3px) rotate(3deg);
     }
     50% {
-      transform: scale(1.1);
+      transform: translateY(0) rotate(-3deg);
+    }
+    75% {
+      transform: translateY(-2px) rotate(0deg);
     }
     100% {
-      transform: scale(1);
+      transform: translateY(0) rotate(0deg);
     }
   }
 </style>

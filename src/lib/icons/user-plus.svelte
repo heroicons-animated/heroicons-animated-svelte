@@ -6,6 +6,7 @@
     strokeWidth = 1.5,
     animate = false,
     class: className = "",
+    ...restProps
   }: IconProps = $props();
 
   let isHovered = $state(false);
@@ -21,6 +22,7 @@
 </script>
 
 <div
+  {...restProps}
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
@@ -44,11 +46,13 @@
     />
     <path
       d="M18 7.5v6"
+      pathLength="1"
       class="userplus-vert"
       class:userplus-draw={shouldAnimate}
     />
     <path
       d="M15 10.5h6"
+      pathLength="1"
       class="userplus-horiz"
       class:userplus-draw={shouldAnimate}
     />
@@ -73,11 +77,11 @@
   }
 
   .userplus-vert.userplus-draw {
-    animation: userplus-draw 0.2s linear 0.3s forwards;
+    animation: userplus-draw 0.2s ease-in-out 0.3s both;
   }
 
   .userplus-horiz.userplus-draw {
-    animation: userplus-draw 0.2s linear 0.6s forwards;
+    animation: userplus-draw 0.2s ease-in-out 0.6s both;
   }
 
   @keyframes userplus-draw {

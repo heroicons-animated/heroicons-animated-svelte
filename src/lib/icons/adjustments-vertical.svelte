@@ -6,65 +6,144 @@
     strokeWidth = 1.5,
     animate = false,
     class: className = "",
+    ...restProps
   }: IconProps = $props();
 
   let isHovered = $state(false);
   let shouldAnimate = $derived(animate || isHovered);
 
-  let line1: SVGLineElement;
-  let line2: SVGLineElement;
-  let circle1: SVGCircleElement;
-  let line3: SVGLineElement;
-  let line4: SVGLineElement;
-  let circle2: SVGCircleElement;
-  let line5: SVGLineElement;
-  let line6: SVGLineElement;
-  let circle3: SVGCircleElement;
+  const DURATION_MS = 450;
 
-  const defaultOptions = {
-    duration: 300,
-    easing: "cubic-bezier(0.68, -0.55, 0.265, 1.55)", // Approximate spring
+  const NORMAL_STATE = {
+    col1TopY2: 13.5,
+    col1BottomY1: 16.5,
+    col1KnobCY: 15,
+    col2TopY2: 7.5,
+    col2BottomY1: 10.5,
+    col2KnobCY: 9,
+    col3TopY2: 13.5,
+    col3BottomY1: 16.5,
+    col3KnobCY: 15,
   };
 
-  function startAnimation() {
-    // Column 1
-    line1?.animate([{ y2: 13.5 }, { y2: 10.5 }], defaultOptions);
-    line2?.animate([{ y1: 16.5 }, { y1: 13.5 }], defaultOptions);
-    circle1?.animate([{ cy: 15 }, { cy: 12 }], defaultOptions);
+  const ANIMATE_STATE = {
+    col1TopY2: 10.5,
+    col1BottomY1: 13.5,
+    col1KnobCY: 12,
+    col2TopY2: 10.5,
+    col2BottomY1: 13.5,
+    col2KnobCY: 12,
+    col3TopY2: 10.5,
+    col3BottomY1: 13.5,
+    col3KnobCY: 12,
+  };
 
-    // Column 2
-    line3?.animate([{ y2: 7.5 }, { y2: 10.5 }], defaultOptions);
-    line4?.animate([{ y1: 10.5 }, { y1: 13.5 }], defaultOptions);
-    circle2?.animate([{ cy: 9 }, { cy: 12 }], defaultOptions);
+  let col1TopY2 = $state(NORMAL_STATE.col1TopY2);
+  let col1BottomY1 = $state(NORMAL_STATE.col1BottomY1);
+  let col1KnobCY = $state(NORMAL_STATE.col1KnobCY);
+  let col2TopY2 = $state(NORMAL_STATE.col2TopY2);
+  let col2BottomY1 = $state(NORMAL_STATE.col2BottomY1);
+  let col2KnobCY = $state(NORMAL_STATE.col2KnobCY);
+  let col3TopY2 = $state(NORMAL_STATE.col3TopY2);
+  let col3BottomY1 = $state(NORMAL_STATE.col3BottomY1);
+  let col3KnobCY = $state(NORMAL_STATE.col3KnobCY);
 
-    // Column 3
-    line5?.animate([{ y2: 13.5 }, { y2: 10.5 }], defaultOptions);
-    line6?.animate([{ y1: 16.5 }, { y1: 13.5 }], defaultOptions);
-    circle3?.animate([{ cy: 15 }, { cy: 12 }], defaultOptions);
-  }
+  let rafId = 0;
+  let animationToken = 0;
 
-  function stopAnimation() {
-    // Column 1
-    line1?.animate([{ y2: 10.5 }, { y2: 13.5 }], defaultOptions);
-    line2?.animate([{ y1: 13.5 }, { y1: 16.5 }], defaultOptions);
-    circle1?.animate([{ cy: 12 }, { cy: 15 }], defaultOptions);
+  const easeOutBack = (progress: number): number => {
+    const c1 = 1.701_58;
+    const c3 = c1 + 1;
+    const p = progress - 1;
+    return 1 + c3 * p * p * p + c1 * p * p;
+  };
 
-    // Column 2
-    line3?.animate([{ y2: 10.5 }, { y2: 7.5 }], defaultOptions);
-    line4?.animate([{ y1: 13.5 }, { y1: 10.5 }], defaultOptions);
-    circle2?.animate([{ cy: 12 }, { cy: 9 }], defaultOptions);
+  const lerp = (from: number, to: number, progress: number): number =>
+    from + (to - from) * progress;
 
-    // Column 3
-    line5?.animate([{ y2: 10.5 }, { y2: 13.5 }], defaultOptions);
-    line6?.animate([{ y1: 13.5 }, { y1: 16.5 }], defaultOptions);
-    circle3?.animate([{ cy: 12 }, { cy: 15 }], defaultOptions);
-  }
-  $effect(() => {
-    if (shouldAnimate) {
-      startAnimation();
-    } else {
-      stopAnimation();
+  const runStateAnimation = (active: boolean): void => {
+    const target = active ? ANIMATE_STATE : NORMAL_STATE;
+    const startValues = {
+      col1TopY2,
+      col1BottomY1,
+      col1KnobCY,
+      col2TopY2,
+      col2BottomY1,
+      col2KnobCY,
+      col3TopY2,
+      col3BottomY1,
+      col3KnobCY,
+    };
+
+    const currentToken = ++animationToken;
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = 0;
     }
+
+    const start = performance.now();
+
+    const tick = (now: number): void => {
+      if (currentToken !== animationToken) {
+        return;
+      }
+
+      const rawProgress = Math.min((now - start) / DURATION_MS, 1);
+      const easedProgress = easeOutBack(rawProgress);
+
+      col1TopY2 = lerp(startValues.col1TopY2, target.col1TopY2, easedProgress);
+      col1BottomY1 = lerp(
+        startValues.col1BottomY1,
+        target.col1BottomY1,
+        easedProgress
+      );
+      col1KnobCY = lerp(
+        startValues.col1KnobCY,
+        target.col1KnobCY,
+        easedProgress
+      );
+      col2TopY2 = lerp(startValues.col2TopY2, target.col2TopY2, easedProgress);
+      col2BottomY1 = lerp(
+        startValues.col2BottomY1,
+        target.col2BottomY1,
+        easedProgress
+      );
+      col2KnobCY = lerp(
+        startValues.col2KnobCY,
+        target.col2KnobCY,
+        easedProgress
+      );
+      col3TopY2 = lerp(startValues.col3TopY2, target.col3TopY2, easedProgress);
+      col3BottomY1 = lerp(
+        startValues.col3BottomY1,
+        target.col3BottomY1,
+        easedProgress
+      );
+      col3KnobCY = lerp(
+        startValues.col3KnobCY,
+        target.col3KnobCY,
+        easedProgress
+      );
+
+      if (rawProgress < 1) {
+        rafId = requestAnimationFrame(tick);
+      } else {
+        rafId = 0;
+      }
+    };
+
+    rafId = requestAnimationFrame(tick);
+  };
+
+  $effect(() => {
+    runStateAnimation(shouldAnimate);
+    return () => {
+      animationToken += 1;
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = 0;
+      }
+    };
   });
 
   function handleMouseEnter() {
@@ -77,6 +156,7 @@
 </script>
 
 <div
+  {...restProps}
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
@@ -95,17 +175,17 @@
     stroke-linejoin="round"
     class="icon-svg"
   >
-    <line bind:this={line1} x1="6" x2="6" y1="3.75" y2="13.5" />
-    <line bind:this={line2} x1="6" x2="6" y1="16.5" y2="20.25" />
-    <circle bind:this={circle1} cx="6" cy="15" fill="none" r="1.5" />
+    <line x1="6" x2="6" y1="3.75" y2={col1TopY2} />
+    <line x1="6" x2="6" y1={col1BottomY1} y2="20.25" />
+    <circle cx="6" cy={col1KnobCY} fill="none" r="1.5" />
 
-    <line bind:this={line3} x1="12" x2="12" y1="3.75" y2="7.5" />
-    <line bind:this={line4} x1="12" x2="12" y1="10.5" y2="20.25" />
-    <circle bind:this={circle2} cx="12" cy="9" fill="none" r="1.5" />
+    <line x1="12" x2="12" y1="3.75" y2={col2TopY2} />
+    <line x1="12" x2="12" y1={col2BottomY1} y2="20.25" />
+    <circle cx="12" cy={col2KnobCY} fill="none" r="1.5" />
 
-    <line bind:this={line5} x1="18" x2="18" y1="3.75" y2="13.5" />
-    <line bind:this={line6} x1="18" x2="18" y1="16.5" y2="20.25" />
-    <circle bind:this={circle3} cx="18" cy="15" fill="none" r="1.5" />
+    <line x1="18" x2="18" y1="3.75" y2={col3TopY2} />
+    <line x1="18" x2="18" y1={col3BottomY1} y2="20.25" />
+    <circle cx="18" cy={col3KnobCY} fill="none" r="1.5" />
   </svg>
 </div>
 

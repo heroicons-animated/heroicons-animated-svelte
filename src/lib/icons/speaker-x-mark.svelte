@@ -6,6 +6,7 @@
     strokeWidth = 1.5,
     animate = false,
     class: className = "",
+    ...restProps
   }: IconProps = $props();
 
   let isHovered = $state(false);
@@ -21,6 +22,7 @@
 </script>
 
 <div
+  {...restProps}
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
@@ -44,11 +46,13 @@
     />
     <path
       d="M17.25 9.75L21.75 14.25"
+      pathLength="1"
       class="speakerxmark-line"
       class:speakerxmark-draw={shouldAnimate}
     />
     <path
       d="M21.75 9.75L17.25 14.25"
+      pathLength="1"
       class="speakerxmark-line speakerxmark-line2"
       class:speakerxmark-draw={shouldAnimate}
     />
@@ -73,6 +77,11 @@
 
   .speakerxmark-line.speakerxmark-draw {
     animation: speakerxmark-draw 0.4s ease-out forwards;
+  }
+
+  .speakerxmark-line2.speakerxmark-draw {
+    animation-delay: 0.2s;
+    animation-fill-mode: both;
   }
 
   @keyframes speakerxmark-draw {

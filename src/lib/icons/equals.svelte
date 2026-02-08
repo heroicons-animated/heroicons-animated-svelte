@@ -40,10 +40,10 @@
     stroke-linecap="round"
     stroke-linejoin="round"
     class="icon-svg"
-    class:equals-animate={shouldAnimate}
   >
     <path
       d="M4.499 8.248h15m-15 7.501h15"
+      pathLength="1"
       class="equals-path"
       class:equals-draw={shouldAnimate}
     />
@@ -68,10 +68,6 @@
 
   .equals-path.equals-draw {
     animation: equals-draw 0.4s linear forwards;
-  }
-  .equals-path:not(.equals-draw) {
-    stroke-dashoffset: 0;
-    opacity: 1;
   }
 
   @keyframes equals-draw {

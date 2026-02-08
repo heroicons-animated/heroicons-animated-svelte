@@ -6,6 +6,7 @@
     strokeWidth = 1.5,
     animate = false,
     class: className = "",
+    ...restProps
   }: IconProps = $props();
 
   let isHovered = $state(false);
@@ -13,30 +14,125 @@
 
   let headPath: SVGPathElement;
   let linePath: SVGPathElement;
-  let lineAnimation: Animation | null = null;
+  let lineAnimationFrame: number | null = null;
 
-  function startAnimation() {
-    // Animate line path morphing using Web Animations API
-    if (linePath) {
-      lineAnimation = linePath.animate(
-        [{ d: "M12 21V3" }, { d: "M12 18V3" }, { d: "M12 21V3" }],
-        {
-          duration: 400,
-          easing: "ease-in-out",
-          fill: "forwards",
-        }
-      );
+  const LINE_PATH_KEYFRAMES = ["M12 21V3", "M12 18V3", "M12 21V3"] as const;
+  const LINE_PATH_TIMES = [0, 0.5, 1] as const;
+  const NUMBER_PATTERN = /-?\d*\.?\d+(?:e[-+]?\d+)?/gi;
+  const lineAnimationDuration = 400;
+
+  interface ParsedPath {
+    template: string;
+    numbers: number[];
+  }
+
+  const parsedLinePaths = LINE_PATH_KEYFRAMES.map((path) => {
+    const numbers: number[] = [];
+    const template = path.replace(NUMBER_PATTERN, (value) => {
+      numbers.push(Number.parseFloat(value));
+      return "__N__";
+    });
+    return { template, numbers } satisfies ParsedPath;
+  });
+  const lineTemplate = parsedLinePaths[0].template;
+  const lineNumberCount = parsedLinePaths[0].numbers.length;
+  const canMorphLine = parsedLinePaths.every(
+    (path) =>
+      path.template === lineTemplate && path.numbers.length === lineNumberCount
+  );
+
+  function clearLineAnimation() {
+    if (lineAnimationFrame !== null) {
+      cancelAnimationFrame(lineAnimationFrame);
+      lineAnimationFrame = null;
     }
   }
 
-  function stopAnimation() {
-    if (lineAnimation) {
-      lineAnimation.cancel();
-      lineAnimation = null;
+  function getEaseInOut(value: number): number {
+    return 0.5 - Math.cos(Math.PI * value) / 2;
+  }
+
+  function formatNumber(value: number): string {
+    return Number(value.toFixed(4)).toString();
+  }
+
+  function interpolatePath(
+    template: string,
+    from: number[],
+    to: number[],
+    progress: number
+  ): string {
+    let numberIndex = 0;
+    return template.replace(/__N__/g, () => {
+      const start = from[numberIndex];
+      const end = to[numberIndex];
+      numberIndex += 1;
+      return formatNumber(start + (end - start) * progress);
+    });
+  }
+
+  function setLinePath(progress: number) {
+    if (!linePath) {
+      return;
     }
 
+    if (!canMorphLine) {
+      linePath.setAttribute("d", LINE_PATH_KEYFRAMES[0]);
+      return;
+    }
+
+    const clampedProgress = Math.max(0, Math.min(progress, 1));
+
+    let segmentIndex = LINE_PATH_TIMES.length - 2;
+    for (let index = 1; index < LINE_PATH_TIMES.length; index += 1) {
+      if (clampedProgress <= LINE_PATH_TIMES[index]) {
+        segmentIndex = index - 1;
+        break;
+      }
+    }
+
+    const segmentStart = LINE_PATH_TIMES[segmentIndex];
+    const segmentEnd = LINE_PATH_TIMES[segmentIndex + 1];
+    const localProgress =
+      segmentEnd === segmentStart
+        ? 0
+        : (clampedProgress - segmentStart) / (segmentEnd - segmentStart);
+    const easedProgress = getEaseInOut(localProgress);
+    const from = parsedLinePaths[segmentIndex].numbers;
+    const to = parsedLinePaths[segmentIndex + 1].numbers;
+    linePath.setAttribute(
+      "d",
+      interpolatePath(lineTemplate, from, to, easedProgress)
+    );
+  }
+
+  function startAnimation() {
+    if (!linePath) {
+      return;
+    }
+
+    clearLineAnimation();
+
+    const startTime = performance.now();
+    const step = (time: number) => {
+      const elapsed = time - startTime;
+      const progress = Math.min(elapsed / lineAnimationDuration, 1);
+      setLinePath(progress);
+
+      if (progress < 1) {
+        lineAnimationFrame = requestAnimationFrame(step);
+      } else {
+        lineAnimationFrame = null;
+      }
+    };
+
+    lineAnimationFrame = requestAnimationFrame(step);
+  }
+
+  function stopAnimation() {
+    clearLineAnimation();
     if (linePath) {
-      linePath.setAttribute("d", "M12 21V3");
+      linePath.setAttribute("d", LINE_PATH_KEYFRAMES[0]);
     }
   }
   $effect(() => {
@@ -57,6 +153,7 @@
 </script>
 
 <div
+  {...restProps}
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
@@ -81,7 +178,7 @@
       class:animate={shouldAnimate}
       d="M19.5 13.5 12 21m0 0-7.5-7.5"
     />
-    <path bind:this={linePath} d="M12 21V3" />
+    <path bind:this={linePath} d={LINE_PATH_KEYFRAMES[0]} />
   </svg>
 </div>
 

@@ -6,6 +6,7 @@
     strokeWidth = 1.5,
     animate = false,
     class: className = "",
+    ...restProps
   }: IconProps = $props();
 
   let isHovered = $state(false);
@@ -21,6 +22,7 @@
 </script>
 
 <div
+  {...restProps}
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
@@ -84,18 +86,20 @@
   }
 
   @keyframes server-lights-blink {
-    0%,
-    25%,
-    50%,
-    75%,
-    100% {
+    0% {
       opacity: 1;
     }
-    12.5%,
-    37.5%,
-    62.5%,
-    87.5% {
+    25% {
       opacity: 0.4;
+    }
+    50% {
+      opacity: 1;
+    }
+    75% {
+      opacity: 0.4;
+    }
+    100% {
+      opacity: 1;
     }
   }
 </style>

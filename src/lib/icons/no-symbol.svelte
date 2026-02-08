@@ -48,6 +48,7 @@
     </g>
     <path
       d="M18.364 18.364L5.636 5.636"
+      pathLength="1"
       class="nosymbol-line"
       class:nosymbol-line-animate={shouldAnimate}
     />

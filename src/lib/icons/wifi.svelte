@@ -6,10 +6,98 @@
     strokeWidth = 1.5,
     animate = false,
     class: className = "",
+    ...restProps
   }: IconProps = $props();
 
   let isHovered = $state(false);
   let shouldAnimate = $derived(animate || isHovered);
+
+  const arcAnimationDurationMs = 600;
+  const arcAnimationDelayStepMs = 200;
+
+  let arcOnePath: SVGPathElement;
+  let arcTwoPath: SVGPathElement;
+  let arcThreePath: SVGPathElement;
+  let arcAnimations: Animation[] = [];
+
+  function clearArcAnimations() {
+    for (const animation of arcAnimations) {
+      animation.cancel();
+    }
+    arcAnimations = [];
+  }
+
+  function resetArcPaths() {
+    const arcPaths = [arcOnePath, arcTwoPath, arcThreePath];
+    for (const arcPath of arcPaths) {
+      if (!arcPath) {
+        continue;
+      }
+      arcPath.style.opacity = "1";
+      arcPath.style.transform = "scale(1)";
+    }
+  }
+
+  function startAnimation() {
+    const arcPaths = [arcOnePath, arcTwoPath, arcThreePath];
+    clearArcAnimations();
+
+    for (const [index, arcPath] of arcPaths.entries()) {
+      if (!arcPath) {
+        continue;
+      }
+
+      const animation = arcPath.animate(
+        [
+          {
+            opacity: "1",
+            transform: "scale(1)",
+            offset: 0,
+            easing: "ease-in-out",
+          },
+          {
+            opacity: "0",
+            transform: "scale(0)",
+            offset: 1 / 3,
+            easing: "ease-in-out",
+          },
+          { opacity: "0", transform: "scale(0)", offset: 2 / 3 },
+          {
+            opacity: "1",
+            transform: "scale(1)",
+            offset: 1,
+            easing: "ease-in-out",
+          },
+        ],
+        {
+          duration: arcAnimationDurationMs,
+          delay: arcAnimationDelayStepMs * index,
+          fill: "both",
+        }
+      );
+
+      arcAnimations.push(animation);
+    }
+  }
+
+  function stopAnimation() {
+    clearArcAnimations();
+    resetArcPaths();
+  }
+
+  $effect(() => {
+    if (shouldAnimate) {
+      startAnimation();
+    } else {
+      stopAnimation();
+    }
+  });
+
+  $effect(() => {
+    return () => {
+      clearArcAnimations();
+    };
+  });
 
   function handleMouseEnter() {
     isHovered = true;
@@ -21,6 +109,7 @@
 </script>
 
 <div
+  {...restProps}
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
@@ -41,19 +130,19 @@
   >
     <path d="M12.53 18.22l-.53.53-.53-.53a.75.75 0 0 1 1.06 0" />
     <path
+      bind:this={arcOnePath}
       d="M8.288 15.038a5.25 5.25 0 0 1 7.424 0"
       class="wifi-arc"
-      class:wifi-pulse={shouldAnimate}
     />
     <path
+      bind:this={arcTwoPath}
       d="M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0"
       class="wifi-arc wifi-arc-2"
-      class:wifi-pulse={shouldAnimate}
     />
     <path
+      bind:this={arcThreePath}
       d="M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0"
       class="wifi-arc wifi-arc-3"
-      class:wifi-pulse={shouldAnimate}
     />
   </svg>
 </div>
@@ -71,36 +160,7 @@
   .wifi-arc {
     opacity: 1;
     transform: scale(1);
-  }
-
-  .wifi-arc.wifi-pulse {
-    animation: wifi-pulse 0.6s ease-in-out forwards;
-  }
-
-  .wifi-arc-2.wifi-pulse {
-    animation-delay: 0.2s;
-  }
-
-  .wifi-arc-3.wifi-pulse {
-    animation-delay: 0.4s;
-  }
-
-  @keyframes wifi-pulse {
-    0% {
-      opacity: 1;
-      transform: scale(1);
-    }
-    33.3% {
-      opacity: 0;
-      transform: scale(0);
-    }
-    66.6% {
-      opacity: 0;
-      transform: scale(0);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
+    transform-box: fill-box;
+    transform-origin: center;
   }
 </style>

@@ -6,6 +6,7 @@
     strokeWidth = 1.5,
     animate = false,
     class: className = "",
+    ...restProps
   }: IconProps = $props();
 
   let isHovered = $state(false);
@@ -21,6 +22,7 @@
 </script>
 
 <div
+  {...restProps}
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
@@ -45,6 +47,7 @@
     <path
       class="shieldcheck-check"
       class:shieldcheck-draw={shouldAnimate}
+      pathLength="1"
       d="M9 12.7498L11.25 14.9998L15 9.74985"
     />
   </svg>

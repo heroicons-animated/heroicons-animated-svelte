@@ -6,6 +6,7 @@
     strokeWidth = 1.5,
     animate = false,
     class: className = "",
+    ...restProps
   }: IconProps = $props();
 
   let isHovered = $state(false);
@@ -21,6 +22,7 @@
 </script>
 
 <div
+  {...restProps}
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
@@ -41,6 +43,7 @@
   >
     <path
       d="m9 20.247 6-16.5"
+      pathLength="1"
       class="slash-path"
       class:slash-draw={shouldAnimate}
     />
@@ -71,6 +74,9 @@
     0% {
       stroke-dashoffset: 1;
       opacity: 0;
+    }
+    16.666% {
+      opacity: 1;
     }
     100% {
       stroke-dashoffset: 0;

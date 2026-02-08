@@ -40,10 +40,14 @@
     stroke-linecap="round"
     stroke-linejoin="round"
     class="icon-svg"
-    class:checkcircle-animate={shouldAnimate}
   >
     <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-    <path d="M9 12.75 11.25 15 15 9.75" />
+    <path
+      class="checkcircle-check"
+      class:checkcircle-draw={shouldAnimate}
+      pathLength="1"
+      d="M9 12.75 11.25 15 15 9.75"
+    />
   </svg>
 </div>
 
@@ -55,22 +59,26 @@
   .icon-svg {
     transform-box: fill-box;
     transform-origin: center;
-    transition: transform 0.3s ease;
   }
 
-  .icon-svg.checkcircle-animate {
-    animation: checkcircle-animate 0.6s ease-in-out;
+  .checkcircle-check {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+    opacity: 1;
   }
 
-  @keyframes checkcircle-animate {
+  .checkcircle-check.checkcircle-draw {
+    animation: checkcircle-draw 0.4s ease-in-out forwards;
+  }
+
+  @keyframes checkcircle-draw {
     0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.1);
+      stroke-dashoffset: 1;
+      opacity: 0;
     }
     100% {
-      transform: scale(1);
+      stroke-dashoffset: 0;
+      opacity: 1;
     }
   }
 </style>

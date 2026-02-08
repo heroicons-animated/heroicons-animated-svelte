@@ -48,6 +48,7 @@
       d="M9 15l2.25 2.25L15 12"
       class="documentcheck-check"
       class:documentcheck-draw={shouldAnimate}
+      pathLength="1"
     />
   </svg>
 </div>
@@ -73,11 +74,11 @@
   }
 
   @keyframes documentcheck-draw {
-    from {
+    0% {
       stroke-dashoffset: 1;
       opacity: 0;
     }
-    to {
+    100% {
       stroke-dashoffset: 0;
       opacity: 1;
     }

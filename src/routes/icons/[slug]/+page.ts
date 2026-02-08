@@ -3,6 +3,7 @@ import { ICON_MANIFEST } from "$lib/manifest";
 import type { PageLoad } from "./$types";
 
 export const prerender = true;
+export const ssr = true;
 
 export const entries = () => {
   return ICON_MANIFEST.map((icon) => ({ slug: icon.name }));

@@ -70,6 +70,11 @@
   }
 
   /* Cursor: x [0,0,-3,0] y [0,-4,0,0] 1s bounce 0.3 (approx cubic-bezier) */
+  .cursor-arrow-ripple-cursor {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
   .cursor-arrow-ripple-cursor.cursor-move {
     animation: cursor-ripple-move 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
   }

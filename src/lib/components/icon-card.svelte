@@ -40,6 +40,8 @@
   let iconAnimate = $state(false);
   let isTouch = $state(false);
   let isAnimating = $state(false);
+  let isCodeActionHovered = $state(false);
+  let isCLIActionHovered = $state(false);
   let playTimeout: ReturnType<typeof setTimeout> | null = null;
   const ext = getFileExtension();
 
@@ -65,6 +67,24 @@
       return;
     }
     iconAnimate = false;
+    isCodeActionHovered = false;
+    isCLIActionHovered = false;
+  }
+
+  function handleCodeActionMouseEnter() {
+    isCodeActionHovered = true;
+  }
+
+  function handleCodeActionMouseLeave() {
+    isCodeActionHovered = false;
+  }
+
+  function handleCLIActionMouseEnter() {
+    isCLIActionHovered = true;
+  }
+
+  function handleCLIActionMouseLeave() {
+    isCLIActionHovered = false;
   }
 
   function handlePlayClick() {
@@ -206,11 +226,16 @@
             class="supports-[corner-shape:squircle]:corner-squircle flex size-10 cursor-pointer items-center justify-center rounded-[14px] bg-neutral-200/20 transition-[background-color] duration-100 focus-within:-outline-offset-1 hover:bg-neutral-200 focus-visible:outline-1 focus-visible:outline-primary supports-[corner-shape:squircle]:rounded-[20px] dark:bg-neutral-800/20 dark:hover:bg-neutral-700"
             data-busy={codeState !== "idle" ? "" : undefined}
             onclick={handleCopyCode}
+            onblur={handleCodeActionMouseLeave}
+            onfocus={handleCodeActionMouseEnter}
+            onmouseenter={handleCodeActionMouseEnter}
+            onmouseleave={handleCodeActionMouseLeave}
             type="button"
           >
             <IconState status={codeState}>
               <ClipboardDocument
                 aria-hidden="true"
+                animate={isCodeActionHovered}
                 class="size-4 text-neutral-800 dark:text-neutral-100"
                 size={16}
               />
@@ -232,11 +257,16 @@
             class="supports-[corner-shape:squircle]:corner-squircle flex size-10 cursor-pointer items-center justify-center rounded-[14px] bg-neutral-200/20 transition-[background-color] duration-100 focus-within:-outline-offset-1 hover:bg-neutral-200 focus-visible:outline-1 focus-visible:outline-primary supports-[corner-shape:squircle]:rounded-[20px] dark:bg-neutral-800/20 dark:hover:bg-neutral-700"
             data-busy={cliState !== "idle" ? "" : undefined}
             onclick={handleCopyCLI}
+            onblur={handleCLIActionMouseLeave}
+            onfocus={handleCLIActionMouseEnter}
+            onmouseenter={handleCLIActionMouseEnter}
+            onmouseleave={handleCLIActionMouseLeave}
             type="button"
           >
             <IconState status={cliState}>
               <CommandLine
                 aria-hidden="true"
+                animate={isCLIActionHovered}
                 class="size-4 text-neutral-800 dark:text-neutral-100"
                 size={16}
               />

@@ -47,11 +47,13 @@
     <path
       class="magnifyingglassplus-vertical"
       class:magnifyingglassplus-draw={shouldAnimate}
+      pathLength="1"
       d="M10.5 7.5v6"
     />
     <path
       class="magnifyingglassplus-horizontal"
       class:magnifyingglassplus-draw={shouldAnimate}
+      pathLength="1"
       d="M7.5 10.5h6"
     />
   </svg>

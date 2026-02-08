@@ -56,22 +56,11 @@
   .icon-svg {
     transform-box: fill-box;
     transform-origin: center;
-    transition: transform 0.3s ease;
+    /* Approximate React spring transition: stiffness 50, damping 10 */
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .icon-svg.cog-animate {
-    animation: cog-animate 0.6s ease-in-out;
-  }
-
-  @keyframes cog-animate {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.1);
-    }
-    100% {
-      transform: scale(1);
-    }
+    transform: rotate(180deg);
   }
 </style>

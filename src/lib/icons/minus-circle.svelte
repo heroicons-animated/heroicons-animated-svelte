@@ -45,7 +45,8 @@
       d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
     />
     <path
-      d="M15 12H9"
+      d="M9 12H15"
+      pathLength="1"
       class="minuscircle-line"
       class:minuscircle-line-animate={shouldAnimate}
     />
@@ -69,13 +70,16 @@
   }
 
   .minuscircle-line.minuscircle-line-animate {
-    animation: minuscircle-line-draw 0.4s ease-in-out forwards;
+    animation: minuscircle-line-draw 0.3s ease-out forwards;
   }
 
   @keyframes minuscircle-line-draw {
     0% {
       stroke-dashoffset: 1;
       opacity: 0;
+    }
+    33% {
+      opacity: 1;
     }
     100% {
       stroke-dashoffset: 0;

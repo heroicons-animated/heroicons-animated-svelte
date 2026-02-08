@@ -43,6 +43,7 @@
   >
     <path
       d="M5 12h14"
+      pathLength="1"
       class="minus-line"
       class:minus-line-animate={shouldAnimate}
     />

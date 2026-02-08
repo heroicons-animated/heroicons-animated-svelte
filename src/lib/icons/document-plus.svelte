@@ -46,11 +46,13 @@
     />
     <path
       d="M12 11.25v6"
+      pathLength="1"
       class="documentplus-vertical"
       class:documentplus-draw={shouldAnimate}
     />
     <path
       d="M9 14.25H15"
+      pathLength="1"
       class="documentplus-horizontal"
       class:documentplus-draw={shouldAnimate}
     />
@@ -75,28 +77,17 @@
   }
 
   .documentplus-vertical.documentplus-draw {
-    animation: documentplus-draw 0.2s ease-out 0.3s both;
-  }
-  .documentplus-vertical:not(.documentplus-draw) {
-    stroke-dashoffset: 0;
-    opacity: 1;
+    animation: documentplus-draw 0.2s ease-in-out 0.3s both;
   }
 
   .documentplus-horizontal.documentplus-draw {
-    animation: documentplus-draw 0.2s ease-out 0.6s both;
-  }
-  .documentplus-horizontal:not(.documentplus-draw) {
-    stroke-dashoffset: 0;
-    opacity: 1;
+    animation: documentplus-draw 0.2s ease-in-out 0.6s both;
   }
 
   @keyframes documentplus-draw {
     0% {
       stroke-dashoffset: 1;
       opacity: 0;
-    }
-    50% {
-      opacity: 1;
     }
     100% {
       stroke-dashoffset: 0;

@@ -40,10 +40,12 @@
     stroke-linecap="round"
     stroke-linejoin="round"
     class="icon-svg"
-    class:italic-animate={shouldAnimate}
   >
     <path
       d="M5.248 20.246H9.05m0 0h3.696m-3.696 0 5.893-16.502m0 0h-3.697m3.697 0h3.803"
+      pathLength="1"
+      class="italic-path"
+      class:italic-draw={shouldAnimate}
     />
   </svg>
 </div>
@@ -56,22 +58,26 @@
   .icon-svg {
     transform-box: fill-box;
     transform-origin: center;
-    transition: transform 0.3s ease;
   }
 
-  .icon-svg.italic-animate {
-    animation: italic-animate 0.6s ease-in-out;
+  .italic-path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+    opacity: 1;
   }
 
-  @keyframes italic-animate {
+  .italic-path.italic-draw {
+    animation: italic-draw 0.4s ease-out forwards;
+  }
+
+  @keyframes italic-draw {
     0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.1);
+      stroke-dashoffset: 1;
+      opacity: 0;
     }
     100% {
-      transform: scale(1);
+      stroke-dashoffset: 0;
+      opacity: 1;
     }
   }
 </style>

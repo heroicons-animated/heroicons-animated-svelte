@@ -80,14 +80,16 @@
   .pin-y,
   .pin-x {
     opacity: 1;
+    transform-box: fill-box;
+    transform-origin: center;
   }
 
   .pin-y.pin-y-animate {
-    animation: pin-y-animate 0.5s ease-in-out;
+    animation: pin-y-animate 0.5s ease-in-out 2;
   }
 
   .pin-x.pin-x-animate {
-    animation: pin-x-animate 0.5s ease-in-out;
+    animation: pin-x-animate 0.5s ease-in-out 2;
   }
 
   @keyframes pin-y-animate {

@@ -109,6 +109,13 @@
   .calculator-screen.calculator-screen-animate {
     animation: calculator-screen-pulse 0.2s ease-out 0.65s forwards;
   }
+
+  .calculator-btn,
+  .calculator-enter {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
   .calculator-btn0.calculator-btn-animate {
     animation: calculator-btn-pulse 0.15s ease-out 0s forwards;
   }

@@ -6,6 +6,7 @@
     strokeWidth = 1.5,
     animate = false,
     class: className = "",
+    ...restProps
   }: IconProps = $props();
 
   let isHovered = $state(false);
@@ -21,6 +22,7 @@
 </script>
 
 <div
+  {...restProps}
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
@@ -43,17 +45,20 @@
       d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5"
     />
     <path
-      d="M9 11.25v1.5"
+      d="M9 12.75v-1.5"
+      pathLength="1"
       class="presentationchartbar-bar"
       class:presentationchartbar-bar1-animate={shouldAnimate}
     />
     <path
-      d="M12 9v3.75"
+      d="M12 12.75v-3.75"
+      pathLength="1"
       class="presentationchartbar-bar"
       class:presentationchartbar-bar2-animate={shouldAnimate}
     />
     <path
-      d="M15 6.75v6"
+      d="M15 12.75v-6"
+      pathLength="1"
       class="presentationchartbar-bar"
       class:presentationchartbar-bar3-animate={shouldAnimate}
     />

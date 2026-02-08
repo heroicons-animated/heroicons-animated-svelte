@@ -103,10 +103,13 @@
   .ray {
     opacity: 1;
     transform: translate(0, 0);
+    transform-box: fill-box;
+    transform-origin: center;
   }
 
   .ray.ray-spread {
-    animation: ray-spread 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 1.3s forwards;
+    animation: ray-spread 0.5s ease-out 1.3s forwards;
+    animation-fill-mode: both;
     opacity: 0;
   }
 
@@ -115,15 +118,27 @@
       opacity: 0;
       transform: translate(0, 0);
     }
-    14% {
+    16.67% {
       opacity: 1;
     }
-    28% {
+    33.33% {
       opacity: 0;
       transform: translate(var(--ray-x, 0), var(--ray-y, 0));
     }
-    100% {
+    50% {
       opacity: 0;
+      transform: translate(0, 0);
+    }
+    66.67% {
+      opacity: 0;
+      transform: translate(0, 0);
+    }
+    83.33% {
+      opacity: 0;
+      transform: translate(0, 0);
+    }
+    100% {
+      opacity: 1;
       transform: translate(0, 0);
     }
   }

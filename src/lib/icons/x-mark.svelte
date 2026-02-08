@@ -6,6 +6,7 @@
     strokeWidth = 1.5,
     animate = false,
     class: className = "",
+    ...restProps
   }: IconProps = $props();
 
   let isHovered = $state(false);
@@ -21,6 +22,7 @@
 </script>
 
 <div
+  {...restProps}
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
@@ -42,11 +44,13 @@
     <path
       class="xmark-line xmark-line-1"
       class:xmark-draw={shouldAnimate}
+      pathLength="1"
       d="M6 6l12 12"
     />
     <path
       class="xmark-line xmark-line-2"
       class:xmark-draw={shouldAnimate}
+      pathLength="1"
       d="M18 6l-12 12"
     />
   </svg>
@@ -78,6 +82,7 @@
 
   .xmark-line-2.xmark-draw {
     animation-delay: 0.2s;
+    animation-fill-mode: both;
   }
 
   @keyframes xmark-draw {

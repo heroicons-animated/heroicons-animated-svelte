@@ -6,6 +6,7 @@
     strokeWidth = 1.5,
     animate = false,
     class: className = "",
+    ...restProps
   }: IconProps = $props();
 
   let isHovered = $state(false);
@@ -21,6 +22,7 @@
 </script>
 
 <div
+  {...restProps}
   class={className}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
@@ -38,12 +40,15 @@
     stroke-linecap="round"
     stroke-linejoin="round"
     class="icon-svg"
-    class:arrowuponsquare-animate={shouldAnimate}
   >
     <path
       d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15"
     />
-    <path d="M15 5.25l-3-3m0 0-3 3m3-3V15" />
+    <path
+      class="arrow-path"
+      class:animate={shouldAnimate}
+      d="M15 5.25l-3-3m0 0-3 3m3-3V15"
+    />
   </svg>
 </div>
 
@@ -55,22 +60,29 @@
   .icon-svg {
     transform-box: fill-box;
     transform-origin: center;
-    transition: transform 0.3s ease;
   }
 
-  .icon-svg.arrowuponsquare-animate {
-    animation: arrowuponsquare-animate 0.6s ease-in-out;
+  .arrow-path {
+    transform-box: fill-box;
+    transform-origin: center;
   }
 
-  @keyframes arrowuponsquare-animate {
+  .arrow-path.animate {
+    animation: arrow-up-on-square-shift 0.4s ease-in-out;
+  }
+
+  @keyframes arrow-up-on-square-shift {
     0% {
-      transform: scale(1);
+      transform: translateY(0);
     }
-    50% {
-      transform: scale(1.1);
+    33.333% {
+      transform: translateY(2px);
+    }
+    66.666% {
+      transform: translateY(-2px);
     }
     100% {
-      transform: scale(1);
+      transform: translateY(0);
     }
   }
 </style>
