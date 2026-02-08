@@ -36,6 +36,11 @@
     iconClassName?: string;
   } = $props();
 
+  interface IconElement {
+    startAnimation: () => void;
+    stopAnimation: () => void;
+  }
+
   let IconComponent = $derived(ICON_COMPONENTS[name]);
   let iconRef = $state<unknown>(null);
   let isTouch = $state(false);
@@ -57,19 +62,19 @@
     if (isTouch) {
       return;
     }
-    iconRef?.startAnimation?.();
+    (iconRef as IconElement)?.startAnimation?.();
   }
 
   function handleMouseLeave() {
     if (isTouch) {
       return;
     }
-    iconRef?.stopAnimation?.();
+    (iconRef as IconElement)?.stopAnimation?.();
   }
 
   function handlePlayClick() {
     if (isAnimating) {
-      iconRef?.stopAnimation?.();
+      (iconRef as IconElement)?.stopAnimation?.();
       isAnimating = false;
       if (playTimeout) {
         clearTimeout(playTimeout);
@@ -77,11 +82,11 @@
       return;
     }
 
-    iconRef?.startAnimation?.();
+    (iconRef as IconElement)?.startAnimation?.();
     isAnimating = true;
     playTimeout = setTimeout(() => {
       isAnimating = false;
-      iconRef?.stopAnimation?.();
+      (iconRef as IconElement)?.stopAnimation?.();
     }, 1500);
   }
 
