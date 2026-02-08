@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
-  import ArrowPath from "@heroicons-animated/svelte/arrow-path.svelte";
-  import Check from "@heroicons-animated/svelte/check.svelte";
-  import XMark from "@heroicons-animated/svelte/x-mark.svelte";
+  import ArrowPath from "$lib/icons/arrow-path.svelte";
+  import Check from "$lib/icons/check.svelte";
+  import XMark from "$lib/icons/x-mark.svelte";
 
   let {
     status = "idle",
@@ -50,11 +50,11 @@
     class="flex items-center justify-center [&>svg]:size-4 [&>svg]:shrink-0 transition-[opacity,transform,filter] duration-100"
   >
     {#if status === "loading" && showLoading}
-      <ArrowPath aria-hidden="true" class="animate-spin" size={16} />
+      <ArrowPath class="animate-spin" size={16} />
     {:else if status === "done"}
-      <Check aria-hidden="true" class="text-green-600" size={16} />
+      <Check class="text-green-600" size={16} />
     {:else if status === "error"}
-      <XMark aria-hidden="true" class="text-red-500" size={16} />
+      <XMark class="text-red-500" size={16} />
     {:else}
       {@render children?.()}
     {/if}

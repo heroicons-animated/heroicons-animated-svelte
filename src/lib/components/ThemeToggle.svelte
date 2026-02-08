@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import Moon from "@heroicons-animated/svelte/moon.svelte";
-  import Sun from "@heroicons-animated/svelte/sun.svelte";
+  import Moon from "$lib/icons/moon.svelte";
+  import Sun from "$lib/icons/sun.svelte";
 
   let isDark = $state(false);
 
@@ -47,7 +47,7 @@
     {#if isDark}
       <Moon aria-hidden="true" size={16} />
     {:else}
-      <Sun aria-hidden="true" size={16} />
+      <Sun size={16} />
     {/if}
   </span>
 </button>

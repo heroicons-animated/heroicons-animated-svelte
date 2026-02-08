@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
-  import ClipboardDocument from "@heroicons-animated/svelte/clipboard-document.svelte";
+  import ClipboardDocument from "$lib/icons/clipboard-document.svelte";
   import { PACKAGE_MANAGER, SITE } from "$lib/constants";
   import { getCLICommand, getRegistryPathPrefix, getShadcnCLI } from "$lib/cli";
   import { getPackageManagerPrefix } from "$lib/package-manager";
@@ -54,21 +54,21 @@
     staticIconName || iconList[loopIndex]?.name || ""
   );
 
-  let state = $state<"idle" | "done" | "error">("idle");
+  let copyStatus = $state<"idle" | "done" | "error">("idle");
 
   async function handleCopy() {
-    if (state !== "idle") {
+    if (copyStatus !== "idle") {
       return;
     }
     try {
       await navigator.clipboard.writeText(
         getCLICommand($packageManager, currentIconName)
       );
-      state = "done";
-      setTimeout(() => (state = "idle"), 2000);
+      copyStatus = "done";
+      setTimeout(() => (copyStatus = "idle"), 2000);
     } catch {
-      state = "error";
-      setTimeout(() => (state = "idle"), 2000);
+      copyStatus = "error";
+      setTimeout(() => (copyStatus = "idle"), 2000);
     }
   }
 </script>
@@ -124,13 +124,13 @@
             </div>
           </ScrollArea>
           <button
-            aria-disabled={state !== "idle"}
+            aria-disabled={copyStatus !== "idle"}
             aria-label="Copy to clipboard"
             class="supports-[corner-shape:squircle]:corner-squircle absolute top-1/2 right-1.5 z-20 -translate-y-1/2 cursor-pointer rounded-[6px] p-2 transition-[background-color] duration-100 focus-within:outline-offset-1 hover:bg-neutral-100 focus-visible:outline-1 focus-visible:outline-primary supports-[corner-shape:squircle]:rounded-[8px] dark:hover:bg-neutral-700"
             onclick={handleCopy}
             type="button"
           >
-            <IconState status={state}>
+            <IconState status={copyStatus}>
               <ClipboardDocument aria-hidden="true" size={16} />
             </IconState>
           </button>

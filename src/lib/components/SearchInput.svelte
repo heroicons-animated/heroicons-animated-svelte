@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import MagnifyingGlass from "@heroicons-animated/svelte/magnifying-glass.svelte";
+  import MagnifyingGlass from "$lib/icons/magnifying-glass.svelte";
   import { Input } from "$lib/components/ui/input";
   import Kbd from "$lib/components/ui/kbd.svelte";
 
@@ -54,9 +54,8 @@
         bind:ref={inputRef}
         bind:value
         aria-label="Search icons"
-        autoCapitalize="off"
-        autoComplete="off"
-        autoCorrect="off"
+        autocomplete="off"
+        autocorrect="off"
         class="flex h-10 w-full min-w-0 px-3 py-1 text-sm outline-none ring-1 bg-white text-neutral-800 ring-neutral-200 selection:bg-primary selection:text-white placeholder:text-neutral-400/70 dark:bg-[#0A0A0A] dark:text-neutral-100 dark:ring-neutral-800 transition-[color,box-shadow,ring-color] focus-visible:ring-primary dark:focus-visible:ring-primary supports-[corner-shape:squircle]:corner-squircle rounded-[14px] supports-[corner-shape:squircle]:rounded-[24px] pl-10 pr-12"
         inputmode="search"
         placeholder="Search icons..."

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import ArrowTopRightOnSquare from "@heroicons-animated/svelte/arrow-top-right-on-square.svelte";
+  import ArrowTopRightOnSquare from "$lib/icons/arrow-top-right-on-square.svelte";
   import {
     Avatar,
     AvatarFallback,

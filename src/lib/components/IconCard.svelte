@@ -1,9 +1,9 @@
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
-  import ClipboardDocument from "@heroicons-animated/svelte/clipboard-document.svelte";
-  import CommandLine from "@heroicons-animated/svelte/command-line.svelte";
-  import Pause from "@heroicons-animated/svelte/pause.svelte";
-  import Play from "@heroicons-animated/svelte/play.svelte";
+  import ClipboardDocument from "$lib/icons/clipboard-document.svelte";
+  import CommandLine from "$lib/icons/command-line.svelte";
+  import Pause from "$lib/icons/pause.svelte";
+  import Play from "$lib/icons/play.svelte";
   import { ICON_COMPONENTS } from "$lib/icon-components";
   import { getCLICommand, getFileExtension } from "$lib/cli";
   import { packageManager } from "$lib/state";
