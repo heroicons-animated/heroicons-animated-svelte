@@ -5,7 +5,9 @@
     AvatarFallback,
     AvatarImage,
   } from "$lib/components/ui/avatar";
-  let arrowRef: any;
+  let arrowRef:
+    | { startAnimation: () => void; stopAnimation: () => void }
+    | undefined;
 </script>
 
 <div

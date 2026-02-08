@@ -1,9 +1,9 @@
 <script lang="ts">
   import { ICON_MANIFEST } from "$lib/manifest";
   import { LINK, SITE } from "$lib/constants";
-  import CliBlock from "$lib/components/CliBlock.svelte";
-  import CommentBlock from "$lib/components/CommentBlock.svelte";
-  import IconsList from "$lib/components/IconsList.svelte";
+  import CliBlock from "$lib/components/cli-block.svelte";
+  import CommentBlock from "$lib/components/comment-block.svelte";
+  import IconsList from "$lib/components/icons-list.svelte";
   import type {
     FAQPage,
     Organization,

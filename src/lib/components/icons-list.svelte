@@ -1,8 +1,8 @@
 <script lang="ts">
   import Fuse from "fuse.js";
   import { ICON_MANIFEST } from "$lib/manifest";
-  import SearchInput from "$lib/components/SearchInput.svelte";
-  import IconCard from "$lib/components/IconCard.svelte";
+  import SearchInput from "$lib/components/search-input.svelte";
+  import IconCard from "$lib/components/icon-card.svelte";
 
   let query = $state("");
   let filteredIcons = $state(ICON_MANIFEST);

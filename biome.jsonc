@@ -5,6 +5,9 @@
     "includes": ["!static/r"],
     "ignoreUnknown": false
   },
+  "javascript": {
+    "globals": ["$packageManager"]
+  },
   "formatter": {
     "enabled": true,
     "indentStyle": "space"
@@ -24,16 +27,46 @@
             }
           }
         }
+      },
+      "performance": {
+        "noBarrelFile": "off"
       }
     }
   },
   "overrides": [
     {
-      "includes": ["**/app.d.ts"],
+      "includes": ["src/app.d.ts"],
       "linter": {
         "rules": {
           "style": {
             "noNamespace": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["*.svelte"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useConst": "off",
+            "useImportType": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["src/lib/icons/*.svelte"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUnusedVariables": "off"
+          },
+          "style": {
+            "noUnusedTemplateLiteral": "off"
+          },
+          "suspicious": {
+            "noUnassignedVariables": "off"
           }
         }
       }

@@ -1,7 +1,7 @@
 <script lang="ts">
-  import IconCard from "$lib/components/IconCard.svelte";
-  import CliBlock from "$lib/components/CliBlock.svelte";
-  import SimilarIcons from "$lib/components/SimilarIcons.svelte";
+  import IconCard from "$lib/components/icon-card.svelte";
+  import CliBlock from "$lib/components/cli-block.svelte";
+  import SimilarIcons from "$lib/components/similar-icons.svelte";
   import { LINK, SITE } from "$lib/constants";
   import type { BreadcrumbList, CreativeWork, WithContext } from "schema-dts";
 

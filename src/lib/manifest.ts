@@ -1,7 +1,7 @@
-export type IconManifestItem = {
+export interface IconManifestItem {
   name: string;
   keywords: string[];
-};
+}
 
 export const ICON_MANIFEST: IconManifestItem[] = [
   {

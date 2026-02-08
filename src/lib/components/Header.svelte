@@ -1,7 +1,7 @@
 <script lang="ts">
-  import Logo from "$lib/components/Logo.svelte";
-  import ThemeToggle from "$lib/components/ThemeToggle.svelte";
-  import GithubStarsButton from "$lib/components/GithubStarsButton.svelte";
+  import Logo from "$lib/components/logo.svelte";
+  import ThemeToggle from "$lib/components/theme-toggle.svelte";
+  import GithubStarsButton from "$lib/components/github-stars-button.svelte";
   import { LINK } from "$lib/constants";
 
   let { stars = null } = $props<{ stars?: number | null }>();

@@ -37,7 +37,7 @@
   } = $props();
 
   let IconComponent = $derived(ICON_COMPONENTS[name]);
-  let iconRef = $state<any>(null);
+  let iconRef = $state<unknown>(null);
   let isTouch = $state(false);
   let isAnimating = $state(false);
   let playTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -97,10 +97,14 @@
     try {
       await navigator.clipboard.writeText(getCLICommand($packageManager, name));
       cliState = "done";
-      setTimeout(() => (cliState = "idle"), 2000);
+      setTimeout(() => {
+        cliState = "idle";
+      }, 2000);
     } catch {
       cliState = "error";
-      setTimeout(() => (cliState = "idle"), 2000);
+      setTimeout(() => {
+        cliState = "idle";
+      }, 2000);
     }
   }
 
@@ -120,10 +124,14 @@
       }
       await navigator.clipboard.writeText(content);
       codeState = "done";
-      setTimeout(() => (codeState = "idle"), 2000);
+      setTimeout(() => {
+        codeState = "idle";
+      }, 2000);
     } catch {
       codeState = "error";
-      setTimeout(() => (codeState = "idle"), 2000);
+      setTimeout(() => {
+        codeState = "idle";
+      }, 2000);
     }
   }
 </script>

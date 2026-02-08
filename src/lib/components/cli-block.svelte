@@ -65,10 +65,14 @@
         getCLICommand($packageManager, currentIconName)
       );
       copyStatus = "done";
-      setTimeout(() => (copyStatus = "idle"), 2000);
+      setTimeout(() => {
+        copyStatus = "idle";
+      }, 2000);
     } catch {
       copyStatus = "error";
-      setTimeout(() => (copyStatus = "idle"), 2000);
+      setTimeout(() => {
+        copyStatus = "idle";
+      }, 2000);
     }
   }
 </script>
