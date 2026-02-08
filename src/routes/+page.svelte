@@ -4,6 +4,13 @@
   import CliBlock from "$lib/components/CliBlock.svelte";
   import CommentBlock from "$lib/components/CommentBlock.svelte";
   import IconsList from "$lib/components/IconsList.svelte";
+  import type {
+    FAQPage,
+    Organization,
+    SoftwareSourceCode,
+    WebSite,
+    WithContext,
+  } from "schema-dts";
   const websiteJsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -11,7 +18,7 @@
     url: SITE.URL,
     description: SITE.DESCRIPTION.LONG,
     inLanguage: "en-US",
-  });
+  } satisfies WithContext<WebSite>);
 
   const softwareJsonLd = JSON.stringify({
     "@context": "https://schema.org",
@@ -34,16 +41,9 @@
       url: LINK.TWITTER,
     },
     keywords: SITE.KEYWORDS,
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "USD",
-      availability: "https://schema.org/InStock",
-    },
     isAccessibleForFree: true,
     dateModified: new Date().toISOString().split("T")[0],
-    numberOfItems: ICON_MANIFEST.length,
-  });
+  } satisfies WithContext<SoftwareSourceCode>);
 
   const organizationJsonLd = JSON.stringify({
     "@context": "https://schema.org",
@@ -57,7 +57,7 @@
       name: SITE.AUTHOR.NAME,
       url: LINK.TWITTER,
     },
-  });
+  } satisfies WithContext<Organization>);
 
   const faqJsonLd = JSON.stringify({
     "@context": "https://schema.org",
@@ -96,8 +96,7 @@
         },
       },
     ],
-  });
-
+  } satisfies WithContext<FAQPage>);
 </script>
 
 <svelte:head>
@@ -107,19 +106,33 @@
   <meta name="theme-color" content="#f5f5f5" />
   <link rel="canonical" href={SITE.URL} />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="heroicons-animated | Animated Heroicons for Svelte" />
+  <meta
+    property="og:title"
+    content="heroicons-animated | Animated Heroicons for Svelte"
+  />
   <meta property="og:description" content={SITE.DESCRIPTION.SHORT} />
   <meta property="og:url" content={SITE.URL} />
   <meta property="og:image" content={`${SITE.URL}${SITE.OG_IMAGE}`} />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content={SITE.AUTHOR.TWITTER} />
-  <meta name="twitter:title" content="heroicons-animated | Animated Heroicons for Svelte" />
+  <meta
+    name="twitter:title"
+    content="heroicons-animated | Animated Heroicons for Svelte"
+  />
   <meta name="twitter:description" content={SITE.DESCRIPTION.SHORT} />
   <meta name="twitter:image" content={`${SITE.URL}${SITE.OG_IMAGE}`} />
-  <script type="application/ld+json">{@html websiteJsonLd}</script>
-  <script type="application/ld+json">{@html softwareJsonLd}</script>
-  <script type="application/ld+json">{@html organizationJsonLd}</script>
-  <script type="application/ld+json">{@html faqJsonLd}</script>
+  <script type="application/ld+json">
+{@html websiteJsonLd}
+  </script>
+  <script type="application/ld+json">
+{@html softwareJsonLd}
+  </script>
+  <script type="application/ld+json">
+{@html organizationJsonLd}
+  </script>
+  <script type="application/ld+json">
+{@html faqJsonLd}
+  </script>
 </svelte:head>
 
 <section
@@ -145,11 +158,15 @@
   </p>
   <p class="mt-4 font-mono text-secondary text-xs min-[640px]:text-sm">
     Crafted with
-    <span
-      class="bg-[#E5E5E5] px-2 py-0.5 text-primary dark:bg-[#262626]"
+    <a
+      class="bg-[#E5E5E5] px-2 py-0.5 text-primary focus-within:outline-offset-1 focus-visible:outline-1 focus-visible:outline-primary dark:bg-[#262626]"
+      href={LINK.CSS_ANIMATIONS}
+      rel="noopener noreferrer"
+      tabindex="0"
+      target="_blank"
     >
       CSS Animations
-    </span>
+    </a>
     &
     <a
       class="bg-[#E5E5E5] px-2 py-0.5 text-primary focus-within:outline-offset-1 focus-visible:outline-1 focus-visible:outline-primary dark:bg-[#262626]"

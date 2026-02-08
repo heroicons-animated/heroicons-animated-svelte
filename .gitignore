@@ -4,3 +4,11 @@ dist
 .nuxt
 .output
 .svelte-kit
+
+# Agents
+AGENTS.md
+.claude
+.cursor
+.codex
+.gemini
+.opencode

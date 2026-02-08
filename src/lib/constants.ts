@@ -9,7 +9,8 @@ const SITE = {
   },
   DESCRIPTION: {
     LONG: "Free open-source library of beautifully animated icons for Svelte. Built with Motion-inspired animations and Heroicons.",
-    SHORT: "Animated Heroicons for Svelte. Copy-paste ready and fully customizable.",
+    SHORT:
+      "Animated Heroicons for Svelte. Copy-paste ready and fully customizable.",
   },
   KEYWORDS: [
     "animated icons",
@@ -26,6 +27,8 @@ const LINK = {
   TWITTER: "https://x.com/alaymanguy",
   GITHUB: "https://github.com/heroicons-animated/heroicons-animated-svelte",
   HEROICONS: "https://heroicons.com",
+  CSS_ANIMATIONS:
+    "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Animations/Using_CSS_animations",
   MOTION: "https://motion.dev",
   LICENSE:
     "https://github.com/heroicons-animated/heroicons-animated-svelte/blob/main/LICENSE",

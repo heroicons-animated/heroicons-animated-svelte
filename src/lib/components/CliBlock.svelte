@@ -102,14 +102,13 @@
               </span>
               <span class="text-black dark:text-white">
                 {getShadcnCLI()} add @{SITE.NAME}{getRegistryPathPrefix()}
-              </span>
-              {#if staticIconName}
+              </span>{#if staticIconName}
                 <span class="shrink-0 text-primary">{staticIconName}</span>
               {:else}
                 {#key loopIndex}
-                  <span class="shrink-0 text-primary text-loop"
-                    >{currentIconName}</span
-                  >
+                  <span class="shrink-0 text-primary text-loop">
+                    {currentIconName}
+                  </span>
                 {/key}
               {/if}
             </div>

@@ -3,6 +3,7 @@
   import CliBlock from "$lib/components/CliBlock.svelte";
   import SimilarIcons from "$lib/components/SimilarIcons.svelte";
   import { LINK, SITE } from "$lib/constants";
+  import type { BreadcrumbList, CreativeWork, WithContext } from "schema-dts";
 
   let props = $props<{
     data: { icon: { name: string; keywords: string[] } };
@@ -15,7 +16,7 @@
       .join("")}Icon`;
 
   let icon = $state<{ name: string; keywords: string[] }>(
-    props.data?.icon ?? { name: "", keywords: [] },
+    props.data?.icon ?? { name: "", keywords: [] }
   );
 
   $effect(() => {
@@ -27,7 +28,7 @@
   let pascalName = $derived(iconName ? kebabToPascal(iconName) : "");
   let displayName = $derived(pascalName ? pascalName.split("Icon")[0] : "Icon");
   let description = $derived(
-    `Free animated ${iconName} icon for Svelte. Smooth animations, copy-paste ready.`,
+    `Free animated ${iconName} icon for Svelte. Smooth animations, copy-paste ready.`
   );
 
   let breadcrumbJsonLd = $derived.by(() =>
@@ -49,7 +50,7 @@
           item: `${SITE.URL}/icons/${iconName}`,
         },
       ],
-    }),
+    } satisfies WithContext<BreadcrumbList>)
   );
 
   let iconJsonLd = $derived.by(() =>
@@ -66,34 +67,34 @@
         name: SITE.NAME,
         url: SITE.URL,
       },
-    }),
+    } satisfies WithContext<CreativeWork>)
   );
 </script>
 
 <svelte:head>
   <title>{displayName} Icon - Animated Icon for Svelte</title>
-  <meta name="description" content={description} />
+  <meta name="description" content={description}>
   <meta
     name="keywords"
     content={[...keywords, "animated icon", "svelte icon"].join(", ")}
-  />
-  <link rel="canonical" href={`${SITE.URL}/icons/${iconName}`} />
-  <meta property="og:type" content="website" />
+  >
+  <link rel="canonical" href={`${SITE.URL}/icons/${iconName}`}>
+  <meta property="og:type" content="website">
   <meta
     property="og:title"
     content={`${displayName} Icon - Animated Icon for Svelte`}
-  />
-  <meta property="og:description" content={description} />
-  <meta property="og:url" content={`${SITE.URL}/icons/${iconName}`} />
-  <meta property="og:image" content={`${SITE.URL}${SITE.OG_IMAGE}`} />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content={SITE.AUTHOR.TWITTER} />
+  >
+  <meta property="og:description" content={description}>
+  <meta property="og:url" content={`${SITE.URL}/icons/${iconName}`}>
+  <meta property="og:image" content={`${SITE.URL}${SITE.OG_IMAGE}`}>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content={SITE.AUTHOR.TWITTER}>
   <meta
     name="twitter:title"
     content={`${displayName} Icon - Animated Icon for Svelte`}
-  />
-  <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content={`${SITE.URL}${SITE.OG_IMAGE}`} />
+  >
+  <meta name="twitter:description" content={description}>
+  <meta name="twitter:image" content={`${SITE.URL}${SITE.OG_IMAGE}`}>
   <script type="application/ld+json">
 {@html breadcrumbJsonLd}
   </script>
