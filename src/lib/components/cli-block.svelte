@@ -105,26 +105,28 @@
               class="overflow-hidden rounded-tr-[10px] rounded-br-[10px] rounded-bl-[10px] bg-white focus-visible:outline-1 focus-visible:outline-primary focus-visible:outline-offset-0 dark:bg-white/10 supports-[corner-shape:squircle]:corner-tr-squircle supports-[corner-shape:squircle]:corner-br-squircle supports-[corner-shape:squircle]:corner-bl-squircle supports-[corner-shape:squircle]:rounded-tr-[14px] supports-[corner-shape:squircle]:rounded-br-[14px] supports-[corner-shape:squircle]:rounded-bl-[14px] isolate whitespace-nowrap px-4 py-3 pr-20 font-mono text-sm tracking-[-0.39px] before:pointer-events-none before:absolute before:top-0 before:left-0 before:z-10 before:block before:h-full before:rounded-bl-[10px] supports-[corner-shape:squircle]:before:corner-bl-squircle supports-[corner-shape:squircle]:before:rounded-bl-[14px] before:transition-[width] before:duration-50 before:ease-out before:content-[''] before:w-[min(40px,var(--scroll-area-overflow-x-start))] before:bg-[linear-gradient(to_right,white,transparent)] dark:before:bg-[linear-gradient(to_right,rgb(47_47_47/1),transparent)] before:[--scroll-area-overflow-x-start:inherit] after:pointer-events-none after:absolute after:top-0 after:right-0 after:z-10 after:block after:h-full after:rounded-r-[10px] supports-[corner-shape:squircle]:after:corner-r-squircle supports-[corner-shape:squircle]:after:rounded-r-[14px] after:transition-[width] after:duration-50 after:ease-out after:content-[''] after:w-[calc(min(40px,var(--scroll-area-overflow-x-end,100px))+100px)] after:bg-[linear-gradient(to_left,white_0%,white_30%,transparent)] dark:after:bg-[linear-gradient(to_left,rgb(47_47_47/1)_0%,rgb(47_47_47/1)_30%,transparent)] after:[--scroll-area-overflow-x-end:inherit]"
             >
               <span class="sr-only">
-                {getPackageManagerPrefix(pm)}
-                {getShadcnCLI()} add @{SITE.NAME}/
-                {staticIconName || currentIconName}
+                {`${getPackageManagerPrefix(pm)} ${getShadcnCLI()} add @${SITE.NAME}${getRegistryPathPrefix()}${staticIconName || currentIconName}`}
               </span>
               <span class="text-neutral-600 dark:text-neutral-400">
                 {getPackageManagerPrefix(pm)}
               </span>
-              <span class="text-black dark:text-white">
-                {getShadcnCLI()} add @{SITE.NAME}
-                {getRegistryPathPrefix()}
-              </span>
-              {#if staticIconName}
-                <span class="shrink-0 text-primary">{staticIconName}</span>
-              {:else}
-                {#key loopIndex}
-                  <span class="shrink-0 text-primary text-loop">
-                    {currentIconName}
+              <span class="text-[0px] text-black dark:text-white">
+                <span class="text-sm">
+                  {`${getShadcnCLI()} add ${SITE.URL}`}
+                </span>
+                <span class="text-sm">{getRegistryPathPrefix()}</span>
+                {#if staticIconName}
+                  <span class="shrink-0 text-primary text-sm">
+                    {staticIconName}
                   </span>
-                {/key}
-              {/if}
+                {:else}
+                  {#key loopIndex}
+                    <span class="shrink-0 text-primary text-sm text-loop">
+                      {currentIconName}
+                    </span>
+                  {/key}
+                {/if}
+              </span>
             </div>
           </ScrollArea>
           <button

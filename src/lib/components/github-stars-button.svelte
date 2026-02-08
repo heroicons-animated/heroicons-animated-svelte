@@ -23,7 +23,7 @@
   </svg>
   <span
     aria-hidden="true"
-    class="text-center font-sans text-black text-sm tabular-nums tracking-[-0.4px] [text-shadow:-0.1px_0_0_currentColor,0.1px_0_0_currentColor] sm:inline dark:text-white"
+    class="hidden text-center font-sans text-black text-sm tabular-nums tracking-[-0.4px] [text-shadow:-0.1px_0_0_currentColor,0.1px_0_0_currentColor] sm:inline dark:text-white"
   >
     {stars.toLocaleString()}
   </span>
