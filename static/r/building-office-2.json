@@ -1,0 +1,16 @@
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+  "name": "building-office-2",
+  "title": "building-office-2",
+  "description": "Animated building-office-2 icon for Svelte",
+  "type": "registry:ui",
+  "registryDependencies": [],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "building-office-2.svelte",
+      "content": "<script lang=\"ts\">\nlet { size = 28, class: className = \"\", ...restProps } = $props();\n\nconst WINDOWS = [\n  { path: \"M6.75 12.75h.75\", index: 0 },\n  { path: \"M6.75 9.75h.75\", index: 1 },\n  { path: \"M6.75 6.75h.75\", index: 2 },\n  { path: \"M10.5 12.75h.75\", index: 0 },\n  { path: \"M10.5 9.75h.75\", index: 1 },\n  { path: \"M10.5 6.75h.75\", index: 2 },\n  { path: \"M17.25 17h.008v.008h-.008v-.008Z\", index: 0 },\n  { path: \"M17.25 14h.008v.008h-.008v-.008Z\", index: 1 },\n  { path: \"M17.25 11h.008v.008h-.008v-.008Z\", index: 2 },\n] as const;\n\nlet isAnimating = $state(false);\nlet isControlled = $state(false);\n\nexport function startAnimation() {\n  if (!isControlled) {\n    isAnimating = true;\n    setTimeout(() => {\n      isAnimating = false;\n    }, 700);\n  }\n}\n\nexport function stopAnimation() {\n  isAnimating = false;\n}\n\nexport function setControlled(value: boolean) {\n  isControlled = value;\n}\n\nfunction handleMouseEnter() {\n  if (!isControlled) {\n    startAnimation();\n  }\n}\n\nfunction handleMouseLeave() {\n  if (!isControlled) {\n    stopAnimation();\n  }\n}\n</script>\n\n<div\n  {...restProps}\n  class={className}\n  onmouseenter={handleMouseEnter}\n  onmouseleave={handleMouseLeave}\n  role=\"img\"\n>\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width={size}\n    height={size}\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    stroke-width=\"1.5\"\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n    class=\"icon-svg\"\n  >\n    <path\n      d=\"M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21\"\n    />\n    {#each WINDOWS as window}\n      <path\n        d={window.path}\n        class=\"buildingoffice2-window\"\n        class:buildingoffice2-animate={isAnimating}\n        style={`animation-delay: ${0.1 + window.index * 0.15}s`}\n      />\n    {/each}\n  </svg>\n</div>\n\n<style>\ndiv {\n  display: inline-block;\n}\n\n.icon-svg {\n  transform-box: fill-box;\n  transform-origin: center;\n}\n\n.buildingoffice2-window {\n  opacity: 1;\n}\n\n.buildingoffice2-window.buildingoffice2-animate {\n  animation: buildingoffice2-window 0.3s linear forwards;\n}\n\n@keyframes buildingoffice2-window {\n  0% {\n    opacity: 0;\n  }\n  100% {\n    opacity: 1;\n  }\n}\n</style>\n",
+      "type": "registry:ui"
+    }
+  ]
+}
