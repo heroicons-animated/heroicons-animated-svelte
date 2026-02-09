@@ -125,7 +125,7 @@
               </span>
               <span class="text-[0px] text-black dark:text-white">
                 <span class="text-sm">
-                  {`${getShadcnCLI()} add ${SITE.URL}`}
+                  {`${getShadcnCLI()} add ${SITE.URL}/r`}
                 </span>
                 <span class="text-sm">{getRegistryPathPrefix()}</span>
                 {#if staticIconName}

@@ -15,5 +15,5 @@ export const getCLICommand = (
 ): string => {
   const prefix = getPackageManagerPrefix(packageManager);
   const cli = getShadcnCLI();
-  return `${prefix} ${cli} add ${SITE.URL}${getRegistryPathPrefix()}${iconName}`;
+  return `${prefix} ${cli} add ${SITE.URL}/r${getRegistryPathPrefix()}${iconName}`;
 };
