@@ -30,9 +30,19 @@ pnpm add @heroicons-animated/svelte
 | `class`       | string  | —              | Optional additional CSS classes |
 | `animate`     | boolean | false          | Controls icon animation state   |
 
-### Tree-shakable Imports
+### Import Strategy
 
-Import individual icons to reduce bundle size:
+Both import styles are supported and tree-shakable in modern bundlers.
+
+Root named imports:
+
+```svelte
+<script>
+  import { Beaker, RocketLaunch } from '@heroicons-animated/svelte'
+</script>
+```
+
+Deep per-icon imports:
 
 ```svelte
 <script>
