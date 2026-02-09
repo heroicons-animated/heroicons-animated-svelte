@@ -1,5 +1,15 @@
 # @heroicons-animated/svelte
 
+## 1.2.3
+
+### Patch Changes
+
+- [`c9c55a9`](https://github.com/heroicons-animated/heroicons-animated-svelte/commit/c9c55a9039516e9a55f6022a063d03cb750304f5) Thanks [@Aniket-508](https://github.com/Aniket-508)! - Fix package subpath export resolution for deep icon imports in Vite/SvelteKit by
+  adding `import` and `default` conditions to package `exports`.
+
+  This ensures imports like `@heroicons-animated/svelte/beaker` resolve
+  consistently across tooling.
+
 ## 1.2.2
 
 ### Patch Changes
