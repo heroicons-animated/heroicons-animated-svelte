@@ -1,5 +1,11 @@
 # @heroicons-animated/svelte
 
+## 1.2.1
+
+### Patch Changes
+
+- [`8385da8`](https://github.com/heroicons-animated/heroicons-animated-svelte/commit/8385da8f5f8e2c3f11abe0cc268f73548122f47c) Thanks [@Aniket-508](https://github.com/Aniket-508)! - Improve release automation and documentation visibility for changelog updates.
+
 ## 1.2.0
 
 ### Minor Changes
