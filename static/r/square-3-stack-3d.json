@@ -1,16 +1,18 @@
 {
   "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
   "name": "square-3-stack-3d",
+  "type": "registry:component",
   "title": "square-3-stack-3d",
   "description": "Animated square-3-stack-3d icon for Svelte",
-  "type": "registry:ui",
+  "author": "Aniket Pawar <pawaraniket508@gmail.com>",
   "registryDependencies": [],
   "dependencies": [],
   "files": [
     {
-      "path": "square-3-stack-3d.svelte",
-      "content": "<script lang=\"ts\">\n  import type { IconProps } from \"./types.js\";\n  let {\n    color = \"currentColor\",\n    size = 28,\n    strokeWidth = 1.5,\n    animate = false,\n    class: className = \"\",\n    ...restProps\n  }: IconProps = $props();\n\n  let isHovered = $state(false);\n  let shouldAnimate = $derived(animate || isHovered);\n\n  function handleMouseEnter() {\n    isHovered = true;\n  }\n\n  function handleMouseLeave() {\n    isHovered = false;\n  }\n</script>\n\n<div\n  {...restProps}\n  class={className}\n  onmouseenter={handleMouseEnter}\n  onmouseleave={handleMouseLeave}\n  aria-label=\"square-3-stack-3d\"\n  role=\"img\"\n>\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width={size}\n    height={size}\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke={color}\n    stroke-width={strokeWidth}\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n    class=\"icon-svg\"\n    class:square3stack3d-stretch={shouldAnimate}\n  >\n    <path\n      d=\"M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3\"\n    />\n  </svg>\n</div>\n\n<style>\n  div {\n    display: inline-block;\n  }\n\n  .icon-svg {\n    transform-box: fill-box;\n    transform-origin: center;\n  }\n\n  .icon-svg.square3stack3d-stretch {\n    animation: square3stack3d-stretch 0.4s ease-in-out forwards;\n  }\n\n  @keyframes square3stack3d-stretch {\n    0%,\n    100% {\n      transform: scaleY(1);\n    }\n    50% {\n      transform: scaleY(1.08);\n    }\n  }\n</style>\n",
-      "type": "registry:ui"
+      "path": "src/lib/icons/square-3-stack-3d.svelte",
+      "type": "registry:component",
+      "target": "~/src/lib/components/heroicons-animated/square-3-stack-3d.svelte",
+      "content": "<script lang=\"ts\">\n  import type { IconProps } from \"./types.js\";\n  let {\n    color = \"currentColor\",\n    size = 28,\n    strokeWidth = 1.5,\n    animate = false,\n    class: className = \"\",\n    ...restProps\n  }: IconProps = $props();\n\n  let isHovered = $state(false);\n  let shouldAnimate = $derived(animate || isHovered);\n\n  function handleMouseEnter() {\n    isHovered = true;\n  }\n\n  function handleMouseLeave() {\n    isHovered = false;\n  }\n</script>\n\n<div\n  {...restProps}\n  class={className}\n  onmouseenter={handleMouseEnter}\n  onmouseleave={handleMouseLeave}\n  aria-label=\"square-3-stack-3d\"\n  role=\"img\"\n>\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width={size}\n    height={size}\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke={color}\n    stroke-width={strokeWidth}\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n    class=\"icon-svg\"\n    class:square3stack3d-stretch={shouldAnimate}\n  >\n    <path\n      d=\"M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3\"\n    />\n  </svg>\n</div>\n\n<style>\n  div {\n    display: inline-block;\n  }\n\n  .icon-svg {\n    transform-box: fill-box;\n    transform-origin: center;\n  }\n\n  .icon-svg.square3stack3d-stretch {\n    animation: square3stack3d-stretch 0.4s ease-in-out forwards;\n  }\n\n  @keyframes square3stack3d-stretch {\n    0%,\n    100% {\n      transform: scaleY(1);\n    }\n    50% {\n      transform: scaleY(1.08);\n    }\n  }\n</style>\n"
     }
   ]
 }

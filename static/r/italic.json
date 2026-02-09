@@ -1,16 +1,18 @@
 {
   "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
   "name": "italic",
+  "type": "registry:component",
   "title": "italic",
   "description": "Animated italic icon for Svelte",
-  "type": "registry:ui",
+  "author": "Aniket Pawar <pawaraniket508@gmail.com>",
   "registryDependencies": [],
   "dependencies": [],
   "files": [
     {
-      "path": "italic.svelte",
-      "content": "<script lang=\"ts\">\n  import type { IconProps } from \"./types.js\";\n  let {\n    color = \"currentColor\",\n    size = 28,\n    strokeWidth = 1.5,\n    animate = false,\n    class: className = \"\",\n    ...restProps\n  }: IconProps = $props();\n\n  let isHovered = $state(false);\n  let shouldAnimate = $derived(animate || isHovered);\n\n  function handleMouseEnter() {\n    isHovered = true;\n  }\n\n  function handleMouseLeave() {\n    isHovered = false;\n  }\n</script>\n\n<div\n  {...restProps}\n  class={className}\n  onmouseenter={handleMouseEnter}\n  onmouseleave={handleMouseLeave}\n  aria-label=\"italic\"\n  role=\"img\"\n>\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width={size}\n    height={size}\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke={color}\n    stroke-width={strokeWidth}\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n    class=\"icon-svg\"\n  >\n    <path\n      d=\"M5.248 20.246H9.05m0 0h3.696m-3.696 0 5.893-16.502m0 0h-3.697m3.697 0h3.803\"\n      pathLength=\"1\"\n      class=\"italic-path\"\n      class:italic-draw={shouldAnimate}\n    />\n  </svg>\n</div>\n\n<style>\n  div {\n    display: inline-block;\n  }\n\n  .icon-svg {\n    transform-box: fill-box;\n    transform-origin: center;\n  }\n\n  .italic-path {\n    stroke-dasharray: 1;\n    stroke-dashoffset: 0;\n    opacity: 1;\n  }\n\n  .italic-path.italic-draw {\n    animation: italic-draw 0.4s ease-out forwards;\n  }\n\n  @keyframes italic-draw {\n    0% {\n      stroke-dashoffset: 1;\n      opacity: 0;\n    }\n    100% {\n      stroke-dashoffset: 0;\n      opacity: 1;\n    }\n  }\n</style>\n",
-      "type": "registry:ui"
+      "path": "src/lib/icons/italic.svelte",
+      "type": "registry:component",
+      "target": "~/src/lib/components/heroicons-animated/italic.svelte",
+      "content": "<script lang=\"ts\">\n  import type { IconProps } from \"./types.js\";\n  let {\n    color = \"currentColor\",\n    size = 28,\n    strokeWidth = 1.5,\n    animate = false,\n    class: className = \"\",\n    ...restProps\n  }: IconProps = $props();\n\n  let isHovered = $state(false);\n  let shouldAnimate = $derived(animate || isHovered);\n\n  function handleMouseEnter() {\n    isHovered = true;\n  }\n\n  function handleMouseLeave() {\n    isHovered = false;\n  }\n</script>\n\n<div\n  {...restProps}\n  class={className}\n  onmouseenter={handleMouseEnter}\n  onmouseleave={handleMouseLeave}\n  aria-label=\"italic\"\n  role=\"img\"\n>\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width={size}\n    height={size}\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke={color}\n    stroke-width={strokeWidth}\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n    class=\"icon-svg\"\n  >\n    <path\n      d=\"M5.248 20.246H9.05m0 0h3.696m-3.696 0 5.893-16.502m0 0h-3.697m3.697 0h3.803\"\n      pathLength=\"1\"\n      class=\"italic-path\"\n      class:italic-draw={shouldAnimate}\n    />\n  </svg>\n</div>\n\n<style>\n  div {\n    display: inline-block;\n  }\n\n  .icon-svg {\n    transform-box: fill-box;\n    transform-origin: center;\n  }\n\n  .italic-path {\n    stroke-dasharray: 1;\n    stroke-dashoffset: 0;\n    opacity: 1;\n  }\n\n  .italic-path.italic-draw {\n    animation: italic-draw 0.4s ease-out forwards;\n  }\n\n  @keyframes italic-draw {\n    0% {\n      stroke-dashoffset: 1;\n      opacity: 0;\n    }\n    100% {\n      stroke-dashoffset: 0;\n      opacity: 1;\n    }\n  }\n</style>\n"
     }
   ]
 }

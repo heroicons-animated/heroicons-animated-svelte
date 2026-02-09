@@ -1,16 +1,18 @@
 {
   "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
   "name": "stop",
+  "type": "registry:component",
   "title": "stop",
   "description": "Animated stop icon for Svelte",
-  "type": "registry:ui",
+  "author": "Aniket Pawar <pawaraniket508@gmail.com>",
   "registryDependencies": [],
   "dependencies": [],
   "files": [
     {
-      "path": "stop.svelte",
-      "content": "<script lang=\"ts\">\n  import type { IconProps } from \"./types.js\";\n  let {\n    color = \"currentColor\",\n    size = 28,\n    strokeWidth = 1.5,\n    animate = false,\n    class: className = \"\",\n    ...restProps\n  }: IconProps = $props();\n\n  let isHovered = $state(false);\n  let shouldAnimate = $derived(animate || isHovered);\n\n  function handleMouseEnter() {\n    isHovered = true;\n  }\n\n  function handleMouseLeave() {\n    isHovered = false;\n  }\n</script>\n\n<div\n  {...restProps}\n  class={className}\n  onmouseenter={handleMouseEnter}\n  onmouseleave={handleMouseLeave}\n  aria-label=\"stop\"\n  role=\"img\"\n>\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width={size}\n    height={size}\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke={color}\n    stroke-width={strokeWidth}\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n    class=\"icon-svg\"\n    class:stop-animate={shouldAnimate}\n  >\n    <path\n      d=\"M5.25 7.5A2.25 2.25 0 0 1 7.5 5.25h9a2.25 2.25 0 0 1 2.25 2.25v9a2.25 2.25 0 0 1-2.25 2.25h-9a2.25 2.25 0 0 1-2.25-2.25v-9Z\"\n    />\n  </svg>\n</div>\n\n<style>\n  div {\n    display: inline-block;\n  }\n\n  .icon-svg {\n    transform-box: fill-box;\n    transform-origin: center;\n    transition: transform 0.2s ease-in-out;\n  }\n\n  .icon-svg.stop-animate {\n    animation: stop-animate 0.2s ease-in-out forwards;\n  }\n\n  @keyframes stop-animate {\n    0% {\n      transform: scale(1);\n    }\n    50% {\n      transform: scale(0.9);\n    }\n    100% {\n      transform: scale(1);\n    }\n  }\n</style>\n",
-      "type": "registry:ui"
+      "path": "src/lib/icons/stop.svelte",
+      "type": "registry:component",
+      "target": "~/src/lib/components/heroicons-animated/stop.svelte",
+      "content": "<script lang=\"ts\">\n  import type { IconProps } from \"./types.js\";\n  let {\n    color = \"currentColor\",\n    size = 28,\n    strokeWidth = 1.5,\n    animate = false,\n    class: className = \"\",\n    ...restProps\n  }: IconProps = $props();\n\n  let isHovered = $state(false);\n  let shouldAnimate = $derived(animate || isHovered);\n\n  function handleMouseEnter() {\n    isHovered = true;\n  }\n\n  function handleMouseLeave() {\n    isHovered = false;\n  }\n</script>\n\n<div\n  {...restProps}\n  class={className}\n  onmouseenter={handleMouseEnter}\n  onmouseleave={handleMouseLeave}\n  aria-label=\"stop\"\n  role=\"img\"\n>\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width={size}\n    height={size}\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke={color}\n    stroke-width={strokeWidth}\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n    class=\"icon-svg\"\n    class:stop-animate={shouldAnimate}\n  >\n    <path\n      d=\"M5.25 7.5A2.25 2.25 0 0 1 7.5 5.25h9a2.25 2.25 0 0 1 2.25 2.25v9a2.25 2.25 0 0 1-2.25 2.25h-9a2.25 2.25 0 0 1-2.25-2.25v-9Z\"\n    />\n  </svg>\n</div>\n\n<style>\n  div {\n    display: inline-block;\n  }\n\n  .icon-svg {\n    transform-box: fill-box;\n    transform-origin: center;\n    transition: transform 0.2s ease-in-out;\n  }\n\n  .icon-svg.stop-animate {\n    animation: stop-animate 0.2s ease-in-out forwards;\n  }\n\n  @keyframes stop-animate {\n    0% {\n      transform: scale(1);\n    }\n    50% {\n      transform: scale(0.9);\n    }\n    100% {\n      transform: scale(1);\n    }\n  }\n</style>\n"
     }
   ]
 }

@@ -1,16 +1,18 @@
 {
   "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
   "name": "device-phone-mobile",
+  "type": "registry:component",
   "title": "device-phone-mobile",
   "description": "Animated device-phone-mobile icon for Svelte",
-  "type": "registry:ui",
+  "author": "Aniket Pawar <pawaraniket508@gmail.com>",
   "registryDependencies": [],
   "dependencies": [],
   "files": [
     {
-      "path": "device-phone-mobile.svelte",
-      "content": "<script lang=\"ts\">\n  import type { IconProps } from \"./types.js\";\n  let {\n    color = \"currentColor\",\n    size = 28,\n    strokeWidth = 1.5,\n    animate = false,\n    class: className = \"\",\n    ...restProps\n  }: IconProps = $props();\n\n  let isHovered = $state(false);\n  let shouldAnimate = $derived(animate || isHovered);\n\n  function handleMouseEnter() {\n    isHovered = true;\n  }\n\n  function handleMouseLeave() {\n    isHovered = false;\n  }\n</script>\n\n<div\n  {...restProps}\n  class={className}\n  onmouseenter={handleMouseEnter}\n  onmouseleave={handleMouseLeave}\n  aria-label=\"device-phone-mobile\"\n  role=\"img\"\n>\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width={size}\n    height={size}\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke={color}\n    stroke-width={strokeWidth}\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n    class=\"icon-svg\"\n    class:devicephonemobile-shake={shouldAnimate}\n  >\n    <path\n      d=\"M10.5 1.5H8.25C7.00736 1.5 6 2.50736 6 3.75V20.25C6 21.4926 7.00736 22.5 8.25 22.5H15.75C16.9926 22.5 18 21.4926 18 20.25V3.75C18 2.50736 16.9926 1.5 15.75 1.5H13.5M10.5 1.5V3H13.5V1.5M10.5 1.5H13.5M10.5 20.25H13.5\"\n    />\n  </svg>\n</div>\n\n<style>\n  div {\n    display: inline-block;\n  }\n\n  .icon-svg {\n    transform-box: fill-box;\n    transform-origin: 50% 50%;\n  }\n\n  .icon-svg.devicephonemobile-shake {\n    animation: devicephonemobile-shake 0.5s ease-in-out;\n  }\n\n  @keyframes devicephonemobile-shake {\n    0%,\n    100% {\n      transform: rotate(0deg);\n    }\n    14% {\n      transform: rotate(-5deg);\n    }\n    28% {\n      transform: rotate(5deg);\n    }\n    42% {\n      transform: rotate(-5deg);\n    }\n    57% {\n      transform: rotate(5deg);\n    }\n    71% {\n      transform: rotate(-3deg);\n    }\n    85% {\n      transform: rotate(3deg);\n    }\n  }\n</style>\n",
-      "type": "registry:ui"
+      "path": "src/lib/icons/device-phone-mobile.svelte",
+      "type": "registry:component",
+      "target": "~/src/lib/components/heroicons-animated/device-phone-mobile.svelte",
+      "content": "<script lang=\"ts\">\n  import type { IconProps } from \"./types.js\";\n  let {\n    color = \"currentColor\",\n    size = 28,\n    strokeWidth = 1.5,\n    animate = false,\n    class: className = \"\",\n    ...restProps\n  }: IconProps = $props();\n\n  let isHovered = $state(false);\n  let shouldAnimate = $derived(animate || isHovered);\n\n  function handleMouseEnter() {\n    isHovered = true;\n  }\n\n  function handleMouseLeave() {\n    isHovered = false;\n  }\n</script>\n\n<div\n  {...restProps}\n  class={className}\n  onmouseenter={handleMouseEnter}\n  onmouseleave={handleMouseLeave}\n  aria-label=\"device-phone-mobile\"\n  role=\"img\"\n>\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width={size}\n    height={size}\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke={color}\n    stroke-width={strokeWidth}\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n    class=\"icon-svg\"\n    class:devicephonemobile-shake={shouldAnimate}\n  >\n    <path\n      d=\"M10.5 1.5H8.25C7.00736 1.5 6 2.50736 6 3.75V20.25C6 21.4926 7.00736 22.5 8.25 22.5H15.75C16.9926 22.5 18 21.4926 18 20.25V3.75C18 2.50736 16.9926 1.5 15.75 1.5H13.5M10.5 1.5V3H13.5V1.5M10.5 1.5H13.5M10.5 20.25H13.5\"\n    />\n  </svg>\n</div>\n\n<style>\n  div {\n    display: inline-block;\n  }\n\n  .icon-svg {\n    transform-box: fill-box;\n    transform-origin: 50% 50%;\n  }\n\n  .icon-svg.devicephonemobile-shake {\n    animation: devicephonemobile-shake 0.5s ease-in-out;\n  }\n\n  @keyframes devicephonemobile-shake {\n    0%,\n    100% {\n      transform: rotate(0deg);\n    }\n    14% {\n      transform: rotate(-5deg);\n    }\n    28% {\n      transform: rotate(5deg);\n    }\n    42% {\n      transform: rotate(-5deg);\n    }\n    57% {\n      transform: rotate(5deg);\n    }\n    71% {\n      transform: rotate(-3deg);\n    }\n    85% {\n      transform: rotate(3deg);\n    }\n  }\n</style>\n"
     }
   ]
 }

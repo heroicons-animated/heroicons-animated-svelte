@@ -1,16 +1,18 @@
 {
   "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
   "name": "play",
+  "type": "registry:component",
   "title": "play",
   "description": "Animated play icon for Svelte",
-  "type": "registry:ui",
+  "author": "Aniket Pawar <pawaraniket508@gmail.com>",
   "registryDependencies": [],
   "dependencies": [],
   "files": [
     {
-      "path": "play.svelte",
-      "content": "<script lang=\"ts\">\n  import type { IconProps } from \"./types.js\";\n  let {\n    color = \"currentColor\",\n    size = 28,\n    strokeWidth = 1.5,\n    animate = false,\n    class: className = \"\",\n    ...restProps\n  }: IconProps = $props();\n\n  let isHovered = $state(false);\n  let shouldAnimate = $derived(animate || isHovered);\n\n  function handleMouseEnter() {\n    isHovered = true;\n  }\n\n  function handleMouseLeave() {\n    isHovered = false;\n  }\n</script>\n\n<div\n  {...restProps}\n  class={className}\n  onmouseenter={handleMouseEnter}\n  onmouseleave={handleMouseLeave}\n  aria-label=\"play\"\n  role=\"img\"\n>\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width={size}\n    height={size}\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke={color}\n    stroke-width={strokeWidth}\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n    class=\"icon-svg\"\n  >\n    <path\n      d=\"M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z\"\n      class=\"play-triangle\"\n      class:play-triangle-animate={shouldAnimate}\n    />\n  </svg>\n</div>\n\n<style>\n  div {\n    display: inline-block;\n  }\n\n  .icon-svg {\n    transform-box: fill-box;\n    transform-origin: center;\n  }\n\n  .play-triangle {\n    transform-box: fill-box;\n    transform-origin: center;\n  }\n\n  .play-triangle.play-triangle-animate {\n    animation: play-triangle-bounce 0.5s ease-in-out forwards;\n  }\n\n  @keyframes play-triangle-bounce {\n    0% {\n      transform: translateX(0) rotate(0deg);\n    }\n    20% {\n      transform: translateX(-1px) rotate(-10deg);\n    }\n    50% {\n      transform: translateX(2px) rotate(0deg);\n    }\n    100% {\n      transform: translateX(0) rotate(0deg);\n    }\n  }\n</style>\n",
-      "type": "registry:ui"
+      "path": "src/lib/icons/play.svelte",
+      "type": "registry:component",
+      "target": "~/src/lib/components/heroicons-animated/play.svelte",
+      "content": "<script lang=\"ts\">\n  import type { IconProps } from \"./types.js\";\n  let {\n    color = \"currentColor\",\n    size = 28,\n    strokeWidth = 1.5,\n    animate = false,\n    class: className = \"\",\n    ...restProps\n  }: IconProps = $props();\n\n  let isHovered = $state(false);\n  let shouldAnimate = $derived(animate || isHovered);\n\n  function handleMouseEnter() {\n    isHovered = true;\n  }\n\n  function handleMouseLeave() {\n    isHovered = false;\n  }\n</script>\n\n<div\n  {...restProps}\n  class={className}\n  onmouseenter={handleMouseEnter}\n  onmouseleave={handleMouseLeave}\n  aria-label=\"play\"\n  role=\"img\"\n>\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width={size}\n    height={size}\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke={color}\n    stroke-width={strokeWidth}\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n    class=\"icon-svg\"\n  >\n    <path\n      d=\"M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z\"\n      class=\"play-triangle\"\n      class:play-triangle-animate={shouldAnimate}\n    />\n  </svg>\n</div>\n\n<style>\n  div {\n    display: inline-block;\n  }\n\n  .icon-svg {\n    transform-box: fill-box;\n    transform-origin: center;\n  }\n\n  .play-triangle {\n    transform-box: fill-box;\n    transform-origin: center;\n  }\n\n  .play-triangle.play-triangle-animate {\n    animation: play-triangle-bounce 0.5s ease-in-out forwards;\n  }\n\n  @keyframes play-triangle-bounce {\n    0% {\n      transform: translateX(0) rotate(0deg);\n    }\n    20% {\n      transform: translateX(-1px) rotate(-10deg);\n    }\n    50% {\n      transform: translateX(2px) rotate(0deg);\n    }\n    100% {\n      transform: translateX(0) rotate(0deg);\n    }\n  }\n</style>\n"
     }
   ]
 }

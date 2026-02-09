@@ -1,16 +1,18 @@
 {
   "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
   "name": "arrow-top-right-on-square",
+  "type": "registry:component",
   "title": "arrow-top-right-on-square",
   "description": "Animated arrow-top-right-on-square icon for Svelte",
-  "type": "registry:ui",
+  "author": "Aniket Pawar <pawaraniket508@gmail.com>",
   "registryDependencies": [],
   "dependencies": [],
   "files": [
     {
-      "path": "arrow-top-right-on-square.svelte",
-      "content": "<script lang=\"ts\">\n  import type { IconProps } from \"./types.js\";\n  let {\n    color = \"currentColor\",\n    size = 28,\n    strokeWidth = 1.5,\n    animate = false,\n    class: className = \"\",\n    ...restProps\n  }: IconProps = $props();\n\n  let isHovered = $state(false);\n  let shouldAnimate = $derived(animate || isHovered);\n\n  let arrowPath: SVGPathElement;\n\n  function handleMouseEnter() {\n    isHovered = true;\n  }\n\n  function handleMouseLeave() {\n    isHovered = false;\n  }\n</script>\n\n<div\n  {...restProps}\n  class={className}\n  onmouseenter={handleMouseEnter}\n  onmouseleave={handleMouseLeave}\n  aria-label=\"arrow-top-right-on-square\"\n  role=\"img\"\n>\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width={size}\n    height={size}\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke={color}\n    stroke-width={strokeWidth}\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n    class=\"icon-svg\"\n  >\n    <path\n      d=\"M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5\"\n    />\n    <path\n      bind:this={arrowPath}\n      class=\"arrow-path\"\n      class:animate={shouldAnimate}\n      d=\"M7.5 16.5L21 3m0 0h-5.25M21 3v5.25\"\n    />\n  </svg>\n</div>\n\n<style>\n  div {\n    display: inline-block;\n  }\n\n  .icon-svg {\n    transform-box: fill-box;\n    transform-origin: center;\n  }\n\n  .arrow-path {\n    transform-box: fill-box;\n    transform-origin: 100% 0%;\n    transition: transform 0.5s ease-in-out;\n  }\n\n  .arrow-path.animate {\n    animation: arrow-move 0.5s ease-in-out forwards;\n  }\n\n  @keyframes arrow-move {\n    0% {\n      transform: translate(0, 0);\n    }\n    50% {\n      transform: translate(2px, -2px);\n    }\n    100% {\n      transform: translate(0, 0);\n    }\n  }\n</style>\n",
-      "type": "registry:ui"
+      "path": "src/lib/icons/arrow-top-right-on-square.svelte",
+      "type": "registry:component",
+      "target": "~/src/lib/components/heroicons-animated/arrow-top-right-on-square.svelte",
+      "content": "<script lang=\"ts\">\n  import type { IconProps } from \"./types.js\";\n  let {\n    color = \"currentColor\",\n    size = 28,\n    strokeWidth = 1.5,\n    animate = false,\n    class: className = \"\",\n    ...restProps\n  }: IconProps = $props();\n\n  let isHovered = $state(false);\n  let shouldAnimate = $derived(animate || isHovered);\n\n  let arrowPath: SVGPathElement;\n\n  function handleMouseEnter() {\n    isHovered = true;\n  }\n\n  function handleMouseLeave() {\n    isHovered = false;\n  }\n</script>\n\n<div\n  {...restProps}\n  class={className}\n  onmouseenter={handleMouseEnter}\n  onmouseleave={handleMouseLeave}\n  aria-label=\"arrow-top-right-on-square\"\n  role=\"img\"\n>\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width={size}\n    height={size}\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke={color}\n    stroke-width={strokeWidth}\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n    class=\"icon-svg\"\n  >\n    <path\n      d=\"M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5\"\n    />\n    <path\n      bind:this={arrowPath}\n      class=\"arrow-path\"\n      class:animate={shouldAnimate}\n      d=\"M7.5 16.5L21 3m0 0h-5.25M21 3v5.25\"\n    />\n  </svg>\n</div>\n\n<style>\n  div {\n    display: inline-block;\n  }\n\n  .icon-svg {\n    transform-box: fill-box;\n    transform-origin: center;\n  }\n\n  .arrow-path {\n    transform-box: fill-box;\n    transform-origin: 100% 0%;\n    transition: transform 0.5s ease-in-out;\n  }\n\n  .arrow-path.animate {\n    animation: arrow-move 0.5s ease-in-out forwards;\n  }\n\n  @keyframes arrow-move {\n    0% {\n      transform: translate(0, 0);\n    }\n    50% {\n      transform: translate(2px, -2px);\n    }\n    100% {\n      transform: translate(0, 0);\n    }\n  }\n</style>\n"
     }
   ]
 }

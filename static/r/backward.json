@@ -1,16 +1,18 @@
 {
   "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
   "name": "backward",
+  "type": "registry:component",
   "title": "backward",
   "description": "Animated backward icon for Svelte",
-  "type": "registry:ui",
+  "author": "Aniket Pawar <pawaraniket508@gmail.com>",
   "registryDependencies": [],
   "dependencies": [],
   "files": [
     {
-      "path": "backward.svelte",
-      "content": "<script lang=\"ts\">\n  import type { IconProps } from \"./types.js\";\n  let {\n    color = \"currentColor\",\n    size = 28,\n    strokeWidth = 1.5,\n    animate = false,\n    class: className = \"\",\n    ...restProps\n  }: IconProps = $props();\n\n  let isHovered = $state(false);\n  let shouldAnimate = $derived(animate || isHovered);\n\n  let svgElement: SVGSVGElement;\n\n  function handleMouseEnter() {\n    isHovered = true;\n  }\n\n  function handleMouseLeave() {\n    isHovered = false;\n  }\n</script>\n\n<div\n  {...restProps}\n  class={className}\n  onmouseenter={handleMouseEnter}\n  onmouseleave={handleMouseLeave}\n  aria-label=\"backward\"\n  role=\"img\"\n>\n  <svg\n    bind:this={svgElement}\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width={size}\n    height={size}\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke={color}\n    stroke-width={strokeWidth}\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n    class=\"icon-svg\"\n    class:animate={shouldAnimate}\n  >\n    <path\n      d=\"M21 16.811c0 .864-.933 1.406-1.683.977l-7.108-4.061a1.125 1.125 0 0 1 0-1.954l7.108-4.061A1.125 1.125 0 0 1 21 8.689v8.122ZM11.25 16.811c0 .864-.933 1.406-1.683.977l-7.108-4.061a1.125 1.125 0 0 1 0-1.954l7.108-4.061a1.125 1.125 0 0 1 1.683.977v8.122Z\"\n    />\n  </svg>\n</div>\n\n<style>\n  div {\n    display: inline-block;\n  }\n\n  .icon-svg {\n    transform-box: fill-box;\n    transform-origin: center;\n    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);\n  }\n\n  .icon-svg.animate {\n    animation: svg-move-rotate 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;\n  }\n\n  @keyframes svg-move-rotate {\n    0% {\n      transform: translateX(0) rotate(0deg);\n    }\n    20% {\n      transform: translateX(1px) rotate(10deg);\n    }\n    50% {\n      transform: translateX(-2px) rotate(0deg);\n    }\n    100% {\n      transform: translateX(0) rotate(0deg);\n    }\n  }\n</style>\n",
-      "type": "registry:ui"
+      "path": "src/lib/icons/backward.svelte",
+      "type": "registry:component",
+      "target": "~/src/lib/components/heroicons-animated/backward.svelte",
+      "content": "<script lang=\"ts\">\n  import type { IconProps } from \"./types.js\";\n  let {\n    color = \"currentColor\",\n    size = 28,\n    strokeWidth = 1.5,\n    animate = false,\n    class: className = \"\",\n    ...restProps\n  }: IconProps = $props();\n\n  let isHovered = $state(false);\n  let shouldAnimate = $derived(animate || isHovered);\n\n  let svgElement: SVGSVGElement;\n\n  function handleMouseEnter() {\n    isHovered = true;\n  }\n\n  function handleMouseLeave() {\n    isHovered = false;\n  }\n</script>\n\n<div\n  {...restProps}\n  class={className}\n  onmouseenter={handleMouseEnter}\n  onmouseleave={handleMouseLeave}\n  aria-label=\"backward\"\n  role=\"img\"\n>\n  <svg\n    bind:this={svgElement}\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width={size}\n    height={size}\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke={color}\n    stroke-width={strokeWidth}\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n    class=\"icon-svg\"\n    class:animate={shouldAnimate}\n  >\n    <path\n      d=\"M21 16.811c0 .864-.933 1.406-1.683.977l-7.108-4.061a1.125 1.125 0 0 1 0-1.954l7.108-4.061A1.125 1.125 0 0 1 21 8.689v8.122ZM11.25 16.811c0 .864-.933 1.406-1.683.977l-7.108-4.061a1.125 1.125 0 0 1 0-1.954l7.108-4.061a1.125 1.125 0 0 1 1.683.977v8.122Z\"\n    />\n  </svg>\n</div>\n\n<style>\n  div {\n    display: inline-block;\n  }\n\n  .icon-svg {\n    transform-box: fill-box;\n    transform-origin: center;\n    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);\n  }\n\n  .icon-svg.animate {\n    animation: svg-move-rotate 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;\n  }\n\n  @keyframes svg-move-rotate {\n    0% {\n      transform: translateX(0) rotate(0deg);\n    }\n    20% {\n      transform: translateX(1px) rotate(10deg);\n    }\n    50% {\n      transform: translateX(-2px) rotate(0deg);\n    }\n    100% {\n      transform: translateX(0) rotate(0deg);\n    }\n  }\n</style>\n"
     }
   ]
 }

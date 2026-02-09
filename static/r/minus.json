@@ -1,16 +1,18 @@
 {
   "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
   "name": "minus",
+  "type": "registry:component",
   "title": "minus",
   "description": "Animated minus icon for Svelte",
-  "type": "registry:ui",
+  "author": "Aniket Pawar <pawaraniket508@gmail.com>",
   "registryDependencies": [],
   "dependencies": [],
   "files": [
     {
-      "path": "minus.svelte",
-      "content": "<script lang=\"ts\">\n  import type { IconProps } from \"./types.js\";\n  let {\n    color = \"currentColor\",\n    size = 28,\n    strokeWidth = 1.5,\n    animate = false,\n    class: className = \"\",\n    ...restProps\n  }: IconProps = $props();\n\n  let isHovered = $state(false);\n  let shouldAnimate = $derived(animate || isHovered);\n\n  function handleMouseEnter() {\n    isHovered = true;\n  }\n\n  function handleMouseLeave() {\n    isHovered = false;\n  }\n</script>\n\n<div\n  {...restProps}\n  class={className}\n  onmouseenter={handleMouseEnter}\n  onmouseleave={handleMouseLeave}\n  aria-label=\"minus\"\n  role=\"img\"\n>\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width={size}\n    height={size}\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke={color}\n    stroke-width={strokeWidth}\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n    class=\"icon-svg\"\n  >\n    <path\n      d=\"M5 12h14\"\n      pathLength=\"1\"\n      class=\"minus-line\"\n      class:minus-line-animate={shouldAnimate}\n    />\n  </svg>\n</div>\n\n<style>\n  div {\n    display: inline-block;\n  }\n\n  .icon-svg {\n    transform-box: fill-box;\n    transform-origin: center;\n  }\n\n  .minus-line {\n    stroke-dasharray: 1;\n    stroke-dashoffset: 0;\n  }\n\n  .minus-line.minus-line-animate {\n    animation: minus-line-draw 0.3s ease-out forwards;\n  }\n\n  @keyframes minus-line-draw {\n    0% {\n      stroke-dashoffset: 1;\n      opacity: 0;\n    }\n    33% {\n      opacity: 1;\n    }\n    100% {\n      stroke-dashoffset: 0;\n      opacity: 1;\n    }\n  }\n</style>\n",
-      "type": "registry:ui"
+      "path": "src/lib/icons/minus.svelte",
+      "type": "registry:component",
+      "target": "~/src/lib/components/heroicons-animated/minus.svelte",
+      "content": "<script lang=\"ts\">\n  import type { IconProps } from \"./types.js\";\n  let {\n    color = \"currentColor\",\n    size = 28,\n    strokeWidth = 1.5,\n    animate = false,\n    class: className = \"\",\n    ...restProps\n  }: IconProps = $props();\n\n  let isHovered = $state(false);\n  let shouldAnimate = $derived(animate || isHovered);\n\n  function handleMouseEnter() {\n    isHovered = true;\n  }\n\n  function handleMouseLeave() {\n    isHovered = false;\n  }\n</script>\n\n<div\n  {...restProps}\n  class={className}\n  onmouseenter={handleMouseEnter}\n  onmouseleave={handleMouseLeave}\n  aria-label=\"minus\"\n  role=\"img\"\n>\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width={size}\n    height={size}\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke={color}\n    stroke-width={strokeWidth}\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n    class=\"icon-svg\"\n  >\n    <path\n      d=\"M5 12h14\"\n      pathLength=\"1\"\n      class=\"minus-line\"\n      class:minus-line-animate={shouldAnimate}\n    />\n  </svg>\n</div>\n\n<style>\n  div {\n    display: inline-block;\n  }\n\n  .icon-svg {\n    transform-box: fill-box;\n    transform-origin: center;\n  }\n\n  .minus-line {\n    stroke-dasharray: 1;\n    stroke-dashoffset: 0;\n  }\n\n  .minus-line.minus-line-animate {\n    animation: minus-line-draw 0.3s ease-out forwards;\n  }\n\n  @keyframes minus-line-draw {\n    0% {\n      stroke-dashoffset: 1;\n      opacity: 0;\n    }\n    33% {\n      opacity: 1;\n    }\n    100% {\n      stroke-dashoffset: 0;\n      opacity: 1;\n    }\n  }\n</style>\n"
     }
   ]
 }

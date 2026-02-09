@@ -1,16 +1,18 @@
 {
   "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
   "name": "arrow-up-tray",
+  "type": "registry:component",
   "title": "arrow-up-tray",
   "description": "Animated arrow-up-tray icon for Svelte",
-  "type": "registry:ui",
+  "author": "Aniket Pawar <pawaraniket508@gmail.com>",
   "registryDependencies": [],
   "dependencies": [],
   "files": [
     {
-      "path": "arrow-up-tray.svelte",
-      "content": "<script lang=\"ts\">\n  import type { IconProps } from \"./types.js\";\n  let {\n    color = \"currentColor\",\n    size = 28,\n    strokeWidth = 1.5,\n    animate = false,\n    class: className = \"\",\n    ...restProps\n  }: IconProps = $props();\n\n  let isHovered = $state(false);\n  let shouldAnimate = $derived(animate || isHovered);\n\n  function handleMouseEnter() {\n    isHovered = true;\n  }\n\n  function handleMouseLeave() {\n    isHovered = false;\n  }\n</script>\n\n<div\n  {...restProps}\n  class={className}\n  onmouseenter={handleMouseEnter}\n  onmouseleave={handleMouseLeave}\n  aria-label=\"arrow-up-tray\"\n  role=\"img\"\n>\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width={size}\n    height={size}\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke={color}\n    stroke-width={strokeWidth}\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n    class=\"icon-svg\"\n  >\n    <path\n      d=\"M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5\"\n    />\n    <g class=\"arrow-group\" class:animate={shouldAnimate}>\n      <path d=\"M7.5 7.5L12 3m0 0 4.5 4.5M12 3v13.5\" />\n    </g>\n  </svg>\n</div>\n\n<style>\n  div {\n    display: inline-block;\n  }\n\n  .icon-svg {\n    transform-box: fill-box;\n    transform-origin: center;\n  }\n\n  .arrow-group {\n    transform-box: fill-box;\n    transform-origin: center;\n    transition: transform 0.5s ease-in-out;\n  }\n\n  .arrow-group.animate {\n    animation: arrow-translate 0.5s ease-in-out forwards;\n  }\n\n  @keyframes arrow-translate {\n    0% {\n      transform: translateY(0);\n    }\n    40% {\n      transform: translateY(-2px);\n    }\n    100% {\n      transform: translateY(0);\n    }\n  }\n</style>\n",
-      "type": "registry:ui"
+      "path": "src/lib/icons/arrow-up-tray.svelte",
+      "type": "registry:component",
+      "target": "~/src/lib/components/heroicons-animated/arrow-up-tray.svelte",
+      "content": "<script lang=\"ts\">\n  import type { IconProps } from \"./types.js\";\n  let {\n    color = \"currentColor\",\n    size = 28,\n    strokeWidth = 1.5,\n    animate = false,\n    class: className = \"\",\n    ...restProps\n  }: IconProps = $props();\n\n  let isHovered = $state(false);\n  let shouldAnimate = $derived(animate || isHovered);\n\n  function handleMouseEnter() {\n    isHovered = true;\n  }\n\n  function handleMouseLeave() {\n    isHovered = false;\n  }\n</script>\n\n<div\n  {...restProps}\n  class={className}\n  onmouseenter={handleMouseEnter}\n  onmouseleave={handleMouseLeave}\n  aria-label=\"arrow-up-tray\"\n  role=\"img\"\n>\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width={size}\n    height={size}\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke={color}\n    stroke-width={strokeWidth}\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n    class=\"icon-svg\"\n  >\n    <path\n      d=\"M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5\"\n    />\n    <g class=\"arrow-group\" class:animate={shouldAnimate}>\n      <path d=\"M7.5 7.5L12 3m0 0 4.5 4.5M12 3v13.5\" />\n    </g>\n  </svg>\n</div>\n\n<style>\n  div {\n    display: inline-block;\n  }\n\n  .icon-svg {\n    transform-box: fill-box;\n    transform-origin: center;\n  }\n\n  .arrow-group {\n    transform-box: fill-box;\n    transform-origin: center;\n    transition: transform 0.5s ease-in-out;\n  }\n\n  .arrow-group.animate {\n    animation: arrow-translate 0.5s ease-in-out forwards;\n  }\n\n  @keyframes arrow-translate {\n    0% {\n      transform: translateY(0);\n    }\n    40% {\n      transform: translateY(-2px);\n    }\n    100% {\n      transform: translateY(0);\n    }\n  }\n</style>\n"
     }
   ]
 }

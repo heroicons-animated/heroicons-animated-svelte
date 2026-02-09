@@ -1,16 +1,18 @@
 {
   "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
   "name": "rss",
+  "type": "registry:component",
   "title": "rss",
   "description": "Animated rss icon for Svelte",
-  "type": "registry:ui",
+  "author": "Aniket Pawar <pawaraniket508@gmail.com>",
   "registryDependencies": [],
   "dependencies": [],
   "files": [
     {
-      "path": "rss.svelte",
-      "content": "<script lang=\"ts\">\n  import type { IconProps } from \"./types.js\";\n  let {\n    color = \"currentColor\",\n    size = 28,\n    strokeWidth = 1.5,\n    animate = false,\n    class: className = \"\",\n    ...restProps\n  }: IconProps = $props();\n\n  let isHovered = $state(false);\n  let shouldAnimate = $derived(animate || isHovered);\n\n  function handleMouseEnter() {\n    isHovered = true;\n  }\n\n  function handleMouseLeave() {\n    isHovered = false;\n  }\n</script>\n\n<div\n  {...restProps}\n  class={className}\n  onmouseenter={handleMouseEnter}\n  onmouseleave={handleMouseLeave}\n  aria-label=\"rss\"\n  role=\"img\"\n>\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width={size}\n    height={size}\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke={color}\n    stroke-width={strokeWidth}\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n    class=\"icon-svg\"\n  >\n    <path d=\"M6 18.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z\" />\n    <path\n      class=\"rss-wave rss-wave-1\"\n      class:rss-wave-pulse={shouldAnimate}\n      d=\"M12.75 19.5v-.75a7.5 7.5 0 0 0-7.5-7.5H4.5\"\n    />\n    <path\n      class=\"rss-wave rss-wave-2\"\n      class:rss-wave-pulse={shouldAnimate}\n      d=\"M4.5 4.5h.75c7.87 0 14.25 6.38 14.25 14.25v.75\"\n    />\n  </svg>\n</div>\n\n<style>\n  div {\n    display: inline-block;\n  }\n\n  .icon-svg {\n    transform-box: fill-box;\n    transform-origin: center;\n  }\n\n  .rss-wave {\n    transform-origin: center;\n    opacity: 1;\n    transform: scale(1);\n  }\n\n  .rss-wave.rss-wave-pulse {\n    animation: rss-wave-pulse 0.4s ease-in-out forwards;\n  }\n\n  .rss-wave-1.rss-wave-pulse {\n    animation-delay: 0s;\n  }\n  .rss-wave-2.rss-wave-pulse {\n    animation-delay: 0.2s;\n  }\n\n  @keyframes rss-wave-pulse {\n    0%,\n    100% {\n      opacity: 1;\n      transform: scale(1);\n    }\n    50% {\n      opacity: 0;\n      transform: scale(0);\n    }\n  }\n</style>\n",
-      "type": "registry:ui"
+      "path": "src/lib/icons/rss.svelte",
+      "type": "registry:component",
+      "target": "~/src/lib/components/heroicons-animated/rss.svelte",
+      "content": "<script lang=\"ts\">\n  import type { IconProps } from \"./types.js\";\n  let {\n    color = \"currentColor\",\n    size = 28,\n    strokeWidth = 1.5,\n    animate = false,\n    class: className = \"\",\n    ...restProps\n  }: IconProps = $props();\n\n  let isHovered = $state(false);\n  let shouldAnimate = $derived(animate || isHovered);\n\n  function handleMouseEnter() {\n    isHovered = true;\n  }\n\n  function handleMouseLeave() {\n    isHovered = false;\n  }\n</script>\n\n<div\n  {...restProps}\n  class={className}\n  onmouseenter={handleMouseEnter}\n  onmouseleave={handleMouseLeave}\n  aria-label=\"rss\"\n  role=\"img\"\n>\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width={size}\n    height={size}\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke={color}\n    stroke-width={strokeWidth}\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n    class=\"icon-svg\"\n  >\n    <path d=\"M6 18.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z\" />\n    <path\n      class=\"rss-wave rss-wave-1\"\n      class:rss-wave-pulse={shouldAnimate}\n      d=\"M12.75 19.5v-.75a7.5 7.5 0 0 0-7.5-7.5H4.5\"\n    />\n    <path\n      class=\"rss-wave rss-wave-2\"\n      class:rss-wave-pulse={shouldAnimate}\n      d=\"M4.5 4.5h.75c7.87 0 14.25 6.38 14.25 14.25v.75\"\n    />\n  </svg>\n</div>\n\n<style>\n  div {\n    display: inline-block;\n  }\n\n  .icon-svg {\n    transform-box: fill-box;\n    transform-origin: center;\n  }\n\n  .rss-wave {\n    transform-origin: center;\n    opacity: 1;\n    transform: scale(1);\n  }\n\n  .rss-wave.rss-wave-pulse {\n    animation: rss-wave-pulse 0.4s ease-in-out forwards;\n  }\n\n  .rss-wave-1.rss-wave-pulse {\n    animation-delay: 0s;\n  }\n  .rss-wave-2.rss-wave-pulse {\n    animation-delay: 0.2s;\n  }\n\n  @keyframes rss-wave-pulse {\n    0%,\n    100% {\n      opacity: 1;\n      transform: scale(1);\n    }\n    50% {\n      opacity: 0;\n      transform: scale(0);\n    }\n  }\n</style>\n"
     }
   ]
 }

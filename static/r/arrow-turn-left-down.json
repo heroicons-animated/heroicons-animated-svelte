@@ -1,16 +1,18 @@
 {
   "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
   "name": "arrow-turn-left-down",
+  "type": "registry:component",
   "title": "arrow-turn-left-down",
   "description": "Animated arrow-turn-left-down icon for Svelte",
-  "type": "registry:ui",
+  "author": "Aniket Pawar <pawaraniket508@gmail.com>",
   "registryDependencies": [],
   "dependencies": [],
   "files": [
     {
-      "path": "arrow-turn-left-down.svelte",
-      "content": "<script lang=\"ts\">\n  import type { IconProps } from \"./types.js\";\n  let {\n    color = \"currentColor\",\n    size = 28,\n    strokeWidth = 1.5,\n    animate = false,\n    class: className = \"\",\n    ...restProps\n  }: IconProps = $props();\n\n  let isHovered = $state(false);\n  let shouldAnimate = $derived(animate || isHovered);\n\n  function handleMouseEnter() {\n    isHovered = true;\n  }\n\n  function handleMouseLeave() {\n    isHovered = false;\n  }\n</script>\n\n<div\n  {...restProps}\n  class={className}\n  onmouseenter={handleMouseEnter}\n  onmouseleave={handleMouseLeave}\n  aria-label=\"arrow-turn-left-down\"\n  role=\"img\"\n>\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width={size}\n    height={size}\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke={color}\n    stroke-width={strokeWidth}\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n    class=\"icon-svg\"\n    class:arrowturnleftdown-animate={shouldAnimate}\n  >\n    <path d=\"m11.99 16.5-3.75 3.75m0 0L4.49 16.5m3.75 3.75V3.75h11.25\" />\n  </svg>\n</div>\n\n<style>\n  div {\n    display: inline-block;\n  }\n\n  .icon-svg {\n    transform-box: fill-box;\n    transform-origin: center;\n  }\n\n  .icon-svg.arrowturnleftdown-animate {\n    animation: arrowturnleftdown-animate 0.45s ease-in-out forwards;\n  }\n\n  @keyframes arrowturnleftdown-animate {\n    0% {\n      transform: scaleY(1) translateY(0);\n    }\n    50% {\n      transform: scaleY(1.15) translateY(2px);\n    }\n    100% {\n      transform: scaleY(1) translateY(0);\n    }\n  }\n</style>\n",
-      "type": "registry:ui"
+      "path": "src/lib/icons/arrow-turn-left-down.svelte",
+      "type": "registry:component",
+      "target": "~/src/lib/components/heroicons-animated/arrow-turn-left-down.svelte",
+      "content": "<script lang=\"ts\">\n  import type { IconProps } from \"./types.js\";\n  let {\n    color = \"currentColor\",\n    size = 28,\n    strokeWidth = 1.5,\n    animate = false,\n    class: className = \"\",\n    ...restProps\n  }: IconProps = $props();\n\n  let isHovered = $state(false);\n  let shouldAnimate = $derived(animate || isHovered);\n\n  function handleMouseEnter() {\n    isHovered = true;\n  }\n\n  function handleMouseLeave() {\n    isHovered = false;\n  }\n</script>\n\n<div\n  {...restProps}\n  class={className}\n  onmouseenter={handleMouseEnter}\n  onmouseleave={handleMouseLeave}\n  aria-label=\"arrow-turn-left-down\"\n  role=\"img\"\n>\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width={size}\n    height={size}\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke={color}\n    stroke-width={strokeWidth}\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n    class=\"icon-svg\"\n    class:arrowturnleftdown-animate={shouldAnimate}\n  >\n    <path d=\"m11.99 16.5-3.75 3.75m0 0L4.49 16.5m3.75 3.75V3.75h11.25\" />\n  </svg>\n</div>\n\n<style>\n  div {\n    display: inline-block;\n  }\n\n  .icon-svg {\n    transform-box: fill-box;\n    transform-origin: center;\n  }\n\n  .icon-svg.arrowturnleftdown-animate {\n    animation: arrowturnleftdown-animate 0.45s ease-in-out forwards;\n  }\n\n  @keyframes arrowturnleftdown-animate {\n    0% {\n      transform: scaleY(1) translateY(0);\n    }\n    50% {\n      transform: scaleY(1.15) translateY(2px);\n    }\n    100% {\n      transform: scaleY(1) translateY(0);\n    }\n  }\n</style>\n"
     }
   ]
 }

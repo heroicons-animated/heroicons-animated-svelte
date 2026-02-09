@@ -1,16 +1,18 @@
 {
   "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
   "name": "equals",
+  "type": "registry:component",
   "title": "equals",
   "description": "Animated equals icon for Svelte",
-  "type": "registry:ui",
+  "author": "Aniket Pawar <pawaraniket508@gmail.com>",
   "registryDependencies": [],
   "dependencies": [],
   "files": [
     {
-      "path": "equals.svelte",
-      "content": "<script lang=\"ts\">\n  import type { IconProps } from \"./types.js\";\n  let {\n    color = \"currentColor\",\n    size = 28,\n    strokeWidth = 1.5,\n    animate = false,\n    class: className = \"\",\n    ...restProps\n  }: IconProps = $props();\n\n  let isHovered = $state(false);\n  let shouldAnimate = $derived(animate || isHovered);\n\n  function handleMouseEnter() {\n    isHovered = true;\n  }\n\n  function handleMouseLeave() {\n    isHovered = false;\n  }\n</script>\n\n<div\n  {...restProps}\n  class={className}\n  onmouseenter={handleMouseEnter}\n  onmouseleave={handleMouseLeave}\n  aria-label=\"equals\"\n  role=\"img\"\n>\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width={size}\n    height={size}\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke={color}\n    stroke-width={strokeWidth}\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n    class=\"icon-svg\"\n  >\n    <path\n      d=\"M4.499 8.248h15m-15 7.501h15\"\n      pathLength=\"1\"\n      class=\"equals-path\"\n      class:equals-draw={shouldAnimate}\n    />\n  </svg>\n</div>\n\n<style>\n  div {\n    display: inline-block;\n  }\n\n  .icon-svg {\n    transform-box: fill-box;\n    transform-origin: center;\n  }\n\n  .equals-path {\n    stroke-dasharray: 1;\n    stroke-dashoffset: 0;\n    opacity: 1;\n  }\n\n  .equals-path.equals-draw {\n    animation: equals-draw 0.4s linear forwards;\n  }\n\n  @keyframes equals-draw {\n    0% {\n      stroke-dashoffset: 1;\n      opacity: 0;\n    }\n    25% {\n      opacity: 1;\n    }\n    100% {\n      stroke-dashoffset: 0;\n      opacity: 1;\n    }\n  }\n</style>\n",
-      "type": "registry:ui"
+      "path": "src/lib/icons/equals.svelte",
+      "type": "registry:component",
+      "target": "~/src/lib/components/heroicons-animated/equals.svelte",
+      "content": "<script lang=\"ts\">\n  import type { IconProps } from \"./types.js\";\n  let {\n    color = \"currentColor\",\n    size = 28,\n    strokeWidth = 1.5,\n    animate = false,\n    class: className = \"\",\n    ...restProps\n  }: IconProps = $props();\n\n  let isHovered = $state(false);\n  let shouldAnimate = $derived(animate || isHovered);\n\n  function handleMouseEnter() {\n    isHovered = true;\n  }\n\n  function handleMouseLeave() {\n    isHovered = false;\n  }\n</script>\n\n<div\n  {...restProps}\n  class={className}\n  onmouseenter={handleMouseEnter}\n  onmouseleave={handleMouseLeave}\n  aria-label=\"equals\"\n  role=\"img\"\n>\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width={size}\n    height={size}\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke={color}\n    stroke-width={strokeWidth}\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n    class=\"icon-svg\"\n  >\n    <path\n      d=\"M4.499 8.248h15m-15 7.501h15\"\n      pathLength=\"1\"\n      class=\"equals-path\"\n      class:equals-draw={shouldAnimate}\n    />\n  </svg>\n</div>\n\n<style>\n  div {\n    display: inline-block;\n  }\n\n  .icon-svg {\n    transform-box: fill-box;\n    transform-origin: center;\n  }\n\n  .equals-path {\n    stroke-dasharray: 1;\n    stroke-dashoffset: 0;\n    opacity: 1;\n  }\n\n  .equals-path.equals-draw {\n    animation: equals-draw 0.4s linear forwards;\n  }\n\n  @keyframes equals-draw {\n    0% {\n      stroke-dashoffset: 1;\n      opacity: 0;\n    }\n    25% {\n      opacity: 1;\n    }\n    100% {\n      stroke-dashoffset: 0;\n      opacity: 1;\n    }\n  }\n</style>\n"
     }
   ]
 }

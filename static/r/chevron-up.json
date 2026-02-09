@@ -1,16 +1,18 @@
 {
   "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
   "name": "chevron-up",
+  "type": "registry:component",
   "title": "chevron-up",
   "description": "Animated chevron-up icon for Svelte",
-  "type": "registry:ui",
+  "author": "Aniket Pawar <pawaraniket508@gmail.com>",
   "registryDependencies": [],
   "dependencies": [],
   "files": [
     {
-      "path": "chevron-up.svelte",
-      "content": "<script lang=\"ts\">\n  import type { IconProps } from \"./types.js\";\n  let {\n    color = \"currentColor\",\n    size = 28,\n    strokeWidth = 1.5,\n    animate = false,\n    class: className = \"\",\n    ...restProps\n  }: IconProps = $props();\n\n  let isHovered = $state(false);\n  let shouldAnimate = $derived(animate || isHovered);\n\n  function handleMouseEnter() {\n    isHovered = true;\n  }\n\n  function handleMouseLeave() {\n    isHovered = false;\n  }\n</script>\n\n<div\n  {...restProps}\n  class={className}\n  onmouseenter={handleMouseEnter}\n  onmouseleave={handleMouseLeave}\n  aria-label=\"chevron-up\"\n  role=\"img\"\n>\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width={size}\n    height={size}\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke={color}\n    stroke-width={strokeWidth}\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n    class=\"icon-svg\"\n  >\n    <path\n      class=\"chevron-path\"\n      class:chevron-animate={shouldAnimate}\n      d=\"m4.5 15.75 7.5-7.5 7.5 7.5\"\n    />\n  </svg>\n</div>\n\n<style>\n  div {\n    display: inline-block;\n  }\n\n  .icon-svg {\n    transform-box: fill-box;\n    transform-origin: center;\n    transition: transform 0.3s ease;\n  }\n\n  .chevron-path.chevron-animate {\n    animation: chevron-up-animate 0.5s ease-out forwards;\n  }\n\n  @keyframes chevron-up-animate {\n    0% {\n      transform: translateY(0);\n    }\n    40% {\n      transform: translateY(-2px);\n    }\n    100% {\n      transform: translateY(0);\n    }\n  }\n</style>\n",
-      "type": "registry:ui"
+      "path": "src/lib/icons/chevron-up.svelte",
+      "type": "registry:component",
+      "target": "~/src/lib/components/heroicons-animated/chevron-up.svelte",
+      "content": "<script lang=\"ts\">\n  import type { IconProps } from \"./types.js\";\n  let {\n    color = \"currentColor\",\n    size = 28,\n    strokeWidth = 1.5,\n    animate = false,\n    class: className = \"\",\n    ...restProps\n  }: IconProps = $props();\n\n  let isHovered = $state(false);\n  let shouldAnimate = $derived(animate || isHovered);\n\n  function handleMouseEnter() {\n    isHovered = true;\n  }\n\n  function handleMouseLeave() {\n    isHovered = false;\n  }\n</script>\n\n<div\n  {...restProps}\n  class={className}\n  onmouseenter={handleMouseEnter}\n  onmouseleave={handleMouseLeave}\n  aria-label=\"chevron-up\"\n  role=\"img\"\n>\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width={size}\n    height={size}\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke={color}\n    stroke-width={strokeWidth}\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n    class=\"icon-svg\"\n  >\n    <path\n      class=\"chevron-path\"\n      class:chevron-animate={shouldAnimate}\n      d=\"m4.5 15.75 7.5-7.5 7.5 7.5\"\n    />\n  </svg>\n</div>\n\n<style>\n  div {\n    display: inline-block;\n  }\n\n  .icon-svg {\n    transform-box: fill-box;\n    transform-origin: center;\n    transition: transform 0.3s ease;\n  }\n\n  .chevron-path.chevron-animate {\n    animation: chevron-up-animate 0.5s ease-out forwards;\n  }\n\n  @keyframes chevron-up-animate {\n    0% {\n      transform: translateY(0);\n    }\n    40% {\n      transform: translateY(-2px);\n    }\n    100% {\n      transform: translateY(0);\n    }\n  }\n</style>\n"
     }
   ]
 }

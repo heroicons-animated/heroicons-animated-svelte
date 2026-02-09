@@ -1,16 +1,18 @@
 {
   "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
   "name": "arrow-right-circle",
+  "type": "registry:component",
   "title": "arrow-right-circle",
   "description": "Animated arrow-right-circle icon for Svelte",
-  "type": "registry:ui",
+  "author": "Aniket Pawar <pawaraniket508@gmail.com>",
   "registryDependencies": [],
   "dependencies": [],
   "files": [
     {
-      "path": "arrow-right-circle.svelte",
-      "content": "<script lang=\"ts\">\n  import type { IconProps } from \"./types.js\";\n  let {\n    color = \"currentColor\",\n    size = 28,\n    strokeWidth = 1.5,\n    animate = false,\n    class: className = \"\",\n    ...restProps\n  }: IconProps = $props();\n\n  let isHovered = $state(false);\n  let shouldAnimate = $derived(animate || isHovered);\n\n  function handleMouseEnter() {\n    isHovered = true;\n  }\n\n  function handleMouseLeave() {\n    isHovered = false;\n  }\n</script>\n\n<div\n  {...restProps}\n  class={className}\n  onmouseenter={handleMouseEnter}\n  onmouseleave={handleMouseLeave}\n  aria-label=\"arrow-right-circle\"\n  role=\"img\"\n>\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width={size}\n    height={size}\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke={color}\n    stroke-width={strokeWidth}\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n    class=\"icon-svg\"\n  >\n    <path d=\"M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z\" />\n    <g class=\"arrow-group\" class:animate={shouldAnimate}>\n      <path d=\"m12.75 15 3-3m0 0-3-3m3 3h-7.5\" />\n    </g>\n  </svg>\n</div>\n\n<style>\n  div {\n    display: inline-block;\n  }\n\n  .icon-svg {\n    transform-box: fill-box;\n    transform-origin: center;\n  }\n\n  .arrow-group {\n    transform-box: fill-box;\n    transform-origin: center;\n    transition: transform 0.5s ease-in-out;\n  }\n\n  .arrow-group.animate {\n    animation: arrow-translate 0.5s ease-in-out forwards;\n  }\n\n  @keyframes arrow-translate {\n    0% {\n      transform: translateX(0);\n    }\n    40% {\n      transform: translateX(2px);\n    }\n    100% {\n      transform: translateX(0);\n    }\n  }\n</style>\n",
-      "type": "registry:ui"
+      "path": "src/lib/icons/arrow-right-circle.svelte",
+      "type": "registry:component",
+      "target": "~/src/lib/components/heroicons-animated/arrow-right-circle.svelte",
+      "content": "<script lang=\"ts\">\n  import type { IconProps } from \"./types.js\";\n  let {\n    color = \"currentColor\",\n    size = 28,\n    strokeWidth = 1.5,\n    animate = false,\n    class: className = \"\",\n    ...restProps\n  }: IconProps = $props();\n\n  let isHovered = $state(false);\n  let shouldAnimate = $derived(animate || isHovered);\n\n  function handleMouseEnter() {\n    isHovered = true;\n  }\n\n  function handleMouseLeave() {\n    isHovered = false;\n  }\n</script>\n\n<div\n  {...restProps}\n  class={className}\n  onmouseenter={handleMouseEnter}\n  onmouseleave={handleMouseLeave}\n  aria-label=\"arrow-right-circle\"\n  role=\"img\"\n>\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width={size}\n    height={size}\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke={color}\n    stroke-width={strokeWidth}\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n    class=\"icon-svg\"\n  >\n    <path d=\"M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z\" />\n    <g class=\"arrow-group\" class:animate={shouldAnimate}>\n      <path d=\"m12.75 15 3-3m0 0-3-3m3 3h-7.5\" />\n    </g>\n  </svg>\n</div>\n\n<style>\n  div {\n    display: inline-block;\n  }\n\n  .icon-svg {\n    transform-box: fill-box;\n    transform-origin: center;\n  }\n\n  .arrow-group {\n    transform-box: fill-box;\n    transform-origin: center;\n    transition: transform 0.5s ease-in-out;\n  }\n\n  .arrow-group.animate {\n    animation: arrow-translate 0.5s ease-in-out forwards;\n  }\n\n  @keyframes arrow-translate {\n    0% {\n      transform: translateX(0);\n    }\n    40% {\n      transform: translateX(2px);\n    }\n    100% {\n      transform: translateX(0);\n    }\n  }\n</style>\n"
     }
   ]
 }
