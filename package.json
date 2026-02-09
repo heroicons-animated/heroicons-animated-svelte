@@ -47,7 +47,8 @@
     "dist",
     "*.js",
     "*.d.ts",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "dev": "vite dev",
