@@ -5,7 +5,6 @@
   import GithubStarsButton from "$lib/components/github-stars-button.svelte";
   import { LINK } from "$lib/constants";
 
-  let { stars = null } = $props<{ stars?: number | null }>();
   let isSponsorIconAnimating = $state(false);
 
   function handleSponsorEnter() {
@@ -78,7 +77,7 @@
         <span class="hidden sm:inline">Sponsor Project</span>
       </a>
       <ThemeToggle />
-      <GithubStarsButton stars={stars} />
+      <GithubStarsButton />
     </div>
   </div>
 </header>

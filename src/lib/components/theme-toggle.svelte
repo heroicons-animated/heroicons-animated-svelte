@@ -1,16 +1,10 @@
 <script lang="ts">
   import Moon from "$lib/icons/moon.svelte";
   import Sun from "$lib/icons/sun.svelte";
-  import { useTheme } from "svelte-themes";
+  import { mode, toggleMode } from "mode-watcher";
 
-  const theme = useTheme();
-  let isDark = $derived((theme.resolvedTheme ?? theme.theme) === "dark");
   let isIconHovered = $state(false);
-
-  function toggleTheme() {
-    const next = isDark ? "light" : "dark";
-    theme.theme = next;
-  }
+  let isDark = $derived(mode.current === "dark");
 
   function handleMouseEnter() {
     isIconHovered = true;
@@ -25,7 +19,7 @@
   aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
   aria-pressed={isDark}
   class="supports-[corner-shape:squircle]:corner-squircle flex size-9 cursor-pointer items-center justify-center rounded-[14px] bg-white focus-within:outline-offset-2 focus-visible:outline-1 focus-visible:outline-primary supports-[corner-shape:squircle]:rounded-[20px] dark:bg-white/10"
-  onclick={toggleTheme}
+  onclick={toggleMode}
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
   type="button"
