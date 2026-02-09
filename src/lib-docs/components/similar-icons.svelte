@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { ICON_MANIFEST } from "$lib/manifest";
-  import IconCard from "$lib/components/icon-card.svelte";
+  import { ICON_MANIFEST } from "$lib-docs/manifest";
+  import IconCard from "$lib-docs/components/icon-card.svelte";
 
   let props = $props<{ currentIcon: { name: string; keywords: string[] } }>();
 

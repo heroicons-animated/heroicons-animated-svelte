@@ -46,8 +46,8 @@ Import individual icons to reduce bundle size:
 
 ## Documentation
 
-Visit [heroicons-animated.com](https://www.heroicons-animated.com) for the full documentation and icon gallery.
+Visit [svelte.heroicons-animated.com](https://svelte.heroicons-animated.com) for the full documentation and icon gallery.
 
 ## License
 
-MIT
+[MIT](LICENSE)

@@ -2,9 +2,9 @@
   import { onMount } from "svelte";
   import Fuse from "fuse.js";
   import { parseAsString, useQueryState } from "nuqs-svelte";
-  import { ICON_MANIFEST } from "$lib/manifest";
-  import SearchInput from "$lib/components/search-input.svelte";
-  import IconCard from "$lib/components/icon-card.svelte";
+  import { ICON_MANIFEST } from "$lib-docs/manifest";
+  import SearchInput from "$lib-docs/components/search-input.svelte";
+  import IconCard from "$lib-docs/components/icon-card.svelte";
 
   let { initialSearch = "" }: { initialSearch?: string } = $props();
 

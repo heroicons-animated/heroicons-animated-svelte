@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
   import NumberFlow from "@number-flow/svelte";
-  import { LINK } from "$lib/constants";
+  import { LINK } from "$lib-docs/constants";
 
   let stars = $state(0);
   let interval: ReturnType<typeof setInterval>;

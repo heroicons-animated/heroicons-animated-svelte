@@ -1,9 +1,9 @@
 <script lang="ts">
-  import IconCard from "$lib/components/icon-card.svelte";
-  import CliBlock from "$lib/components/cli-block.svelte";
-  import SimilarIcons from "$lib/components/similar-icons.svelte";
+  import IconCard from "$lib-docs/components/icon-card.svelte";
+  import CliBlock from "$lib-docs/components/cli-block.svelte";
+  import SimilarIcons from "$lib-docs/components/similar-icons.svelte";
   import ArrowLeft from "$lib/icons/arrow-left.svelte";
-  import { SITE } from "$lib/constants";
+  import { SITE } from "$lib-docs/constants";
   import { JsonLd, MetaTags } from "svelte-meta-tags";
 
   let props = $props<{

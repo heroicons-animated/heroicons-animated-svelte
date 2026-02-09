@@ -1,5 +1,5 @@
 import type { RequestHandler } from "./$types";
-import { LINK } from "$lib/constants";
+import { LINK } from "$lib-docs/constants";
 
 export const GET: RequestHandler = () => {
   return new Response(null, {

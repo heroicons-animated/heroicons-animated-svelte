@@ -1,8 +1,8 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import MagnifyingGlass from "$lib/icons/magnifying-glass.svelte";
-  import { Input } from "$lib/components/ui/input";
-  import Kbd from "$lib/components/ui/kbd.svelte";
+  import { Input } from "$lib-docs/components/ui/input";
+  import Kbd from "$lib-docs/components/ui/kbd.svelte";
 
   let {
     value = $bindable(""),

@@ -1,5 +1,5 @@
 import type { RequestHandler } from "./$types";
-import { SITE } from "$lib/constants";
+import { SITE } from "$lib-docs/constants";
 
 const ROBOTS_LINES = [
   "User-agent: *",

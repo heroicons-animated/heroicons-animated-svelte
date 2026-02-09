@@ -31,17 +31,6 @@
     ".": {
       "types": "./dist/index.d.ts",
       "svelte": "./dist/index.js"
-    },
-    "./*": {
-      "types": "./dist/icons/*.d.ts",
-      "svelte": "./dist/icons/*.js"
-    }
-  },
-  "typesVersions": {
-    "*": {
-      "*": [
-        "./dist/icons/*.d.ts"
-      ]
     }
   },
   "files": [

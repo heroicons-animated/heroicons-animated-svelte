@@ -4,17 +4,17 @@
   import CommandLine from "$lib/icons/command-line.svelte";
   import Pause from "$lib/icons/pause.svelte";
   import Play from "$lib/icons/play.svelte";
-  import { ICON_COMPONENTS } from "$lib/icon-components";
-  import { getCLICommand, getFileExtension } from "$lib/cli";
-  import { packageManager } from "$lib/state";
+  import { ICON_COMPONENTS } from "$lib-docs/icon-components";
+  import { getCLICommand, getFileExtension } from "$lib-docs/cli";
+  import { packageManager } from "$lib-docs/state";
   import {
     Tooltip,
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
-  } from "$lib/components/ui/tooltip";
-  import IconState from "$lib/components/ui/icon-state.svelte";
-  import { cn } from "$lib/utils.js";
+  } from "$lib-docs/components/ui/tooltip";
+  import IconState from "$lib-docs/components/ui/icon-state.svelte";
+  import { cn } from "$lib-docs/utils.js";
 
   let {
     name,

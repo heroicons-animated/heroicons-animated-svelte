@@ -1,19 +1,23 @@
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
   import ClipboardDocument from "$lib/icons/clipboard-document.svelte";
-  import { PACKAGE_MANAGER, SITE } from "$lib/constants";
-  import { getCLICommand, getRegistryPathPrefix, getShadcnCLI } from "$lib/cli";
-  import { getPackageManagerPrefix } from "$lib/package-manager";
-  import { cn } from "$lib/utils.js";
-  import { packageManager } from "$lib/state";
+  import { PACKAGE_MANAGER, SITE } from "$lib-docs/constants";
+  import {
+    getCLICommand,
+    getRegistryPathPrefix,
+    getShadcnCLI,
+  } from "$lib-docs/cli";
+  import { getPackageManagerPrefix } from "$lib-docs/package-manager";
+  import { cn } from "$lib-docs/utils.js";
+  import { packageManager } from "$lib-docs/state";
   import {
     Tabs,
     TabsContent,
     TabsList,
     TabsTrigger,
-  } from "$lib/components/ui/tabs";
-  import { ScrollArea } from "$lib/components/ui/scroll-area";
-  import IconState from "$lib/components/ui/icon-state.svelte";
+  } from "$lib-docs/components/ui/tabs";
+  import { ScrollArea } from "$lib-docs/components/ui/scroll-area";
+  import IconState from "$lib-docs/components/ui/icon-state.svelte";
 
   let {
     icons = [],

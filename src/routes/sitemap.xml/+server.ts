@@ -1,6 +1,6 @@
 import type { RequestHandler } from "./$types";
-import { ICON_MANIFEST } from "$lib/manifest";
-import { SITE } from "$lib/constants";
+import { ICON_MANIFEST } from "$lib-docs/manifest";
+import { SITE } from "$lib-docs/constants";
 
 const ICON_CHANGE_FREQUENCY = "monthly";
 const ICON_PRIORITY = "0.7";

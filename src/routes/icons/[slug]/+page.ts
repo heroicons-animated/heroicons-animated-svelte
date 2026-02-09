@@ -1,5 +1,5 @@
 import { error } from "@sveltejs/kit";
-import { ICON_MANIFEST } from "$lib/manifest";
+import { ICON_MANIFEST } from "$lib-docs/manifest";
 import type { PageLoad } from "./$types";
 
 export const prerender = true;

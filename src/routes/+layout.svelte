@@ -1,6 +1,6 @@
 <script lang="ts">
   import "../app.css";
-  import Header from "$lib/components/header.svelte";
+  import Header from "$lib-docs/components/header.svelte";
   import { ModeWatcher } from "mode-watcher";
   import { NuqsAdapter } from "nuqs-svelte/adapters/svelte-kit";
   import { GeistSans } from "geist-svelte/font/sans";

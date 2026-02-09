@@ -1,6 +1,6 @@
 import type { ComponentType } from "svelte";
 
-const modules = import.meta.glob("./icons/*.svelte", {
+const modules = import.meta.glob("../lib/icons/*.svelte", {
   eager: true,
 });
 

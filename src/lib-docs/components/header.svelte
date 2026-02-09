@@ -1,9 +1,9 @@
 <script lang="ts">
-  import Logo from "$lib/components/logo.svelte";
-  import SponsorHeartFilled from "$lib/components/sponsor-heart-filled.svelte";
-  import ThemeToggle from "$lib/components/theme-toggle.svelte";
-  import GithubStarsButton from "$lib/components/github-stars-button.svelte";
-  import { LINK } from "$lib/constants";
+  import Logo from "$lib-docs/components/logo.svelte";
+  import SponsorHeartFilled from "$lib-docs/components/sponsor-heart-filled.svelte";
+  import ThemeToggle from "$lib-docs/components/theme-toggle.svelte";
+  import GithubStarsButton from "$lib-docs/components/github-stars-button.svelte";
+  import { LINK } from "$lib-docs/constants";
 
   let isSponsorIconAnimating = $state(false);
 

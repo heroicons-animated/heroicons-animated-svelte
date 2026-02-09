@@ -4,7 +4,7 @@
     Avatar,
     AvatarFallback,
     AvatarImage,
-  } from "$lib/components/ui/avatar";
+  } from "$lib-docs/components/ui/avatar";
   let isArrowHovered = $state(false);
 </script>
 

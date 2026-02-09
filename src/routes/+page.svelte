@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { ICON_MANIFEST } from "$lib/manifest";
-  import { LINK, SITE } from "$lib/constants";
-  import CliBlock from "$lib/components/cli-block.svelte";
-  import CommentBlock from "$lib/components/comment-block.svelte";
-  import IconsList from "$lib/components/icons-list.svelte";
+  import { ICON_MANIFEST } from "$lib-docs/manifest";
+  import { LINK, SITE } from "$lib-docs/constants";
+  import CliBlock from "$lib-docs/components/cli-block.svelte";
+  import CommentBlock from "$lib-docs/components/comment-block.svelte";
+  import IconsList from "$lib-docs/components/icons-list.svelte";
   import { JsonLd, MetaTags } from "svelte-meta-tags";
 
   let { data } = $props<{ data: { initialSearch: string } }>();
