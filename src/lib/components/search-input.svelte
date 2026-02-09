@@ -48,7 +48,7 @@
       <span
         class="pointer-events-none absolute top-1/2 left-3 inline-flex shrink-0 -translate-y-1/2 [&_svg]:shrink-0"
       >
-        <MagnifyingGlass class="size-5 text-neutral-400" size={20} />
+        <MagnifyingGlass class="text-neutral-500" size={20} />
       </span>
       <Input
         bind:ref={inputRef}

@@ -31,6 +31,7 @@
 
   let loopIndex = $state(0);
   let intervalId: ReturnType<typeof setInterval> | null = null;
+  let isHovered = $state(false);
 
   onMount(() => {
     if (staticIconName) {
@@ -74,6 +75,14 @@
         copyStatus = "idle";
       }, 2000);
     }
+  }
+
+  function handleMouseEnter() {
+    isHovered = true;
+  }
+
+  function handleMouseLeave() {
+    isHovered = false;
   }
 </script>
 
@@ -134,10 +143,15 @@
             aria-label="Copy to clipboard"
             class="supports-[corner-shape:squircle]:corner-squircle absolute top-1/2 right-1.5 z-20 -translate-y-1/2 cursor-pointer rounded-[6px] p-2 transition-[background-color] duration-100 focus-within:outline-offset-1 hover:bg-neutral-100 focus-visible:outline-1 focus-visible:outline-primary supports-[corner-shape:squircle]:rounded-[8px] dark:hover:bg-neutral-700"
             onclick={handleCopy}
-            type="button"
+            onmouseenter={handleMouseEnter}
+            onmouseleave={handleMouseLeave}
           >
             <IconState status={copyStatus}>
-              <ClipboardDocument aria-hidden="true" size={16} />
+              <ClipboardDocument
+                aria-hidden="true"
+                size={16}
+                animate={isHovered}
+              />
             </IconState>
           </button>
         </div>
