@@ -1,5 +1,13 @@
 # @heroicons-animated/svelte
 
+## 1.2.2
+
+### Patch Changes
+
+- [`59308f7`](https://github.com/heroicons-animated/heroicons-animated-svelte/commit/59308f7e72d86b7a95047c58dc9794b86f8a8eba) Thanks [@Aniket-508](https://github.com/Aniket-508)! - Restore per-icon subpath exports so deep imports like
+  `@heroicons-animated/svelte/beaker` resolve correctly after publish
+  document the supported import strategies in the README.
+
 ## 1.2.1
 
 ### Patch Changes
