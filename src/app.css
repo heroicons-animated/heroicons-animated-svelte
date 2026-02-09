@@ -13,6 +13,10 @@
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-pixel: var(--font-geist-pixel-square);
 }
 
 :root {
@@ -24,13 +28,6 @@
   --radius: 0.4rem;
 
   --header-height: 64px;
-
-  --font-sans:
-    "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-    "Segoe UI Emoji", "Segoe UI Symbol";
-  --font-mono:
-    "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
 }
 
 .dark {

@@ -136,7 +136,7 @@
   class="view-container flex flex-col items-center justify-center border-neutral-200 px-0 pt-[60px] xl:border-x dark:border-neutral-800"
   id="hero"
 >
-  <h1 class="px-4 text-center font-sans text-[32px] min-[640px]:text-[42px]">
+  <h1 class="px-4 text-center font-pixel text-[32px] min-[640px]:text-[42px]">
     Beautifully animated heroicons for Svelte<span class="text-primary">^</span>
   </h1>
   <p

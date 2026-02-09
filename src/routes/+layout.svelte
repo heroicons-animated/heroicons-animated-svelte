@@ -3,20 +3,15 @@
   import Header from "$lib/components/header.svelte";
   import { ModeWatcher } from "mode-watcher";
   import { NuqsAdapter } from "nuqs-svelte/adapters/svelte-kit";
+  import { GeistSans } from "geist-svelte/font/sans";
+  import { GeistMono } from "geist-svelte/font/mono";
+  import { GeistPixelSquare } from "geist-svelte/font/pixel";
 
   let { children } = $props();
 </script>
 
-<svelte:head>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-  <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap"
-  >
-</svelte:head>
-
 <ModeWatcher />
+
 <NuqsAdapter>
   <div class="root relative bg-background antialiased">
     <Header />

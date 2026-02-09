@@ -53,6 +53,9 @@ importers:
       fuse.js:
         specifier: ^7.1.0
         version: 7.1.0
+      geist-svelte:
+        specifier: ^1.0.0
+        version: 1.0.0(svelte@5.49.2)
       mode-watcher:
         specifier: ^1.1.0
         version: 1.1.0(svelte@5.49.2)
@@ -921,6 +924,11 @@ packages:
   fuse.js@7.1.0:
     resolution: {integrity: sha512-trLf4SzuuUxfusZADLINj+dE8clK1frKdmqiJNb1Es75fmI5oY6X2mxLVUciLLjxqw/xr72Dhy+lER6dGd02FQ==}
     engines: {node: '>=10'}
+
+  geist-svelte@1.0.0:
+    resolution: {integrity: sha512-s0gnbvY2QlW8DniKdee7CFTH678J/KC4AMYqMC2r+ne2fZXt2uZ1mG3nNmvrqO4CbcwiFU/LNdyZaXaO4NjZNQ==}
+    peerDependencies:
+      svelte: ^4.0.0 || ^5.0.0
 
   glob-parent@5.1.2:
     resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
@@ -2292,6 +2300,10 @@ snapshots:
     optional: true
 
   fuse.js@7.1.0: {}
+
+  geist-svelte@1.0.0(svelte@5.49.2):
+    dependencies:
+      svelte: 5.49.2
 
   glob-parent@5.1.2:
     dependencies:

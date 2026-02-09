@@ -86,6 +86,7 @@
     "bits-ui": "^2.15.5",
     "clsx": "^2.1.1",
     "fuse.js": "^7.1.0",
+    "geist-svelte": "^1.0.0",
     "mode-watcher": "^1.1.0",
     "nuqs-svelte": "^1.2.2",
     "svelte": "^5.48.2",
