@@ -15,6 +15,7 @@
   } from "$lib-docs/components/ui/tooltip";
   import IconState from "$lib-docs/components/ui/icon-state.svelte";
   import { cn } from "$lib-docs/utils.js";
+  import { toast } from "svelte-sonner";
 
   let {
     name,
@@ -117,11 +118,12 @@
     try {
       await navigator.clipboard.writeText(getCLICommand($packageManager, name));
       cliState = "done";
-      setTimeout(() => {
-        cliState = "idle";
-      }, 2000);
-    } catch {
+    } catch (error: unknown) {
+      toast.error("Failed to copy to clipboard", {
+        description: (error as Error).message,
+      });
       cliState = "error";
+    } finally {
       setTimeout(() => {
         cliState = "idle";
       }, 2000);
@@ -144,11 +146,12 @@
       }
       await navigator.clipboard.writeText(content);
       codeState = "done";
-      setTimeout(() => {
-        codeState = "idle";
-      }, 2000);
-    } catch {
+    } catch (error: unknown) {
+      toast.error("Failed to copy to clipboard", {
+        description: (error as Error).message,
+      });
       codeState = "error";
+    } finally {
       setTimeout(() => {
         codeState = "idle";
       }, 2000);

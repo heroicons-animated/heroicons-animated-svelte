@@ -18,6 +18,7 @@
   } from "$lib-docs/components/ui/tabs";
   import { ScrollArea } from "$lib-docs/components/ui/scroll-area";
   import IconState from "$lib-docs/components/ui/icon-state.svelte";
+  import { toast } from "svelte-sonner";
 
   let {
     icons = [],
@@ -70,11 +71,12 @@
         getCLICommand($packageManager, currentIconName)
       );
       copyStatus = "done";
-      setTimeout(() => {
-        copyStatus = "idle";
-      }, 2000);
-    } catch {
+    } catch (error: unknown) {
+      toast.error("Failed to copy to clipboard", {
+        description: (error as Error).message,
+      });
       copyStatus = "error";
+    } finally {
       setTimeout(() => {
         copyStatus = "idle";
       }, 2000);
