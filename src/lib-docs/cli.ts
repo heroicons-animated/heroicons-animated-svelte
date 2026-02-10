@@ -7,7 +7,7 @@ export const getFileExtension = () => "svelte";
 
 export const getShadcnCLI = () => "shadcn-svelte";
 
-export const getRegistryPathPrefix = () => "/";
+export const getRegistryPathPrefix = () => `${SITE.URL}/r/`;
 
 export const getCLICommand = (
   packageManager: PackageManager,
@@ -15,5 +15,5 @@ export const getCLICommand = (
 ): string => {
   const prefix = getPackageManagerPrefix(packageManager);
   const cli = getShadcnCLI();
-  return `${prefix} ${cli} add ${SITE.URL}/r${getRegistryPathPrefix()}${iconName}`;
+  return `${prefix} ${cli} add ${getRegistryPathPrefix()}${iconName}`;
 };
