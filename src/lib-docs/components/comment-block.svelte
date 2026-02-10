@@ -40,7 +40,7 @@
     class="mt-4 flex w-full flex-wrap items-center justify-between gap-4 border-neutral-200 border-t pt-4 max-[655px]:pl-4 dark:border-neutral-800"
   >
     <div class="flex items-center gap-2">
-      <Avatar class="size-8">
+      <Avatar class="size-7">
         <AvatarImage
           alt="Aniket Pawar, the author of the heroicons-animated"
           src="https://ik.imagekit.io/2oajjadqkz/profile.jpg?updatedAt=1770631384305"
@@ -58,8 +58,7 @@
           target="_blank"
         >
           aniket
-        </a>
-        , creator of heroicons-animated
+        </a>, creator of heroicons-animated
       </p>
     </div>
     <a
