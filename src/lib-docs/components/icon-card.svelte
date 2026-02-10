@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onDestroy, onMount } from "svelte";
+  import { onDestroy } from "svelte";
   import ClipboardDocument from "$lib/icons/clipboard-document.svelte";
   import CommandLine from "$lib/icons/command-line.svelte";
   import Pause from "$lib/icons/pause.svelte";
@@ -39,16 +39,11 @@
 
   let IconComponent = $derived(ICON_COMPONENTS[name]);
   let iconAnimate = $state(false);
-  let isTouch = $state(false);
   let isAnimating = $state(false);
   let isCodeActionHovered = $state(false);
   let isCLIActionHovered = $state(false);
   let playTimeout: ReturnType<typeof setTimeout> | null = null;
   const ext = getFileExtension();
-
-  onMount(() => {
-    isTouch = window.matchMedia("(hover: none)").matches;
-  });
 
   onDestroy(() => {
     if (playTimeout) {
@@ -57,16 +52,10 @@
   });
 
   function handleMouseEnter() {
-    if (isTouch) {
-      return;
-    }
     iconAnimate = true;
   }
 
   function handleMouseLeave() {
-    if (isTouch) {
-      return;
-    }
     iconAnimate = false;
     isCodeActionHovered = false;
     isCLIActionHovered = false;
@@ -88,7 +77,9 @@
     isCLIActionHovered = false;
   }
 
-  function handlePlayClick() {
+  function handlePlayClick(event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
     if (isAnimating) {
       iconAnimate = false;
       isAnimating = false;
@@ -161,36 +152,34 @@
 
 <div
   class={cn(
-    "group/card supports-[corner-shape:squircle]:corner-squircle relative flex flex-col items-center justify-center rounded-[20px] bg-white px-[28px] pt-[50px] supports-[corner-shape:squircle]:rounded-[30px] dark:bg-[#0A0A0A]",
+    "group/card supports-[corner-shape:squircle]:corner-squircle relative flex flex-col items-center justify-center rounded-[20px] bg-white px-[28px] pt-[50px] supports-[corner-shape:squircle]:rounded-[30px] dark:bg-[#0A0A0A] [@media(hover:none)]:pointer-events-none",
     cardClassName,
   )}
   role="group"
   onmouseenter={handleMouseEnter}
   onmouseleave={handleMouseLeave}
 >
-  {#if isTouch}
-    <button
-      aria-label={isAnimating ? "Stop animation" : "Play animation"}
-      aria-pressed={isAnimating}
-      class="supports-[corner-shape:squircle]:corner-squircle absolute top-3 right-3 z-10 flex size-10 cursor-pointer items-center justify-center rounded-[14px] bg-neutral-200/20 transition-[background-color] duration-100 focus-within:-outline-offset-1 hover:bg-neutral-200 focus-visible:outline-1 focus-visible:outline-primary supports-[corner-shape:squircle]:rounded-[20px] dark:bg-neutral-800/20 dark:hover:bg-neutral-700"
-      type="button"
-      onclick={handlePlayClick}
-    >
-      {#if isAnimating}
-        <Pause
-          aria-hidden="true"
-          class="size-4 text-neutral-800 dark:text-neutral-100"
-          size={16}
-        />
-      {:else}
-        <Play
-          aria-hidden="true"
-          class="size-4 text-neutral-800 dark:text-neutral-100"
-          size={16}
-        />
-      {/if}
-    </button>
-  {/if}
+  <button
+    aria-label={isAnimating ? "Stop animation" : "Play animation"}
+    aria-pressed={isAnimating}
+    class="supports-[corner-shape:squircle]:corner-squircle pointer-events-auto absolute top-3 right-3 z-10 flex size-10 cursor-pointer items-center justify-center rounded-[14px] bg-neutral-200/20 transition-[background-color] duration-100 focus-within:-outline-offset-1 hover:bg-neutral-200 focus-visible:outline-1 focus-visible:outline-primary supports-[corner-shape:squircle]:rounded-[20px] dark:bg-neutral-800/20 dark:hover:bg-neutral-700 [@media(hover:hover)]:pointer-events-none [@media(hover:hover)]:opacity-0"
+    type="button"
+    onclick={handlePlayClick}
+  >
+    {#if isAnimating}
+      <Pause
+        aria-hidden="true"
+        class="size-4 text-neutral-800 dark:text-neutral-100"
+        size={16}
+      />
+    {:else}
+      <Play
+        aria-hidden="true"
+        class="size-4 text-neutral-800 dark:text-neutral-100"
+        size={16}
+      />
+    {/if}
+  </button>
 
   {#if IconComponent}
     <IconComponent
