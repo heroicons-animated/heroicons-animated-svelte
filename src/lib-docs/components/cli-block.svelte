@@ -123,23 +123,19 @@
               <span class="text-neutral-600 dark:text-neutral-400">
                 {getPackageManagerPrefix(pm)}
               </span>
-              <span class="text-[0px] text-black dark:text-white">
-                <span class="text-sm">
-                  {`${getShadcnCLI()} add ${SITE.URL}/r`}
-                </span>
-                <span class="text-sm">{getRegistryPathPrefix()}</span>
-                {#if staticIconName}
-                  <span class="shrink-0 text-primary text-sm">
-                    {staticIconName}
+              <!-- biome-ignore format: preserve inline spacing -->
+              <span class="text-black dark:text-white">
+                {getShadcnCLI()} add {SITE.URL}/r{getRegistryPathPrefix()}
+                <!-- biome-ignore format: preserve inline spacing -->
+              </span>{#if staticIconName}
+                <span class="shrink-0 text-primary">{staticIconName}</span>
+              {:else}
+                {#key loopIndex}
+                  <span class="shrink-0 text-primary text-loop">
+                    {currentIconName}
                   </span>
-                {:else}
-                  {#key loopIndex}
-                    <span class="shrink-0 text-primary text-sm text-loop">
-                      {currentIconName}
-                    </span>
-                  {/key}
-                {/if}
-              </span>
+                {/key}
+              {/if}
             </div>
           </ScrollArea>
           <button

@@ -9,5 +9,4 @@ const PREFIX_MAP: Record<PackageManager, string> = {
   bun: "bunx --bun",
 };
 
-export const getPackageManagerPrefix = (pm: PackageManager) =>
-  PREFIX_MAP[pm] ?? "npx";
+export const getPackageManagerPrefix = (pm: PackageManager) => PREFIX_MAP[pm];

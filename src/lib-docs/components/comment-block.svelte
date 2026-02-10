@@ -43,14 +43,9 @@
       <Avatar class="size-8">
         <AvatarImage
           alt="Aniket Pawar, the author of the heroicons-animated"
-          class="select-none object-cover"
-          src="https://ik.imagekit.io/2oajjadqkz/tr:w-32,h-32,dpr-2/profile.jpg?updatedAt=1770631384305"
+          src="https://ik.imagekit.io/2oajjadqkz/profile.jpg?updatedAt=1770631384305"
         />
-        <AvatarFallback
-          class="bg-neutral-200 font-sans text-neutral-700 dark:bg-neutral-800 dark:text-neutral-200"
-        >
-          AP
-        </AvatarFallback>
+        <AvatarFallback>AP</AvatarFallback>
       </Avatar>
       <p
         class="text-[13px] text-neutral-600 tracking-[0.01em] dark:text-neutral-400"
