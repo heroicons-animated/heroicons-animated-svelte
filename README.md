@@ -17,7 +17,7 @@ pnpm add @heroicons-animated/svelte
   import { Beaker } from '@heroicons-animated/svelte'
 </script>
 
-<Beaker size={28} color="currentColor" strokeWidth={1.5} class="size-6" />
+<Beaker size={32} color="orange" strokeWidth={2.5} />
 ```
 
 ### Props
