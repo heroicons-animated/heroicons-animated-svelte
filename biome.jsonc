@@ -45,28 +45,16 @@
       }
     },
     {
-      "includes": ["*.svelte"],
+      "includes": ["**/*.svelte"],
       "linter": {
         "rules": {
           "style": {
             "useConst": "off",
             "useImportType": "off"
-          }
-        }
-      }
-    },
-    {
-      "includes": ["src/lib/icons/*.svelte"],
-      "linter": {
-        "rules": {
+          },
           "correctness": {
-            "noUnusedVariables": "off"
-          },
-          "style": {
-            "noUnusedTemplateLiteral": "off"
-          },
-          "suspicious": {
-            "noUnassignedVariables": "off"
+            "noUnusedVariables": "off",
+            "noUnusedImports": "off"
           }
         }
       }
