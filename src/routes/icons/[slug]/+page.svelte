@@ -3,7 +3,7 @@
   import CliBlock from "$lib-docs/components/cli-block.svelte";
   import SimilarIcons from "$lib-docs/components/similar-icons.svelte";
   import ArrowLeft from "$lib/icons/arrow-left.svelte";
-  import { SITE } from "$lib-docs/constants";
+  import { LINK, SITE } from "$lib-docs/constants";
   import { JsonLd, MetaTags } from "svelte-meta-tags";
 
   let props = $props<{
@@ -25,13 +25,22 @@
   let pascalName = $derived(iconName ? kebabToPascal(iconName) : "");
   let displayName = $derived(pascalName || "Icon");
   let description = $derived(
-    `Free animated ${iconName} icon for Svelte. Smooth animations, copy-paste ready.`
+    keywords.length > 0
+      ? `Free animated ${iconName} icon for Svelte. Smooth animations, copy-paste ready. Keywords: ${keywords.slice(0, 5).join(", ")}.`
+      : `Free animated ${iconName} icon for Svelte. Smooth animations, copy-paste ready.`
   );
   let pageTitle = $derived(`${displayName} Icon - Animated Icon for Svelte`);
   let canonicalUrl = $derived(
     iconName ? `${SITE.URL}/icons/${iconName}` : `${SITE.URL}/icons`
   );
-  let metaKeywords = $derived([...keywords, "animated icon", "svelte icon"]);
+  let metaKeywords = $derived([
+    ...keywords,
+    "animated icon",
+    "svelte icon",
+    "css animation icon",
+    `${iconName} animation`,
+    `${iconName} svelte`,
+  ]);
   let isBackLinkHovered = $state(false);
   const ogImageUrl = `${SITE.URL}${SITE.OG_IMAGE}`;
 </script>
@@ -92,17 +101,18 @@
 <JsonLd
   schema={{
     "@context": "https://schema.org",
-    "@type": "CreativeWork",
-    name: `${displayName} Icon`,
-    description,
-    url: `${SITE.URL}/icons/${iconName}`,
-    keywords: metaKeywords.join(", "),
-    inLanguage: "en-US",
+    "@type": "SoftwareSourceCode",
+    name: pascalName,
+    description: `Animated ${iconName} icon component for Svelte`,
+    codeRepository: LINK.GITHUB,
+    programmingLanguage: ["TypeScript", "Svelte"],
+    license: LINK.LICENSE,
     isPartOf: {
-      "@type": "WebSite",
+      "@type": "SoftwareSourceCode",
       name: SITE.NAME,
       url: SITE.URL,
     },
+    keywords: keywords.join(", "),
   }}
 />
 

@@ -4,6 +4,7 @@
   import CommandLine from "$lib/icons/command-line.svelte";
   import Pause from "$lib/icons/pause.svelte";
   import Play from "$lib/icons/play.svelte";
+  import { ANALYTIC_EVENT, track } from "$lib-docs/analytics";
   import { ICON_COMPONENTS } from "$lib-docs/icon-components";
   import { getCLICommand, getFileExtension } from "$lib-docs/cli";
   import { packageManager } from "$lib-docs/state";
@@ -107,6 +108,9 @@
       return;
     }
     try {
+      track(ANALYTIC_EVENT.ICON_COPY_TERMINAL, {
+        icon: `${name}.${ext}`,
+      });
       await navigator.clipboard.writeText(getCLICommand($packageManager, name));
       cliState = "done";
     } catch (error: unknown) {
@@ -129,6 +133,9 @@
     }
     try {
       codeState = "loading";
+      track(ANALYTIC_EVENT.ICON_COPY, {
+        icon: `${name}.${ext}`,
+      });
       const response = await fetch(`/r/${name}.json`);
       const data = await response.json();
       const content = data?.files?.[0]?.content;

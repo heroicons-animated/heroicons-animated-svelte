@@ -2,8 +2,10 @@
   import { onDestroy, onMount } from "svelte";
   import ClipboardDocument from "$lib/icons/clipboard-document.svelte";
   import { PACKAGE_MANAGER } from "$lib-docs/constants";
+  import { ANALYTIC_EVENT, track } from "$lib-docs/analytics";
   import {
     getCLICommand,
+    getFileExtension,
     getRegistryPathPrefix,
     getShadcnCLI,
   } from "$lib-docs/cli";
@@ -67,6 +69,9 @@
       return;
     }
     try {
+      track(ANALYTIC_EVENT.ICON_COPY_TERMINAL, {
+        icon: `${currentIconName}.${getFileExtension()}`,
+      });
       await navigator.clipboard.writeText(
         getCLICommand($packageManager, currentIconName)
       );

@@ -85,6 +85,7 @@
     "@sveltejs/vite-plugin-svelte": "^5.0.0",
     "@tailwindcss/vite": "^4.1.18",
     "@toolwind/corner-shape": "0.0.8-3",
+    "@types/umami-browser": "^2.18.0",
     "bits-ui": "^2.15.5",
     "clsx": "^2.1.1",
     "fuse.js": "^7.1.0",

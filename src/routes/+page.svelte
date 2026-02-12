@@ -1,14 +1,15 @@
 <script lang="ts">
-  import { ICON_MANIFEST } from "$lib-docs/manifest";
   import { LINK, SITE } from "$lib-docs/constants";
   import CliBlock from "$lib-docs/components/cli-block.svelte";
   import CommentBlock from "$lib-docs/components/comment-block.svelte";
   import IconsList from "$lib-docs/components/icons-list.svelte";
-  import { JsonLd, MetaTags } from "svelte-meta-tags";
+  import { ICON_MANIFEST } from "$lib-docs/manifest";
+  import { MetaTags } from "svelte-meta-tags";
 
   let { data } = $props<{ data: { initialSearch: string } }>();
 
-  const metaTitle = "heroicons-animated | Animated Heroicons for Svelte";
+  const metaTitle = `${SITE.NAME} | Free Animated Heroicons for Svelte`;
+  const ogImageAlt = `${SITE.NAME} - Animated Heroicons Library for Svelte`;
   const ogImageUrl = `${SITE.URL}${SITE.OG_IMAGE}`;
 </script>
 
@@ -26,7 +27,7 @@
     images: [
       {
         url: ogImageUrl,
-        alt: "heroicons-animated preview",
+        alt: ogImageAlt,
       },
     ],
   }}
@@ -36,100 +37,9 @@
     title: metaTitle,
     description: SITE.DESCRIPTION.SHORT,
     image: ogImageUrl,
-    imageAlt: "heroicons-animated preview",
+    imageAlt: ogImageAlt,
   }}
   additionalMetaTags={[{ name: "theme-color", content: "#f5f5f5" }]}
-/>
-<JsonLd
-  schema={{
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: SITE.NAME,
-    url: SITE.URL,
-    description: SITE.DESCRIPTION.LONG,
-    inLanguage: "en-US",
-  }}
-/>
-<JsonLd
-  schema={{
-    "@context": "https://schema.org",
-    "@type": "SoftwareSourceCode",
-    name: SITE.NAME,
-    description: SITE.DESCRIPTION.LONG,
-    url: SITE.URL,
-    codeRepository: LINK.GITHUB,
-    programmingLanguage: ["TypeScript", "Svelte", "JavaScript"],
-    runtimePlatform: "Node.js",
-    license: LINK.LICENSE,
-    author: {
-      "@type": "Person",
-      name: SITE.AUTHOR.NAME,
-      url: LINK.TWITTER,
-    },
-    maintainer: {
-      "@type": "Person",
-      name: SITE.AUTHOR.NAME,
-      url: LINK.TWITTER,
-    },
-    keywords: SITE.KEYWORDS.join(", "),
-    isAccessibleForFree: true,
-    dateModified: new Date().toISOString().split("T")[0],
-  }}
-/>
-<JsonLd
-  schema={{
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: SITE.NAME,
-    url: SITE.URL,
-    logo: `${SITE.URL}${SITE.OG_IMAGE}`,
-    sameAs: [LINK.GITHUB, LINK.TWITTER],
-    founder: {
-      "@type": "Person",
-      name: SITE.AUTHOR.NAME,
-      url: LINK.TWITTER,
-    },
-  }}
-/>
-<JsonLd
-  schema={{
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "What is heroicons-animated-svelte?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: `${SITE.NAME} is a free, open-source library of beautifully animated Svelte icons based on Heroicons.`,
-        },
-      },
-      {
-        "@type": "Question",
-        name: "How do I install heroicons-animated-svelte icons?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: `Use the registry: ${SITE.URL}/r/{icon-name}.json (replace {icon-name} with the icon name in kebab-case).`,
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Is heroicons-animated-svelte free to use?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: `${SITE.NAME} is free and open-source under the MIT license.`,
-        },
-      },
-      {
-        "@type": "Question",
-        name: "What technologies are used in heroicons-animated-svelte?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Icons are Svelte components written in TypeScript, based on Heroicons, with motion-inspired animations.",
-        },
-      },
-    ],
-  }}
 />
 
 <section

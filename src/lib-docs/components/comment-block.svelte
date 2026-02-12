@@ -5,6 +5,7 @@
     AvatarFallback,
     AvatarImage,
   } from "$lib-docs/components/ui/avatar";
+  import { ANALYTIC_EVENT, track } from "$lib-docs/analytics";
   let isArrowHovered = $state(false);
 </script>
 
@@ -21,6 +22,7 @@
       rel="noopener external"
       tabindex="0"
       target="_blank"
+      onclick={() => track(ANALYTIC_EVENT.COMMENT_LUCIDE_ANIMATED_LINK)}
     >
       lucide-animated by dmytro
     </a>
@@ -31,6 +33,7 @@
       rel="noopener external"
       tabindex="0"
       target="_blank"
+      onclick={() => track(ANALYTIC_EVENT.COMMENT_ANIMATIONS_DEV_LINK)}
     >
       animations.dev
     </a>
@@ -56,6 +59,7 @@
           rel="noopener external"
           tabindex="0"
           target="_blank"
+          onclick={() => track(ANALYTIC_EVENT.COMMENT_AUTHOR_LINK)}
         >
           aniket
         </a>, creator of heroicons-animated
@@ -69,6 +73,7 @@
       class="supports-[corner-shape:squircle]:corner-squircle flex w-fit cursor-pointer items-center justify-center gap-1 rounded-[8px] bg-primary px-[12px] py-[4px] font-sans text-sm text-white transition-[background-color] duration-100 hover:bg-[color-mix(in_oklab,var(--color-primary),black_10%)] focus-visible:outline-1 focus-visible:outline-primary focus-visible:outline-offset-1 supports-[corner-shape:squircle]:rounded-[12px] max-[445px]:w-full"
       onmouseenter={() => (isArrowHovered = true)}
       onmouseleave={() => (isArrowHovered = false)}
+      onclick={() => track(ANALYTIC_EVENT.COMMENT_BUTTON_CLICK)}
     >
       Take the course
       <ArrowTopRightOnSquare size={14} animate={isArrowHovered} />

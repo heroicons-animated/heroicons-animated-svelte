@@ -41,6 +41,9 @@ importers:
       '@toolwind/corner-shape':
         specifier: 0.0.8-3
         version: 0.0.8-3
+      '@types/umami-browser':
+        specifier: ^2.18.0
+        version: 2.18.0
       bits-ui:
         specifier: ^2.15.5
         version: 2.15.5(@internationalized/date@3.11.0)(@sveltejs/kit@2.50.2(@sveltejs/vite-plugin-svelte@5.1.1(svelte@5.49.2)(vite@6.4.1(@types/node@20.19.32)(jiti@2.6.1)(lightningcss@1.30.2)))(svelte@5.49.2)(typescript@5.9.3)(vite@6.4.1(@types/node@20.19.32)(jiti@2.6.1)(lightningcss@1.30.2)))(svelte@5.49.2)
@@ -729,6 +732,9 @@ packages:
 
   '@types/node@20.19.32':
     resolution: {integrity: sha512-Ez8QE4DMfhjjTsES9K2dwfV258qBui7qxUsoaixZDiTzbde4U12e1pXGNu/ECsUIOi5/zoCxAQxIhQnaUQ2VvA==}
+
+  '@types/umami-browser@2.18.0':
+    resolution: {integrity: sha512-baePU5zcSW3YeeNw0/lvX0LvjnRXWxcZzg1KMmrByda4tsmo6A3gFXusL2MXeqJgE/3T+pbanbMpJjzvCSqj9A==}
 
   acorn@8.15.0:
     resolution: {integrity: sha512-NZyJarBfL7nWwIq+FDL6Zp/yHEhePMNnnJ0y3qfieCrmNvYct8uvtiV41UvlSe6apAfk0fY1FbWx+NwfmpvtTg==}
@@ -2121,6 +2127,8 @@ snapshots:
   '@types/node@20.19.32':
     dependencies:
       undici-types: 6.21.0
+
+  '@types/umami-browser@2.18.0': {}
 
   acorn@8.15.0: {}
 

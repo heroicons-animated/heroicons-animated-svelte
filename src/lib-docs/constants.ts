@@ -8,18 +8,29 @@ const SITE = {
     GITHUB: "Aniket-508",
   },
   DESCRIPTION: {
-    LONG: "Free open-source library of beautifully animated icons for Svelte. Built with Motion-inspired animations and Heroicons.",
+    LONG: "Free open-source library of beautifully animated icons for Svelte. Built with CSS animations and Heroicons. Copy-paste ready, MIT licensed, fully customizable SVG icons with smooth animations.",
     SHORT:
-      "Animated Heroicons for Svelte. Copy-paste ready and fully customizable.",
+      "Free animated icons library for Svelte. Smooth CSS animations and Heroicons. MIT licensed, copy-paste ready.",
   },
   KEYWORDS: [
     "animated icons",
     "svelte icons",
+    "css animations",
     "heroicons",
     "heroicons animated",
-    "sveltekit icons",
+    "animated heroicons",
+    "heroicons svelte",
+    "svg icons",
+    "animated svg",
+    "svelte components",
     "icon library",
     "open source icons",
+    "sveltekit icons",
+    "animated svelte components",
+    "free icons",
+    "MIT license icons",
+    "copy paste icons",
+    "tailwind icons",
   ],
 } as const;
 

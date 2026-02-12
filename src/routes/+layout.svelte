@@ -1,5 +1,7 @@
 <script lang="ts">
   import "../app.css";
+  import { env } from "$env/dynamic/public";
+  import JsonLd from "$lib-docs/components/json-ld.svelte";
   import Header from "$lib-docs/components/header.svelte";
   import { Toaster } from "$lib-docs/components/ui/sonner";
   import { ModeWatcher } from "mode-watcher";
@@ -10,6 +12,16 @@
 
   let { children } = $props();
 </script>
+
+<JsonLd />
+
+<svelte:head>
+  <script
+    defer
+    src={env.PUBLIC_UMAMI_SCRIPT_URL}
+    data-website-id={env.PUBLIC_UMAMI_WEBSITE_ID}
+  ></script>
+</svelte:head>
 
 <ModeWatcher />
 

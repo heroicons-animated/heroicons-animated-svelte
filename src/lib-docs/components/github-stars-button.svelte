@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
   import NumberFlow from "@number-flow/svelte";
+  import { ANALYTIC_EVENT, track } from "$lib-docs/analytics";
   import { LINK } from "$lib-docs/constants";
 
   let stars = $state(0);
@@ -58,6 +59,7 @@
   rel="noopener noreferrer"
   tabindex="0"
   target="_blank"
+  onclick={() => track(ANALYTIC_EVENT.HEADER_GITHUB)}
 >
   <svg
     aria-hidden="true"

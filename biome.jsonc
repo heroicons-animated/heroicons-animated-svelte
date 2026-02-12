@@ -6,7 +6,7 @@
     "ignoreUnknown": false
   },
   "javascript": {
-    "globals": ["$packageManager"]
+    "globals": ["$packageManager", "$page"]
   },
   "formatter": {
     "enabled": true,
@@ -50,11 +50,15 @@
         "rules": {
           "style": {
             "useConst": "off",
-            "useImportType": "off"
+            "useImportType": "off",
+            "noUnusedTemplateLiteral": "off"
           },
           "correctness": {
             "noUnusedVariables": "off",
             "noUnusedImports": "off"
+          },
+          "suspicious": {
+            "noUnassignedVariables": "off"
           }
         }
       }
