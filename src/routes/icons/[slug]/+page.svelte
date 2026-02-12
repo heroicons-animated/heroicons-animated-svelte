@@ -16,9 +16,7 @@
       .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
       .join("");
 
-  let icon = $state<{ name: string; keywords: string[] }>(
-    props.data?.icon ?? { name: "", keywords: [] }
-  );
+  let icon = $derived(props.data?.icon ?? { name: "", keywords: [] });
 
   let iconName = $derived(icon.name ?? "");
   let keywords = $derived(Array.isArray(icon.keywords) ? icon.keywords : []);
